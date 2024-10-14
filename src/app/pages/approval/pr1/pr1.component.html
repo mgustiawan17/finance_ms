@@ -1,0 +1,256 @@
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.0/angular.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.0/angular-animate.min.js"></script>
+
+
+<div class="dashboard-title"
+  style="font-size: 1.6em;
+         font-weight: bold;
+         color: white;
+         background-color: #2d5880;
+         text-align: left;
+         padding: 20px 30px;
+         margin-bottom: 30px; 
+         border-radius: 10px;">
+  Approval Request 1
+</div>
+
+<!-- Header Section -->
+<div class="card mb-6">
+  <div class="card-header">
+    <h5 style="color: #2d5880; margin-top: 26px; font-weight: bold">List Approval Request 1</h5>
+  </div>
+
+  <!-- Form Section -->
+  <div style="margin-left: 28px; margin-top: 26px;">
+    <div class="row mb-3">
+      <label class="col-lg-2 col-form-label required fw-bold fs-6">Company</label>
+      <div class="col-lg-9 fv-row">
+        <select class="form-select form-select-lg form-select-solid"
+                placeholder="Company name"
+                name="company"
+                [(ngModel)]="selectedCompany"
+                required>
+          <option *ngFor="let company of companies" [value]="company.id">{{ company.name }}</option>
+        </select>
+      </div>
+    </div>
+
+      <div class="row mb-3">
+        <label class="col-lg-2 col-form-label required fw-bold fs-6">Choose Status</label>
+        <div class="col-lg-9 fv-row">
+          <select class="form-select form-select-lg form-select-solid"
+                  placeholder="choose status"
+                  name="status1"
+                  [(ngModel)]="selectedStatus"
+                  required>
+            <option *ngFor="let status1 of status" [value]="status1.id">{{ status1.name }}</option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <div class="row mb-3">
+          <label class="col-lg-2 col-form-label required fw-bold fs-6">Periode</label>
+          <div class="col-lg-9 fv-row" id="periode">
+            <div class="input-group">
+              <input class="form-control m-input"
+                     placeholder="Choose Date"
+                     [ngModel]="dateRange"
+                     ngxDaterangepickerMd
+                     (ngModelChange)="onDateRangeChange($event)" />
+              <span class="input-group-text" style="width: 40px; text-align: center;">
+                <i class="la la-calendar-check-o"></i>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    <div class="row mb-3">
+      <div class="col-lg-3"></div>
+      <div class="col-lg-8 text-end">
+        <button type="button" class="btn btn-primary me-2" style="margin-top: 20px; margin-bottom: 20px;" (click)="showTable = true">Check</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Wrapper Section -->
+<div class="card mb-6">
+  <!-- Search Form and Buttons -->
+  <div class="row mt-4">
+    <div class="col-lg-12 d-flex justify-content-between">
+      <!-- Search Form -->
+      <div class="m-portlet m-portlet--brand m-portlet--head-solid-bg">
+        <form class="m-form m-form--fit m-form--label-align-right">
+          <div class="m-portlet__body">
+            <div class="row">
+              <div class="col-lg-12" style="margin-left: 28px;">
+                <label for="searchInput" class="fw-bold" style="margin-bottom: 10px;">Search:</label>
+                <div class="input-group">
+                  <input type="text" class="form-control" id="searchInput" style="border-top-left-radius: 20px; border-bottom-left-radius: 20px; margin-bottom: 20px;" placeholder="Enter your search criteria">
+                  <div class="input-group-append">
+                    <span class="input-group-text" style="border-top-right-radius: 20px; border-bottom-right-radius: 20px; height: 45px;">
+                      <i class="la la-search"></i>
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <!-- Adjust other form elements as needed -->
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <!-- Buttons -->
+      <div class="d-flex align-items-center" style="margin-right: 20px;">
+        <h6 class="mb-0 me-2">Download Data:</h6>
+        <button class="btn me-1 p-1" data-bs-toggle="tooltip" data-bs-placement="top" title="Download Excel" (click)="exportTo('excel')">
+          <i class="bi bi-file-excel custom-icon"></i>
+        </button>
+        <button class="btn me-1 p-1" data-bs-toggle="tooltip" data-bs-placement="top" title="Download CSV" (click)="exportTo('csv')">
+          <i class="bi bi-file-earmark-text custom-icon"></i>
+        </button>
+        <button class="btn me-1 p-1" data-bs-toggle="tooltip" data-bs-placement="top" title="Download PDF" (click)="exportTo('pdf')">
+          <i class="bi bi-file-pdf custom-icon"></i>
+        </button>
+        <button class="btn p-1" data-bs-toggle="tooltip" data-bs-placement="top" title="Print" onclick="window.print()">
+          <i class="bi bi-printer custom-icon"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="row mt-3" style="margin-left: 10px; margin-right: 10px; overflow-x: auto;">
+    <div class="col-lg-12">
+      <div class="d-flex align-items-center justify-content-between">
+        <p class="mb-0">Showing {{ (currentPage - 1) * itemsPerPage + 1 }} to {{ (currentPage * itemsPerPage) < displayedData.length ? (currentPage * itemsPerPage) : displayedData.length }} of {{ displayedData.length }} entries</p>
+      </div>
+    </div>
+  </div>
+
+   <!-- Table Section -->
+ <div>
+  <div>
+    <div class="row mt-4" style="margin-left: 10px; margin-right: 10px; overflow-x: auto;">
+      <div class="col-lg-12">
+        <div class="m-portlet m-portlet--brand m-portlet--head-solid-bg">
+          <div class="m-portlet__body">
+            <div class="table-responsive">
+              <table class="table table-bordered table-hover" style="white-space: nowrap;">
+                <thead class="thead-light">
+                  <tr>
+                    <th>Action</th>
+                    <th>Col B</th>
+                    <th>Col C</th>
+                    <th>Col D</th>
+                    <th>Col E</th>
+                    <th>Col F</th>
+                    <th>Col G</th>
+                    <th>Col H</th>
+                    <th>Col I</th>
+                    <th>Col J</th>
+                    <th>Col K</th>
+                    <th>Col L</th>
+                  </tr>
+                </thead>
+                <tbody *ngIf="displayedData.length > 0">
+                  <tr *ngFor="let data of displayedData">
+                    <td>
+                      <button class="btn btn-success btn-sm me-2" (click)="confirmApprove(data)" title="Approve">
+                        <span class="d-flex justify-content-center align-items-center">
+                          <i class="fas fa-check"></i>
+                        </span>
+                      </button>
+                      <button class="btn btn-danger btn-sm me-2" (click)="confirmReject(data)" title="Reject">
+                        <span class="d-flex justify-content-center align-items-center">
+                          <i class="fas fa-times"></i>
+                        </span>
+                      </button>
+                      <button class="btn btn-primary btn-sm" (click)="viewDetails(data)" title="Detail">
+                        <span class="d-flex justify-content-center align-items-center">
+                          <i class="fas fa-info-circle"></i>
+                        </span>
+                      </button>                        
+                    </td>     
+                    <td></td>
+                    <!-- Add other data columns as needed -->
+                    </tr>
+                  </tbody>
+                  <tfoot *ngIf="totalPages > 1">
+                    <tr>
+                      <td colspan="12" class="text-center">
+                        <button class="btn btn-success me-2" [disabled]="currentPage === 1" (click)="previousPage()">Previous</button>
+                        <button class="btn btn-success" [disabled]="currentPage === totalPages" (click)="nextPage()">Next</button>
+                      </td>
+                    </tr>
+                  </tfoot>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .custom-icon {
+    font-size: 1.5rem; /* Adjust the size as needed */
+  }
+
+  .date-range-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+
+  .date-range-container mat-date-range-input {
+    margin-left: 20px; /* Adjust the margin as needed */
+  }
+
+  .date-range-container mat-datepicker-toggle {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+  
+  }
+
+  .toggle-container {
+      overflow: hidden;
+      max-height: 1000px;
+      transition: max-height 0.5s ease-in-out;
+    }
+
+</style>
+
+<script type="text/javascript" src="assets/demo/default/custom/crud/forms/widgets/bootstrap-daterangepicker.js"></script>
+<script>
+  // Replace 'yourModule' and 'yourController' with your actual module and controller names
+  angular.module('yourModule').controller('yourController', function ($scope) {
+    // Initialize the date range picker
+    $('#tanggal').daterangepicker({
+      opens: 'left', // Choose the desired position
+      // Add any other options you need
+    }, function(start, end, label) {
+      // Handle the selected date range
+      console.log('Selected date range:', start.format('YYYY-MM-DD'), 'to', end.format('YYYY-MM-DD'));
+      // You can update your component's logic based on the selected date range
+    });
+  });
+</script>
+<script>
+  var app = angular.module('myApp', ['ngAnimate']);
+  app.controller('myController', function($scope){
+    $scope.isToggled = false;
+
+    $scope.toggleSlide = function(){
+      $scope.Toggled = !$scope.isToggled;
+    };
+  })
+</script>
+ 

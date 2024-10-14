@@ -1,0 +1,46 @@
+// /* Custom datepicker styles */
+// .bs-datepicker-container {
+//   background-color: #fff; /* Warna latar belakang */
+//   border: 1px solid #ccc; /* Garis tepi */
+//   border-radius: 5px; /* Sudut bulat */
+//   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Bayangan */
+// }
+
+// .bs-datepicker-container .bs-datepicker-head {
+//   background-color: #f8f9fa; /* Warna latar belakang header */
+//   color: #333; /* Warna teks */
+// }
+
+// .bs-datepicker-container .bs-datepicker-body button {
+//   color: #333; /* Warna teks tombol */
+// }
+
+// .bs-datepicker-container .bs-datepicker-body button:hover {
+//   background-color: #e9ecef; /* Warna latar belakang saat hover */
+// }
+
+// .bs-datepicker-container .bs-datepicker-footer button {
+//   color: #fff; /* Warna teks tombol footer */
+//   background-color: #007bff; /* Warna latar belakang tombol footer */
+//   border-color: #007bff; /* Warna tepi tombol footer */
+// }
+
+// .bs-datepicker-container .bs-datepicker-footer button:hover {
+//   background-color: #0056b3; /* Warna latar belakang saat hover */
+//   border-color: #0056b3; /* Warna tepi saat hover */
+// }
+::ng-deep {
+  .p-selectbutton .p-button.p-highlight {
+    background: #2d5880;
+    background-color: #2d5880;
+  }
+
+  .p-button .p-button.p-highlight {
+    background: #2d5880;
+    background-color: #2d5880;
+  }
+
+  // .p-selectbutton .p-button.p-highlight:hover {
+  //   background: green;
+  // }
+}

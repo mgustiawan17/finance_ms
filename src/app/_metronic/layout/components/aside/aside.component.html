@@ -1,0 +1,221 @@
+<!--begin::Primary-->
+<div
+  class="aside-primary d-flex flex-column align-items-lg-center flex-row-auto"
+>
+  <!--begin::Logo-->
+  <div
+    class="aside-logo d-none d-lg-flex flex-column align-items-center flex-column-auto py-10"
+    id="kt_aside_logo"
+  >
+    <a routerLink="/dashboard">
+      <img alt="Logo" src="./assets/media/logos/Sakuratex1.png" class="h-25px" />
+    </a>
+  </div>
+  <!--end::Logo-->
+
+  <!--begin::Nav-->
+  <nav
+    class="aside-nav d-flex flex-column align-items-center flex-column-fluid w-100 pt-5 pt-lg-0"
+    id="kt_aside_nav"
+  >
+    <ul class="nav flex-column">
+      <li
+        *ngFor="let tab of tabs"
+        data-bs-toggle="tooltip"
+        data-bs-trigger="hover"
+        data-bs-placement="right"
+        data-bs-dismiss="click"
+        class="nav-item my-3"
+        aria-haspopup="true"
+        (click)="setHeadMenu(tab.MenuId, tab.tooltip)"
+      >
+        <a
+          class="nav-link d-flex justify-content-center align-items-center p-2"
+        >
+          <img
+            [src]="tab.icon"
+            [alt]="tab.tooltip"
+            [title]="tab.tooltip"
+            class="img-fluid icon-custom"
+            (mouseenter)="hovered = true"
+            (mouseleave)="hovered = false"
+          />
+        </a>
+      </li>
+    </ul>
+  </nav>
+  <!--end::Nav-->
+
+  <!--begin::Footer-->
+  <div class="aside-footer d-flex flex-column align-items-center flex-column-auto" id="kt_aside_footer">
+    <!--begin::User-->
+    <div class="d-flex align-items-center mb-10" id="kt_header_user_menu_toggle" (click)="toggleUserInner()">
+      <!--begin::Menu wrapper-->
+      <div class="cursor-pointer symbol symbol-40px" title="User profile">
+        <img src="./assets/media/avatars/300-1.jpg" alt="image"/>
+      </div>
+      <!--end::Menu wrapper-->
+      <div class="user-inner-container" *ngIf="isUserInnerVisible">
+        <app-user-inner></app-user-inner>
+      </div>
+    </div>
+    <!--end::User-->
+  </div>
+  <!--end::Footer-->
+</div>
+<!--end::Primary-->
+
+<ng-container *ngIf="asideMenuSecondary">
+  <!--begin::Secondary-->
+  <div class="aside-secondary d-flex flex-row-fluid">
+    <!--begin::Workspace-->
+    <div class="aside-workspace my-5 p-5" id="kt_aside_wordspace">
+      <!-- <app-tabs-aside-inner
+        [activeTab]="activeTab"
+        class="d-flex h-100 flex-column"
+      ></app-tabs-aside-inner> -->
+
+      <div
+        class="menu menu-column menu-fit menu-rounded menu-title-gray-600 menu-state-denim menu-state-bullet-denim menu-icon-gray-500 menu-arrow-gray-500 fs-5 px-6 my-5 my-lg-0"
+        id="kt_aside_menu"
+        data-kt-menu="true"
+      >
+        <div id="kt_aside_menu_wrapper" class="menu-fit">
+          <!-- <div *ngIf="subMenus.length > 0">
+              <div *ngFor="let subMenu of subMenus" align="center" style="color: #990600; margin-bottom: 20px; padding: 10px; border-radius: 8px; box-shadow: 0px 0 10px rgba(0, 0, 0, 0.1);">
+                <a [routerLink]="subMenu.link" routerLinkActive="active">
+                  <span class="menu-title">{{ subMenu.title }}</span>
+                </a>
+              </div>
+            </div> -->
+          <div
+            align="center"
+            style="
+              color: #316291;
+              margin-bottom: 20px;
+              padding: 10px;
+              border-radius: 8px;
+              box-shadow: 0px 0 10px rgba(237, 43, 43, 0.1);
+            "
+            >
+            <a routerLinkActive="active">
+              <span class="menu-title red-text">{{ submenuTitle }}</span>
+            </a>
+          </div>
+
+          <ul class="m-menu__nav m-menu__nav--dropdown-submenu-arrow">
+            <ng-container *ngFor="let subMenu of filteredSubMenus">
+              <li
+                *ngIf="subMenu.DropdownMenu === 'FALSE'"
+                class="menu-item menu-accordion"
+                data-kt-menu-trigger="click"
+                routerLinkActive="here show"
+              >
+                <a [routerLink]="[subMenu.Page]" class="menu-link without-sub">
+                  <span class="menu-title menu-state-denim">{{
+                    subMenu.MenuName
+                  }}</span>
+                </a>
+              </li>
+              <li
+                *ngIf="subMenu.DropdownMenu === 'TRUE'"
+                class="menu-item menu-accordion"
+                data-kt-menu-trigger="click"
+                [ngClass]="{ 'menu-active-bg': isSubMenuActive(subMenu) }"
+              >
+                <span class="menu-link">
+                  <span class="menu-title">{{ subMenu.MenuName }}</span>
+                  <span class="menu-arrow"></span>
+                </span>
+                <div
+                  class="menu-sub menu-sub-accordion menu-state-white menu-state-bullet-white"
+                  routerLinkActive="menu-active-bg"
+                >
+                  <ng-container *ngFor="let subChild of filteredSubMenus1">
+                    <div
+                      *ngIf="
+                        subChild.HeadMenu === subMenu.MenuId &&
+                        subChild.DropdownMenu === 'FALSE'
+                      "
+                      class="menu-item"
+                      [routerLinkActive]="'active'"
+                    >
+                      <a
+                        [routerLink]="[subChild.Page]"
+                        class="menu-link without-sub"
+                      >
+                        <span class="menu-bullet">
+                          <span class="bullet bullet-dot"></span>
+                        </span>
+                        <span class="menu-title1">{{ subChild.MenuName }}</span>
+                      </a>
+                    </div>
+                    <div
+                      *ngIf="
+                        subChild.HeadMenu === subMenu.MenuId &&
+                        subChild.DropdownMenu === 'TRUE'
+                      "
+                      class="menu-item menu-accordion"
+                      data-kt-menu-trigger="click"
+                      [ngClass]="{
+                        'menu-active-bg': isSubMenuActive(subChild)
+                      }"
+                      >
+                      <span class="menu-link">
+                        <span class="menu-bullet">
+                          <span class="bullet bullet-dot"></span>
+                        </span>
+                        <span class="menu-title1">{{ subChild.MenuName }}</span>
+                        <span class="menu-arrow"></span>
+                      </span>
+                      <div
+                        class="menu-sub menu-sub-accordion menu-state-white menu-state-bullet-white"
+                        routerLinkActive="menu-active-bg"
+                      >
+                        <ng-container
+                          *ngFor="let subChild2 of filteredSubMenus1"
+                        >
+                          <div
+                            *ngIf="subChild2.HeadMenu === subChild.MenuId"
+                            class="menu-item"
+                            routerLinkActive="active"
+                          >
+                            <a
+                              [routerLink]="[subChild2.Page]"
+                              class="menu-link without-sub"
+                            >
+                              <span class="menu-bullet">
+                                <span class="bullet bullet-dot"></span>
+                              </span>
+                              <span class="menu-title1">{{
+                                subChild2.MenuName
+                              }}</span>
+                            </a>
+                          </div>
+                        </ng-container>
+                      </div>
+                    </div>
+                  </ng-container>
+                </div>
+              </li>
+            </ng-container>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <!--end::Workspace-->
+  </div>
+  <!--end::Secondary-->
+
+  <!--begin::Aside Toggle-->
+  <button id="kt_aside_toggle" 
+          class="btn btn-sm btn-icon bg-body btn-danger btn-color-gray-700 position-absolute translate-middle start-100 end-0 bottom-0 shadow-sm d-none d-lg-flex" 
+          data-kt-toggle="true" 
+          data-kt-toggle-state="active" 
+          data-kt-toggle-target="body" 
+          data-kt-toggle-name="aside-minimize" 
+          (click)="toggleAside()">
+    <span [inlineSVG]="'./assets/media/icons/duotune/arrows/arr063.svg'" class="svg-icon svg-icon-2 rotate-180"></span>
+  </button>
+  <!--end::Aside Toggle-->
+</ng-container>

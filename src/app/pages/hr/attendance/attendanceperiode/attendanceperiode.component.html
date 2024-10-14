@@ -1,0 +1,349 @@
+<div
+  class="dashboard-title"
+  style="
+    font-size: 1.6em;
+    font-weight: bold;
+    color: white;
+    background-color: #2d5880;
+    text-align: left;
+    padding: 20px 30px;
+    margin-bottom: 30px;
+    border-radius: 10px;
+  "
+>
+  Attendance
+</div>
+
+<div class="card">
+  <div class="card-header">
+    <h5 style="color: #2d5880; margin-top: 26px; font-weight: bold">
+      Attendance Report
+    </h5>
+  </div>
+  <div class="m-portlet__body" style="margin-left: 30px; margin-right: 20px">
+    <div class="form-group m-form__group row">
+      <div class="col-lg-4 col-md-6 col-sm-12">
+        <label class="col-lg-12 col-form-label required fw-bold fs-6"
+          >Choose Data</label
+        >
+        <div class="col-lg-12">
+          <p-selectButton
+            [options]="chooseData"
+            [(ngModel)]="valuechooseData"
+            optionLabel="label"
+            optionValue="value"
+            (ngModelChange)="handleChange($event)"
+            [style]="{ width: '100%' }"
+          >
+          </p-selectButton>
+        </div>
+      </div>
+
+      <div class="col-lg-4 col-md-6 col-sm-12">
+        <label class="col-lg-4 col-form-label required fw-bold fs-6 periode"
+          >Periode</label
+        >
+        <div class="col-lg-12" id="periode">
+          <p-calendar
+            selectionMode="range"
+            [(ngModel)]="selectedPeriode"
+            [iconDisplay]="'input'"
+            [showClear]="true"
+            [showIcon]="true"
+            [readonlyInput]="true"
+            [style]="{ width: '100%' }"
+            dateFormat="dd-mm-yy"
+            placeholder="Select Periode"
+            id="selectPeriode"
+          >
+          </p-calendar>
+        </div>
+
+        <label class="col-lg-4 col-form-label required fw-bold fs-6 month"
+          >Month</label
+        >
+        <div class="col-lg-12" id="month">
+          <p-calendar
+            [(ngModel)]="selectedMonth"
+            view="month"
+            dateFormat="mm-yy"
+            [showIcon]="true"
+            [iconDisplay]="'input'"
+            [readonlyInput]="true"
+            [style]="{ width: '100%' }"
+          >
+          </p-calendar>
+        </div>
+
+        <label class="col-lg-12 col-form-label required fw-bold fs-6 year"
+          >Year</label
+        >
+        <div class="col-lg-12" id="year">
+          <p-calendar
+            view="year"
+            dateFormat="yy"
+            id="yearpicker"
+            [(ngModel)]="selectedYear"
+            [showClear]="true"
+            [iconDisplay]="'input'"
+            [showIcon]="true"
+            [style]="{ width: '100%' }"
+            placeholder="Select Years"
+          >
+          </p-calendar>
+        </div>
+      </div>
+
+      <div class="col-lg-4 col-md-6 col-sm-12">
+        <label class="col-lg-12 col-form-label required fw-bold fs-6"
+          >Dept - Sect</label
+        >
+        <div class="col-lg-12">
+          <p-dropdown
+            [options]="deptSectValue"
+            (onChange)="onChangeDepartment($event.value)"
+            [(ngModel)]="selectedDept"
+            [showClear]="true"
+            [filter]="true"
+            [style]="{ width: '100%' }"
+            placeholder="Select Department"
+            id="department"
+            name="department"
+          >
+          </p-dropdown>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group m-form__group row">
+      <div class="col-lg-4 col-md-6 col-sm-12">
+        <label class="col-lg-4 col-form-label required fw-bold fs-6 employee"
+          >Employee</label
+        >
+        <div class="col-lg-12" id="employee">
+          <p-multiSelect
+            [options]="optionListEmployee"
+            (onChange)="onChangeEmployee($event.value)"
+            [showClear]="true"
+            [filter]="true"
+            [style]="{ width: '100%' }"
+            placeholder="Select Name"
+            [(ngModel)]="selectedEmp"
+            id="employees"
+            name="employees"
+          >
+          </p-multiSelect>
+        </div>
+
+        <label class="col-lg-4 col-form-label required fw-bold fs-6 type"
+          >Type</label
+        >
+        <div class="col-lg-12" id="type">
+          <p-dropdown
+            [options]="TypeValue"
+            [(ngModel)]="selectedType"
+            placeholder="Select type"
+            [style]="{ width: '100%' }"
+          ></p-dropdown>
+        </div>
+      </div>
+
+      <div class="col-lg-4 col-md-6 col-sm-12">
+        <label class="col-lg-4 col-form-label required fw-bold fs-6 group"
+          >Group</label
+        >
+        <div class="col-lg-12" id="group">
+          <p-dropdown
+            [options]="groups"
+            [(ngModel)]="selectedGroup"
+            optionLabel="name"
+            optionValue="value"
+            placeholder="Select group"
+            [style]="{ width: '100%' }"
+          ></p-dropdown>
+        </div>
+      </div>
+    </div>
+    <br />
+    <br />
+    <div class="m-portlet__foot m-portlet__foot--fit">
+      <div class="m-form__actions m-form__actions">
+        <div class="col-lg-12 text-end">
+          <p-button label="View Data" [loading]="configLoading" [text]="true" [raised]="true" severity="denim" (onClick)="showDataTable()"></p-button>
+        </div>
+      </div>
+    </div>
+    <br />
+  </div>
+</div>
+
+<div class="card mb-6" id="TablePeriode" hidden>
+  <div class="card-header">
+    <h5 style="color: #2d5880; margin-top: 26px; font-weight: bold">
+      Attendance Periode
+    </h5>
+  </div>
+  <!-- begin::Table container -->
+  <div style="margin-left: 28px; margin-top: 26px; margin-right: 28px">
+    <div class="table-responsive">
+      <!-- begin::Table -->
+      <table
+        class="table table-striped table-bordered cell-border"
+        id="ListTableAbsenPeriode"
+      >
+        <!-- begin::Table head -->
+        <thead>
+          <tr class="fw-bolde">
+            <th style="text-align: center"></th>
+            <th style="text-align: center"></th>
+            <th style="text-align: center"></th>
+            <th style="text-align: center"></th>
+            <th style="text-align: center"></th>
+            <th style="text-align: center"></th>
+            <th style="text-align: center"></th>
+            <th style="text-align: center"></th>
+            <!-- <th></th> -->
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+      <!-- end::Table -->
+    </div>
+    <!-- end::Table container -->
+  </div>
+</div>
+
+<div class="card mb-6" id="TableMonth" hidden>
+  <div class="card-header">
+    <h5 style="color: #2d5880; margin-top: 26px; font-weight: bold">
+      Attendance Month
+    </h5>
+  </div>
+  <!-- begin::Table container -->
+  <div style="margin-left: 28px; margin-top: 26px; margin-right: 28px">
+    <div class="alert alert-primary alert-dismissible fade show" role="alert">
+      <div class="alert-icon">
+        <i class="bi bi-info-circle"></i>
+      </div>
+      <div class="alert-text">
+        <b>Informasi</b><br />
+        <b>- S0</b> Sakit Tanpa Surat <br />
+        <b>- S1</b> Sakit Dengan Surat Dokter <br />
+        <b>- S2</b> Sakit Dengan Surat Dokter <br />
+      </div>
+      <button
+        type="button"
+        class="btn-close"
+        data-bs-dismiss="alert"
+        aria-label="Close"
+      ></button>
+    </div>
+    <div class="table-responsive">
+      <!-- begin::Table -->
+      <table
+        class="table table-striped table-bordered cell-border"
+        id="ListTableAbsenMonth"
+      >
+        <!-- begin::Table head -->
+        <thead>
+          <tr class="fw-bolde">
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <!-- <th></th> -->
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+      <!-- end::Table -->
+    </div>
+    <!-- end::Table container -->
+  </div>
+</div>
+
+<div class="card mb-6" id="TableYearBySect" hidden>
+  <div class="card-header">
+    <h5 style="color: #2d5880; margin-top: 26px; font-weight: bold">
+      Attendance Year
+    </h5>
+  </div>
+  <!-- begin::Table container -->
+  <div style="margin-left: 28px; margin-top: 26px; margin-right: 28px">
+    <div class="table-responsive">
+      <!-- begin::Table -->
+      <table
+        class="table table-striped table-bordered cell-border"
+        id="ListTableAbsenYearBySect"
+      >
+        <!-- begin::Table head -->
+        <thead>
+          <tr class="fw-bolde">
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <!-- <th></th> -->
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+      <!-- end::Table -->
+    </div>
+    <!-- end::Table container -->
+  </div>
+</div>
+
+<div class="card mb-6" id="TableYearByEmp" hidden>
+  <div class="card-header">
+    <h5 style="color: #2d5880; margin-top: 26px; font-weight: bold">
+      Attendance Year
+    </h5>
+  </div>
+  <!-- begin::Table container -->
+  <div style="margin-left: 28px; margin-top: 26px; margin-right: 28px">
+    <div class="table-responsive">
+      <!-- begin::Table -->
+      <table
+        class="table table-striped table-bordered cell-border"
+        id="ListTableAbsenYearByEmp"
+      >
+        <!-- begin::Table head -->
+        <thead>
+          <tr class="fw-bolde">
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <!-- <th></th> -->
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+      <!-- end::Table -->
+    </div>
+    <!-- end::Table container -->
+  </div>
+</div>

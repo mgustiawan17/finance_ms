@@ -1,0 +1,677 @@
+<div
+  class="dashboard-title"
+  style="
+    font-size: 1.6em;
+    font-weight: bold;
+    color: white;
+    background-color: #2d5880;
+    text-align: left;
+    padding: 20px 30px;
+    margin-bottom: 30px;
+    border-radius: 10px;
+  "
+>
+  New Group Access
+</div>
+<!--New Group Access-->
+<div class="card mb-6">
+  <!--New Group Access-->
+  <div style="margin-left: 28px; margin-top: 26px; margin-right: 28px">
+    <label class="col-lg-4 col-form-label required fw-bold fs-6"
+      >Name Group Access</label
+    >
+    <div
+      class="d-flex align-items-center mt-3"
+      style="margin-top: 28px; margin-bottom: 10px"
+    >
+      <input
+        type="text"
+        style="font-weight: bold"
+        pInputText
+        disabled
+        [(ngModel)]="nogroupCode"
+      />
+    </div>
+
+    <label class="col-lg-4 col-form-label required fw-bold fs-6"
+      >Descriptions</label
+    >
+    <div
+      class="d-flex align-items-center mt-3"
+      style="margin-top: 28px; margin-bottom: 10px"
+    >
+      <input
+        type="text"
+        pInputText
+        [(ngModel)]="descriptionsInput"
+        style="width: 500px"
+      />
+    </div>
+
+    <label class="col-lg-4 col-form-label required fw-bold fs-6"
+      >Department</label
+    >
+    <div class="col-lg">
+      <p-multiSelect
+        [options]="optionListDepartmentHR"
+        [(ngModel)]="selectedDeptHR"
+        [showClear]="true"
+        [filter]="true"
+        [style]="{ width: '50%' }"
+        placeholder="Select Department HR"
+        id="departmentHR"
+      ></p-multiSelect>
+      <p-multiSelect
+        [options]="optionListDepartmentWMS"
+        [(ngModel)]="selectedDeptWMS"
+        [showClear]="true"
+        [filter]="true"
+        [style]="{ width: '50%' }"
+        placeholder="Select Department WMS"
+        id="departmentWMS"
+      ></p-multiSelect>
+    </div>
+
+    <!-- <div class="row mb-12">
+      <label class="col-lg-4 col-form-label required fw-bold fs-6"
+        >Choose Module :</label
+      ><br />
+      <div class="col-lg-12">
+        <div class="checkbox-container">
+          <div *ngFor="let option of optionListMenu" class="checkbox-item">
+            <p-checkbox
+              name="menus"
+              value="{{ option.value }}"
+              label="{{ option.label }}"
+              [(ngModel)]="selectedMenu"
+            >
+            </p-checkbox>
+          </div>
+        </div>
+      </div>
+    </div> -->
+    <div class="row mb-12">
+      <label class="col-lg-4 col-form-label required fw-bold fs-6"
+        >Choose Module:</label
+      ><br />
+      <div class="button-container mt-2">
+        <button
+          pButton
+          type="button"
+          style="background-color: #2d5880"
+          label="Select All"
+          (click)="selectAllOptions()"
+        ></button
+        >&nbsp;&nbsp;
+        <button
+          pButton
+          type="button"
+          style="background-color: #2d5880"
+          label="Unselect All"
+          (click)="unselectAllOptions()"
+        ></button>
+      </div>
+    </div>
+    <div class="row mb-12">
+      <div class="col-lg-2">
+        <div class="checkbox-container">
+          <!-- Accounting Section -->
+          <div *ngIf="categorizedMenu.Accounting.length">
+            <h5>Accounting</h5>
+            <br />
+            <div
+              *ngFor="let option of categorizedMenu.Accounting"
+              class="checkbox-item"
+            >
+              <p-checkbox
+                name="menus"
+                class="custom-checkbox"
+                [value]="option.value"
+                [label]="option.label"
+                [(ngModel)]="selectedMenu"
+                (onChange)="onChangeMenu($event)"
+              ></p-checkbox>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-2">
+        <div class="checkbox-container">
+          <!-- Approval Section -->
+          <div *ngIf="categorizedMenu.Approval.length">
+            <h5>Approval</h5>
+            <br />
+            <div
+              *ngFor="let option of categorizedMenu.Approval"
+              class="checkbox-item"
+            >
+              <p-checkbox
+                name="menus"
+                class="custom-checkbox"
+                [value]="option.value"
+                [label]="option.label"
+                [(ngModel)]="selectedMenu"
+                (onChange)="onChangeMenu($event)"
+              ></p-checkbox>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-2">
+        <div class="checkbox-container">
+          <!-- Inventory Section -->
+          <div *ngIf="categorizedMenu.Inventory.length">
+            <h5>Inventory</h5>
+            <br />
+            <div
+              *ngFor="let option of categorizedMenu.Inventory"
+              class="checkbox-item"
+            >
+              <p-checkbox
+                name="menus"
+                class="custom-checkbox"
+                [value]="option.value"
+                [label]="option.label"
+                [(ngModel)]="selectedMenu"
+                (onChange)="onChangeMenu($event)"
+              ></p-checkbox>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-2">
+        <div class="checkbox-container">
+          <!-- Purchasing Section -->
+          <div *ngIf="categorizedMenu.Purchasing.length">
+            <h5>Purchasing</h5>
+            <br />
+            <div
+              *ngFor="let option of categorizedMenu.Purchasing"
+              class="checkbox-item"
+            >
+              <p-checkbox
+                name="menus"
+                class="custom-checkbox"
+                [value]="option.value"
+                [label]="option.label"
+                [(ngModel)]="selectedMenu"
+                (onChange)="onChangeMenu($event)"
+              ></p-checkbox>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-2">
+        <div class="checkbox-container">
+          <!-- HR Section -->
+          <div *ngIf="categorizedMenu.HR.length">
+            <h5>HR</h5>
+            <br />
+            <div
+              *ngFor="let option of categorizedMenu.HR"
+              class="checkbox-item"
+            >
+              <p-checkbox
+                name="menus"
+                class="custom-checkbox"
+                [value]="option.value"
+                [label]="option.label"
+                [(ngModel)]="selectedMenu"
+                (onChange)="onChangeMenu($event)"
+              ></p-checkbox>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-2">
+        <div class="checkbox-container">
+          <!-- MRP Section -->
+          <div *ngIf="categorizedMenu.MRP.length">
+            <h5>MRP</h5>
+            <br />
+            <div
+              *ngFor="let option of categorizedMenu.MRP"
+              class="checkbox-item"
+            >
+              <p-checkbox
+                name="menus"
+                class="custom-checkbox"
+                [value]="option.value"
+                [label]="option.label"
+                [(ngModel)]="selectedMenu"
+                (onChange)="onChangeMenu($event)"
+              ></p-checkbox>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row mb-12">
+      <div class="col-lg-2">
+        <div class="checkbox-container">
+          <!-- Utility Section -->
+          <div *ngIf="categorizedMenu.Utility.length">
+            <h5>Utility</h5>
+            <br />
+            <div
+              *ngFor="let option of categorizedMenu.Utility"
+              class="checkbox-item"
+            >
+              <p-checkbox
+                name="menus"
+                class="custom-checkbox"
+                [value]="option.value"
+                [label]="option.label"
+                [(ngModel)]="selectedMenu"
+                (onChange)="onChangeMenu($event)"
+              ></p-checkbox>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-2">
+        <div class="checkbox-container">
+          <!-- Marketing Section -->
+          <div *ngIf="categorizedMenu.Marketing.length">
+            <h5>Marketing</h5>
+            <br />
+            <div
+              *ngFor="let option of categorizedMenu.Marketing"
+              class="checkbox-item"
+            >
+              <p-checkbox
+                name="menus"
+                class="custom-checkbox"
+                [value]="option.value"
+                [label]="option.label"
+                [(ngModel)]="selectedMenu"
+                (onChange)="onChangeMenu($event)"
+              ></p-checkbox>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-2">
+        <div class="checkbox-container">
+          <!-- Setting Section -->
+          <div *ngIf="categorizedMenu.Setting.length">
+            <h5>Setting</h5>
+            <br />
+            <div
+              *ngFor="let option of categorizedMenu.Setting"
+              class="checkbox-item"
+            >
+              <p-checkbox
+                name="menus"
+                class="custom-checkbox"
+                [value]="option.value"
+                [label]="option.label"
+                [(ngModel)]="selectedMenu"
+                (onChange)="onChangeMenu($event)"
+              ></p-checkbox>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card-footer d-flex justify-content-end py-6 px-9">
+      <!--(click)="saveSettings()"-->
+      <p-button
+        label="Save Data"
+        [loading]="configLoading"
+        [text]="true"
+        [raised]="true"
+        severity="danger"
+        (onClick)="submitGroupAccess()"
+      ></p-button>
+    </div>
+  </div>
+</div>
+
+<div
+  class="dashboard-title"
+  style="
+    font-size: 1.6em;
+    font-weight: bold;
+    color: white;
+    background-color: #2d5880;
+    text-align: left;
+    padding: 20px 30px;
+    margin-bottom: 30px;
+    border-radius: 10px;
+  "
+>
+  List Group Access
+</div>
+<!--List Group Access-->
+<div class="card mb-9" id="card_listGA">
+  <div style="margin-left: 28px; margin-top: 26px; margin-right: 28px">
+    <div class="table-responsive">
+      <table
+        class="table table-striped table-bordered cell-border"
+        id="ListTableGA"
+      >
+        <thead>
+          <tr class="fw-bolde">
+            <th style="text-align: center"></th>
+            <th style="text-align: center"></th>
+            <th style="text-align: center"></th>
+            <th style="text-align: center"></th>
+            <!-- <th style="text-align: center"></th> -->
+          </tr>
+        </thead>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div
+  class="dashboard-title"
+  style="
+    font-size: 1.6em;
+    font-weight: bold;
+    color: white;
+    background-color: #2d5880;
+    text-align: left;
+    padding: 20px 30px;
+    margin-bottom: 30px;
+    border-radius: 10px;
+  "
+>
+  New User Security
+</div>
+<!--New User Security-->
+<div class="card mb-6">
+  <!--New User Security-->
+  <div style="margin-left: 28px; margin-top: 26px; margin-right: 28px">
+    <label class="col-lg-4 col-form-label required fw-bold fs-6"
+      >List User</label
+    >
+    <div class="col-lg">
+      <p-dropdown
+        [options]="optionListUser"
+        [(ngModel)]="selectedUser"
+        [showClear]="true"
+        [filter]="true"
+        [style]="{ width: '100%' }"
+        placeholder="Select User"
+        id="selectUser"
+      ></p-dropdown>
+    </div>
+    <label class="col-lg-4 col-form-label required fw-bold fs-6"
+      >List Group Access</label
+    >
+    <div class="col-lg">
+      <p-dropdown
+        [options]="optionListGA"
+        [(ngModel)]="selectedGA"
+        [showClear]="true"
+        [filter]="true"
+        [style]="{ width: '100%' }"
+        placeholder="Select Group Access"
+        id="selectGA"
+      ></p-dropdown>
+    </div>
+  </div>
+
+  <div class="card-footer d-flex justify-content-end py-6 px-9">
+    <!--(click)="saveSettings()"-->
+    <p-button
+      label="Save Data"
+      [loading]="configLoading"
+      [text]="true"
+      [raised]="true"
+      severity="danger"
+      (onClick)="submitUserAccess()"
+    ></p-button>
+  </div>
+</div>
+
+<div
+  class="dashboard-title"
+  style="
+    font-size: 1.6em;
+    font-weight: bold;
+    color: white;
+    background-color: #2d5880;
+    text-align: left;
+    padding: 20px 30px;
+    margin-bottom: 30px;
+    border-radius: 10px;
+  "
+>
+  List User Security
+</div>
+<!--List User Access-->
+<div class="card mb-6">
+  <!--List User Access-->
+  <div style="margin-left: 28px; margin-top: 26px; margin-right: 28px">
+    <!-- begin::Table container -->
+    <div class="table-responsive">
+      <!-- begin::Table -->
+      <table
+        class="table table-striped table-bordered cell-border"
+        id="listTableUser"
+      >
+        <!-- begin::Table head -->
+        <thead>
+          <tr class="fw-bolder">
+            <th style="text-align: center"></th>
+            <th style="text-align: center"></th>
+            <th style="text-align: center"></th>
+          </tr>
+        </thead>
+        <!-- end::Table head -->
+      </table>
+      <!-- end::Table -->
+    </div>
+    <!-- end::Table container -->
+  </div>
+</div>
+
+<!-- Modal Delete GA-->
+<!-- <p-dialog 
+    [(visible)]="modalDelete"
+    [modal]="true"
+    [draggable]="false"
+    [resizable]="true"
+    [showHeader]="true"
+    > 
+      <input
+        type="text"
+        class="form-control form-control-lg form-control-solid m-input"
+        id="m_deletenogroupcode"
+        [value] ='selectedValue1?.groupCode'
+        disabled
+        hidden
+      />
+      <div>
+        <p-button label="Delete" [loading]="configLoading" [text]="true" [raised]="true" severity="denim" (onClick)="deleteGA()"></p-button>
+      </div>
+</p-dialog> -->
+<!-- End Modal Delete GA-->
+<!-- Modal Delete UA-->
+
+<p-toast />
+
+<!-- <p-dialog
+  [(visible)]="modalDelete1"
+  [modal]="true"
+  [draggable]="false"
+  [resizable]="true"
+  [showHeader]="true"
+>
+  <input
+    type="text"
+    class="form-control form-control-lg form-control-solid m-input"
+    id="m_deleteusername"
+    [value]="selectedValue1?.userName"
+    disabled
+    hidden
+  />
+  <input
+    type="text"
+    class="form-control form-control-lg form-control-solid m-input"
+    id="m_deleteaccessgroup"
+    [value]="selectedValue1?.AccessGroup"
+    disabled
+    hidden
+  />
+  <div>
+    <p-button
+      label="Delete"
+      [loading]="configLoading"
+      [text]="true"
+      [raised]="true"
+      severity="danger"
+      (onClick)="deleteUserAccess()"
+    ></p-button>
+  </div>
+</p-dialog> -->
+<!-- end Modal Delete UA-->
+
+<!-- Modal Edit GA-->
+<p-dialog
+  header="Edit Group Access"
+  [(visible)]="modalEdit"
+  [modal]="true"
+  [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }"
+  [style]="{ width: '50vw', height: '35vw' }"
+  [draggable]="false"
+  [resizable]="true"
+  [showHeader]="true"
+>
+  <label class="col-lg-4 col-form-label required fw-bold fs-6"
+    >Group Code</label
+  >
+  <input
+    type="text"
+    class="form-control form-control-lg form-control-solid m-input"
+    id="m_updatenogroupcode"
+    [value]="selectedValue1?.groupCode"
+    disabled
+  />
+  <br />
+  <label class="col-form-label required fw-bold fs-6">Descriptions</label>
+  <input
+    type="text"
+    class="form-control form-control-lg form-control-solid m-input"
+    id="m_updatedescriptions"
+    [value]="selectedValue1?.Description"
+  />
+  <br />
+  <div class="row mb-12">
+    <label class="col-lg-4 col-form-label required fw-bold fs-6"
+      >Choose Module :</label
+    ><br />
+    <div class="col-lg-12">
+      <div class="checkbox-container">
+        <div *ngFor="let option of optionEditMenuGA" class="checkbox-item">
+          <p-checkbox
+            name="menus"
+            value="{{ option.value }}"
+            label="{{ option.label }}"
+            [(ngModel)]="selectedMenuEdit"
+          >
+          </p-checkbox>
+        </div>
+      </div>
+    </div>
+  </div>
+  <label class="col-form-label required fw-bold fs-6">Status</label>
+  <div class="col-lg-8 fv-row">
+    <div class="form-check form-switch">
+      <input
+        class="form-check-input"
+        type="checkbox"
+        role="switch"
+        id="m_status"
+      />
+    </div>
+  </div>
+  <br />
+  <br />
+  <div>
+    <p-button
+      label="Update"
+      [loading]="configLoading"
+      [text]="true"
+      [raised]="true"
+      severity="danger"
+      (onClick)="updateGA()"
+    ></p-button>
+  </div>
+</p-dialog>
+<!-- End Modal Edit GA-->
+<!-- Modal Edit UA-->
+<p-dialog
+  [(visible)]="modalEdit1"
+  [modal]="true"
+  [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }"
+  [style]="{ width: '50vw', height: '35vw' }"
+  [draggable]="false"
+  [resizable]="true"
+  [showHeader]="true"
+>
+  <label class="col-lg-4 col-form-label required fw-bold fs-6">Email</label>
+  <input
+    type="text"
+    class="form-control form-control-lg form-control-solid m-input"
+    id="m_updateusername"
+    [value]="selectedValue1?.userName"
+    disabled
+  />
+  <label class="col-lg-4 col-form-label required fw-bold fs-6"
+    >Group Access</label
+  >
+  <div class="col-lg">
+    <p-dropdown
+      [options]="optionListGA"
+      [(ngModel)]="selectedEditGA"
+      [showClear]="true"
+      [filter]="true"
+      [style]="{ width: '100%' }"
+      placeholder="Select Group Access"
+      id="selectGA"
+    ></p-dropdown>
+  </div>
+  <br />
+  <div>
+    <p-button
+      label="Update"
+      [loading]="configLoading"
+      [text]="true"
+      [raised]="true"
+      severity="danger"
+      (onClick)="editUserAccess()"
+    ></p-button>
+  </div>
+</p-dialog>
+<!-- end Modal Edit UA-->
+<p-dialog
+  header="Detail Group Access"
+  [(visible)]="displayModal"
+  [modal]="true"
+  [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }"
+  [style]="{ width: '50vw' }"
+  [draggable]="false"
+  [resizable]="false"
+>
+  <div class="row mb-12">
+    <div class="col-lg-12">
+      <div class="checkbox-container">
+        <div *ngFor="let option of optionListMenuGA" class="checkbox-item">
+          <p-checkbox
+            name="menus"
+            value="{{ option.value }}"
+            label="{{ option.label }}"
+            [(ngModel)]="selectedMenuGA"
+            disabled
+          >
+          </p-checkbox>
+        </div>
+      </div>
+    </div>
+  </div>
+</p-dialog>

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Filter Options</title>
+  <!-- Add your CSS stylesheets and other dependencies here -->
+</head>
+<body>
+
+<div class="px-7 py-5">
+  <div class="fs-5 text-gray-900 fw-bolder" style="margin-bottom: 15px;">Filter Options</div>
+  <div class="mb-10">
+    <label class="form-label fw-bold">Status:</label>
+
+    <div>
+      <select
+        id="filterSelect"
+        class="form-select form-select-solid"
+        data-kt-select2="true"
+        data-placeholder="Select option"
+        data-allow-clear="true"
+        onchange="updateOptions()"
+      >
+        <option></option>
+        <option selected value="1">Days</option>
+        <option value="2">Month</option>
+        <option value="3">Years</option>
+      </select>
+    </div>
+  </div>
+
+  <div id="dateOptions" class="mb-10" style="display: none;">
+    <label class="form-label fw-bold">Select Date:</label>
+
+    <div class="d-flex">
+      <!-- Add your day, month, and year dropdowns here -->
+      <select id="daySelect" class="form-select"></select>
+      <select id="monthSelect" class="form-select"></select>
+      <select id="yearSelect" class="form-select"></select>
+    </div>
+  </div>
+
+  <div class="mb-10">
+    <label class="form-label fw-bold">Pilih Div:</label>
+
+    <div>
+      <select
+        id="filterSelect"
+        class="form-select form-select-solid"
+        data-kt-select2="true"
+        data-placeholder="Select option"
+        data-allow-clear="true"
+        onchange="updateOptions()"
+      >
+        <option></option>
+        <option selected value="1">Denim</option>
+        <option value="2">Polyester</option>
+      </select>
+    </div>
+  </div>
+
+
+  <div class="d-flex justify-content-end">
+    <button
+      type="reset"
+      class="btn btn-sm btn-light btn-active-light-primary me-2"
+      data-kt-menu-dismiss="true"
+    >
+      Reset
+    </button>
+
+    <button
+      type="submit"
+      class="btn btn-sm btn-primary"
+      data-kt-menu-dismiss="true"
+    >
+      Apply
+    </button>
+  </div>
+</div>
+
+<script>
+  function updateOptions() {
+    var filterSelect = document.getElementById("filterSelect");
+    var dateOptions = document.getElementById("dateOptions");
+    var daySelect = document.getElementById("daySelect");
+    var monthSelect = document.getElementById("monthSelect");
+    var yearSelect = document.getElementById("yearSelect");
+
+    // Hide date options by default
+    dateOptions.style.display = "none";
+
+    // Remove existing options
+    while (daySelect.options.length > 0) {
+      daySelect.options.remove(0);
+    }
+
+    while (monthSelect.options.length > 0) {
+      monthSelect.options.remove(0);
+    }
+
+    while (yearSelect.options.length > 0) {
+      yearSelect.options.remove(0);
+    }
+
+    // Show date options only when "Days" is selected
+    if (filterSelect.value === "1") {
+      // Add options for days, months, and years
+      for (var i = 1; i <= 31; i++) {
+        var option = document.createElement("option");
+        option.text = i;
+        daySelect.add(option);
+      }
+
+      var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+      for (var i = 0; i < months.length; i++) {
+        var option = document.createElement("option");
+        option.text = months[i];
+        monthSelect.add(option);
+      }
+
+      for (var i = new Date().getFullYear(); i >= 1900; i--) {
+        var option = document.createElement("option");
+        option.text = i;
+        yearSelect.add(option);
+      }
+
+      // Display date options
+      dateOptions.style.display = "block";
+    }
+  }
+</script>
+
+</body>
+</html>

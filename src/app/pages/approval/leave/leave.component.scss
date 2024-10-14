@@ -1,0 +1,31 @@
+::ng-deep {
+  .p-selectbutton .p-button.p-highlight {
+    background: #2d5880;
+    background-color: #2d5880;
+  }
+
+  button.selected {
+    background-color: #2d5880;
+  }
+
+  .p-selectbutton .p-button.p-highlight:hover {
+    background: #2d5880;
+  }
+
+  .p-button {
+      border-radius: 5px;
+  }
+}
+
+
+.red-button {
+  background-color: #2d5880 !important; /* Red color */
+  border: none;
+  color: white;
+  transition: background-color 0.3s ease; /* Smooth color transition */
+}
+
+.red-button:hover {
+  background-color: #2d5880 !important; /* Darker red on hover */
+  color: white;
+}

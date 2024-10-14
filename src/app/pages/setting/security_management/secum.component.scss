@@ -1,0 +1,30 @@
+::ng-deep {
+  .p-selectbutton .p-button.p-highlight {
+    background: #2d5880;
+    background-color: #2d5880;
+  }
+
+  .p-button .p-button.p-highlight {
+    background: #2d5880;
+    background-color: #2d5880;
+  }
+
+  .p-selectbutton .p-button-icon {
+    font-size: 1.5em;
+    margin: 0 auto;
+  }
+}
+
+.checkbox-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.checkbox-item {
+  flex: 0 0 20%;
+  margin-bottom: 10px;
+}
+
+::ng-deep .p-checkbox.custom-checkbox .p-checkbox-box .p-checkbox-icon {
+  color: red;
+}

@@ -1,0 +1,71 @@
+<div
+  class="dashboard-title"
+  style="
+    font-size: 1.6em;
+    font-weight: bold;
+    color: white;
+    background-color: #2d5880;
+    text-align: left;
+    padding: 20px 30px;
+    margin-bottom: 30px;
+    border-radius: 10px;
+  "
+>
+  New Request Letter
+</div>
+
+<div class="card mb-6">
+  <div class="card-header">
+    <h5 style="color: #2d5880; margin-top: 26px; font-weight: bold">
+      Request Letter
+    </h5>
+  </div>
+  <div style="margin-left: 28px; margin-top: 26px">
+    <div class="row mb-3">
+      <label class="col-lg-2 col-form-label required fw-bold fs-6"
+        >Select Letter</label
+      >
+      <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
+        <!-- <select
+          class="form-select form-select-lg form-select-solid"
+          placeholder="Company name"
+          name="requestletter"
+          id="requestletter"
+          required
+        >
+          <option value="-" disabled selected>Select a letter</option>
+          <option value="SC">Surat Cuti</option>
+          <option value="SI">Surat Izin</option>
+          <option value="SD">Surat Dinas</option>
+          <option value="SL">Surat Lembur</option>
+        </select> -->
+        <p-dropdown
+          [options]="suratOption"
+          (onChange)="onChangeSurat($event.value)"
+          [showClear]="true"
+          [filter]="true"
+          [style]="{ width: '100%' }"
+          placeholder="Select a letter"
+          id="department"
+          name="department"
+        ></p-dropdown>
+      </div>
+    </div>
+    <div class="card-footer">
+      <div class="row mb-3">
+        <div class="col-lg-3"></div>
+        <div class="col-lg-8 text-end">
+          <button
+            class="btn btn-success me-2"
+            type="button"
+            id="tampilkan"
+            style="background: #2d5880; background-color: #2d5880"
+            (click)="proses()"
+          >
+            Proses
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

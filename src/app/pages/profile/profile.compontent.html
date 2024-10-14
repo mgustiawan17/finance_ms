@@ -1,0 +1,142 @@
+<div class="dashboard-title"
+style="font-size: 1.6em;
+       font-weight: bold;
+       color: white;
+       background-color: #2d5880;
+       text-align: left;
+       padding: 20px 30px;
+       margin-bottom: 30px; 
+       border-radius: 10px;">
+    Profile
+</div> <!--Profile Form-->
+<div class="card mb-9">
+    <div style="margin-left: 28px; margin-top: 26px; margin-right: 28px;">
+    <div class="row mb-6">
+      <label class="col-lg-4 col-form-label fw-bold fs-6">Photo</label>
+      <div class="col-lg-8">
+        <div
+          class="image-input image-input-outline"
+          data-kt-image-input="true"
+          [style.background-image]="'url(./assets/media/avatars/blank.png)'"
+        >
+          <div
+            class="image-input-wrapper w-125px h-125px"
+            [style.background-image]="
+              'url(./assets/media/avatars/300-1.jpg)'
+            "
+          ></div>
+        </div>
+      </div>
+    </div>
+    <div class="row mb-6">
+        <label class="col-lg-4 col-form-label required fw-bold fs-6"
+          >No Register</label
+        >
+        <div class="col-lg-8 fv-row">
+          <input
+            type="text"
+            class="form-control form-control-lg form-control-solid m-input"
+            placeholder="Register"
+            name="noregister"
+            id="noregister"
+            required
+            disabled
+            value="{{currentRegister}}"
+          />
+          <div class="valid-feedback">Looks good!</div>
+        </div>
+      </div>
+    <div class="row mb-6">
+      <label class="col-lg-4 col-form-label required fw-bold fs-6"
+        >User Name</label
+      >
+      <div class="col-lg-8 fv-row">
+        <input
+          type="text"
+          class="form-control form-control-lg form-control-solid m-input"
+          placeholder="User Name"
+          name="username"
+          id="username"
+          required
+          disabled
+          value="{{currentUserName}}"
+        />
+        <div class="valid-feedback">Looks good!</div>
+      </div>
+    </div>
+    <div class="row mb-6">
+      <label class="col-lg-4 col-form-label required fw-bold fs-6"
+        >JR Code</label
+      >
+      <div class="col-lg-8 fv-row">
+        <input
+          type="text"
+          class="form-control form-control-lg form-control-solid m-input"
+          name="jrcode"
+          id="jrcode"
+          required
+          disabled
+          value="{{iniJR}}"
+        />
+        <div class="valid-feedback">Looks good!</div>
+      </div>
+    </div>
+    <div class="row mb-6">
+      <label class="col-lg-4 col-form-label required fw-bold fs-6"
+        >Email</label
+      >
+      <div class="col-lg-8 fv-row">
+        <input
+          type="email"
+          class="form-control form-control-lg form-control-solid m-input"
+          placeholder="Email"
+          name="email"
+          id="email"
+          required
+          disabled
+          value="{{currentEmail}}"
+        />
+        <div class="valid-feedback">Looks good!</div>
+      </div>
+    </div>
+    <div class="row mb-6">
+      <label class="col-lg-4 col-form-label required fw-bold fs-6"
+        >Password</label
+      >
+      <div class="col-lg-8 fv-row">
+        <div class ="input-group">
+          <input
+            class="form-control form-control-lg form-control-solid"
+            [type]="password"
+            name="password"
+            placeholder="Password"
+            id="password"
+            required
+          />
+          <button type="button" class="btn btn-secondary btn-sm" (click)="togglePassword()"><i class="bi bi-eye-fill"></i></button>
+        </div>
+        <div class="valid-feedback">Looks good!</div>
+      </div>
+    </div>
+  </div>
+  <div class="card-footer d-flex justify-content-end py-6 px-9">
+    <!--(click)="saveSettings()"-->
+    <button 
+    style="font-size: 0.875em; font-weight: bold; color: white; background-color: #2d5880; text-align: center; padding: 10px 25px; border-radius: 10px;"
+    type="button"
+    class="btn"
+    (click)="updatePassword()"
+    >
+      Update
+      <!-- <ng-container *ngIf="!isLoading">Save Changes</ng-container>
+        <ng-container *ngIf="isLoading">
+          <span clas="indicator-progress" [style.display]="'block'">
+            Please wait...{{ " " }}
+            <span
+              class="spinner-border spinner-border-sm align-middle ms-2"
+            ></span>
+          </span>
+        </ng-container> -->
+    </button>
+  </div>
+  </div>

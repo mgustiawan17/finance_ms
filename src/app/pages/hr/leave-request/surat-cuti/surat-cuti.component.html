@@ -1,0 +1,201 @@
+<div
+  class="dashboard-title"
+  style="
+    font-size: 1.6em;
+    font-weight: bold;
+    color: white;
+    background-color: #2d5880;
+    text-align: left;
+    padding: 20px 30px;
+    margin-bottom: 30px;
+    border-radius: 10px;
+  "
+>
+  New Request
+</div>
+<div class="alert alert-dark alert-dismissible fade show" role="alert">
+  <div class="alert-icon">
+    <i class="bi bi-exclamation-triangle-fill"></i>
+  </div>
+  <div class="alert-text">
+    <b>Informasi</b><br />
+    - Sisa cuti sudah di kurangi cuti lebaran<br />
+  </div>
+  <button
+    type="button"
+    class="btn-close"
+    data-bs-dismiss="alert"
+    aria-label="Close"
+  ></button>
+</div>
+
+<div class="card mb-6">
+  <div class="card-header">
+    <h5 style="color: #2d5880; margin-top: 26px; font-weight: bold">
+      Surat Cuti
+    </h5>
+  </div>
+  <form
+    class="m-form m-form--fit m-form--label-align-right"
+    id="suratCutiForm"
+    style="margin-left: 28px; margin-right: 28px; margin-top: 26px"
+  >
+    <div class="m-portlet__body">
+      <div class="form-group m-form__group row flex flex-wrap p-fluid">
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+          <label class="col-lg-6 col-form-label required fw-bold fs-6"
+            >No Surat</label
+          >
+          <input
+            type="text"
+            class="form-control m-input"
+            name="no_surat"
+            id="no_surat"
+            value="{{ noSurat }}"
+            style="font-weight: bold"
+            disabled
+          />
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+          <label class="col-lg-6 col-form-label required fw-bold fs-6"
+            >Dept - Sect</label
+          >
+          <p-dropdown
+            [options]="optionListDepartmentHR"
+            (onChange)="onChangeDepartment($event.value)"
+            [showClear]="true"
+            [filter]="true"
+            [style]="{ width: '100%' }"
+            placeholder="Select Dept - Sect"
+            id="department"
+            name="department"
+          ></p-dropdown>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+          <label class="col-lg-6 col-form-label required fw-bold fs-6"
+            >Name Karyawan</label
+          >
+          <p-dropdown
+            [options]="optionListEmployee"
+            (onChange)="onChangeEmployee($event.value)"
+            [showClear]="true"
+            [filter]="true"
+            [style]="{ width: '100%' }"
+            placeholder="Select Name"
+            id="employees"
+            name="employees"
+          ></p-dropdown>
+        </div>
+      </div>
+      <div class="form-group m-form__group row flex flex-wrap p-fluid">
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+          <label class="col-lg-3 col-form-label required fw-bold fs-6"
+            >Jenis Cuti</label
+          >
+          <p-dropdown
+            [options]="jeniscutiOptions"
+            [(ngModel)]="valuejeniscutiOptions"
+            (ngModelChange)="onChangeJenisCuti($event)"
+            placeholder="Select Jenis Cuti"
+            id="jenisCuti"
+            name="jenisCuti"
+          ></p-dropdown>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+          <label class="col-lg-12 col-form-label required fw-bold fs-6"
+            >Sisa Cuti</label
+          >
+          <input
+            type="text"
+            class="form-control m-input"
+            name="sisa_cuti"
+            id="sisa_cuti"
+            value="{{ SisaCuti }}"
+            style="font-weight: bold"
+            disabled
+          />
+        </div>
+
+        <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+          <label class="col-lg-4 col-form-label required fw-bold fs-6"
+            >Periode</label
+          >
+          <p-calendar
+            selectionMode="range"
+            [(ngModel)]="selectedPeriode"
+            [iconDisplay]="'input'"
+            [showClear]="true"
+            [showIcon]="true"
+            [readonlyInput]="true"
+            [style]="{ width: '100%' }"
+            placeholder="Select Periode"
+            id="selectPeriode"
+            name="selectPeriode"
+          ></p-calendar>
+        </div>
+      </div>
+      <div class="form-group m-form__group row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+          <label
+            class="col-lg-3 col-form-label required fw-bold fs-6"
+            id="label_keterangan"
+            for="exampleTextarea"
+            >Description</label
+          >
+          <textarea
+            class="form-control m-input"
+            name="keterangan"
+            id="keterangan"
+            rows="3"
+          >
+          </textarea>
+        </div>
+      </div>
+      <br />
+      <br />
+      <div class="card-footer">
+        <div class="m-portlet__foot m-portlet__foot--fit">
+          <div class="m-form__actions m-form__actions">
+            <div class="row">
+              <div class="col-md-6 col-lg-">
+                <p-toast />
+                <button
+                  id="proses"
+                  class="btn btn-md btn-block btn-success"
+                  type="button"
+                  style="background: #2d5880; background-color: #2d5880"
+                  (click)="InsertCuti()"
+                >
+                  Proses
+                </button>
+                <!-- <p-button pRipple (click)="InsertCuti()" label="Proses" /> -->
+                &nbsp;
+                <!-- <button
+                  class="btn btn-md btn-block btn-primary"
+                  type="button"
+                  (click)="Reset()"
+                >
+                  Reset
+                </button>
+                &nbsp; -->
+                <button
+                  class="btn btn-md btn-block btn-secondary"
+                  type="button"
+                  style="
+                    background-color: white;
+                    color: #2d5880;
+                    border: 1px solid #cccccc;
+                  "
+                  (click)="Kembali()"
+                >
+                  Back
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <br />
+    </div>
+  </form>
+</div>

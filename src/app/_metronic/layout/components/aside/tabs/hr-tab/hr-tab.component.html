@@ -1,0 +1,98 @@
+<!--begin::Menu-->
+<div
+  class="menu menu-column menu-fit menu-rounded menu-title-gray-600 menu-icon-gray-500 menu-state-red menu-state-icon-primary menu-state-bullet-red menu-arrow-gray-500 fs-5 px-6 my-5 my-lg-0"
+  id="kt_aside_menu"
+  data-kt-menu="true"
+>
+  <div id="kt_aside_menu_wrapper" class="menu-fit">
+    <!-- Title Approval -->
+    <div
+      align="center"
+      style="
+        color: #990600;
+        margin-bottom: 20px;
+        padding: 10px;
+        border-radius: 8px;
+        box-shadow: 0px 0 10px rgba(0, 0, 0, 0.1);
+      "
+    >
+      <a routerLinkActive="active">
+        <span class="menu-title">Human Resource</span>
+      </a>
+    </div>
+
+    <!-- Pages -->
+    <div
+      class="menu-item menu-accordion"
+      data-kt-menu-trigger="click"
+      routerLinkActive="here show"
+      routerLink="hr/attendance"
+    >
+      <span class="menu-link">
+        <span class="menu-icon">
+          <span
+            class="svg-icon svg-icon-2"
+            [inlineSVG]="'./assets/media/icons/duotune/general/gen005.svg'"
+          ></span>
+        </span>
+        <span class="menu-title" data-link="/crafted/account">Attendance</span>
+      </span>
+    </div>
+
+    <div
+      class="menu-item menu-accordion"
+      data-kt-menu-trigger="click"
+      routerLinkActive="here show"
+    >
+      <span class="menu-link"
+        ><span class="menu-icon"
+          ><span
+            class="svg-icon svg-icon-2"
+            [inlineSVG]="'./assets/media/icons/duotune/files/fil012.svg'"
+          ></span></span
+        ><span class="menu-title" data-Link="/crafted/account"
+          >Leave Request</span
+        ><span class="menu-arrow"></span
+      ></span>
+      <div
+        class="menu-sub menu-sub-accordion menu-state-white menu-state-bullet-white"
+        routerLinkActive="menu-active-bg"
+      >
+        <div class="menu-item" routerLink="hr/leaverequest/newrequest">
+          <a class="menu-link without-sub" routerLinkActive="active"
+            ><span class="menu-bullet"
+              ><span class="bullet bullet-dot"></span></span
+            ><span class="menu-title">New Request</span></a
+          >
+        </div>
+        <div class="menu-item" routerLink="hr/leaverequest/listreport">
+          <a class="menu-link without-sub" routerLinkActive="active"
+            ><span class="menu-bullet"
+              ><span class="bullet bullet-dot"></span></span
+            ><span class="menu-title">List Report</span></a
+          >
+        </div>
+        <!-- <div class="menu-item" routerLink="hr/leaverequest/report">
+          <a
+            class="menu-link without-sub"
+            data-link="/crafted/pages/wizards"
+            routerLinkActive="active"
+            ><span class="menu-bullet"
+              ><span class="bullet bullet-dot"></span></span
+            ><span class="menu-title">Report</span></a
+          >
+        </div> -->
+        <div class="menu-item" routerLink="hr/leaverequest/sisacuti">
+          <a
+            class="menu-link without-sub"
+            data-link="/crafted/pages/wizards"
+            routerLinkActive="active"
+            ><span class="menu-bullet"
+              ><span class="bullet bullet-dot"></span></span
+            ><span class="menu-title">Sisa Cuti</span></a
+          >
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

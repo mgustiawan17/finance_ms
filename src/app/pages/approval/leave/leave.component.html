@@ -1,0 +1,429 @@
+<div
+  class="dashboard-title"
+  style="
+    font-size: 1.6em;
+    font-weight: bold;
+    color: white;
+    background-color: #2d5880;
+    text-align: left;
+    padding: 20px 30px;
+    margin-bottom: 30px;
+    border-radius: 10px;
+  "
+>
+  Approval Leave Request
+</div>
+<div class="alert alert-dark alert-dismissible fade show" role="alert">
+  <div class="alert-icon">
+    <i class="bi bi-exclamation-triangle-fill"></i>
+  </div>
+  <div class="alert-text">
+    <b>Informasi</b><br />
+    - Tabel tersebut defaultnya OPEN<br />
+    - Tabel Approve/Reject bisa di filter terlebih dahulu<br />
+  </div>
+  <button
+    type="button"
+    class="btn-close"
+    data-bs-dismiss="alert"
+    aria-label="Close"
+  ></button>
+</div>
+<!-- Header Section -->
+<div class="card mb-6">
+  <div class="card-header">
+    <h5 style="color: #2d5880; margin-top: 26px; font-weight: bold">
+      Filter Leave Request
+    </h5>
+    <button
+      pButton
+      type="button"
+      (click)="toggleCollapse()"
+      [icon]="isCollapsed ? 'fa fa-plus' : 'fa fa-minus'"
+      style="margin-top: 10px"
+      class="p-button-rounded red-button"
+    ></button>
+  </div>
+
+  <!-- Collapse Section -->
+  <div *ngIf="!isCollapsed">
+    <!-- Form Section -->
+    <form
+      class="m-form m-form--fit m-form--label-align-right"
+      id="suratLemburForm"
+      style="margin-left: 28px; margin-right: 28px; margin-top: 26px"
+    >
+      <div class="m-portlet__body">
+        <div class="form-group m-form__group row flex flex-wrap p-fluid">
+          <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+            <label class="col-lg-3 col-form-label required fw-bold fs-6"
+              >Status</label
+            >
+            <p-dropdown
+              [options]="StatusOptions"
+              [(ngModel)]="valuestatusOptions"
+              (onChange)="onChangeStatus($event.value)"
+              optionLabel="name"
+              [filter]="true"
+              filterBy="name"
+              [showClear]="true"
+              placeholder="Select Status"
+              id="status"
+              name="status"
+            >
+            </p-dropdown>
+          </div>
+        </div>
+        <br />
+        <br />
+        <div class="-portlet__foot m-portlet__foot--fit">
+          <div class="row mb-3">
+            <div class="col-lg-9" style="margin-left: 4px; margin-bottom: 15px">
+              <p-button
+                label="Check"
+                [loading]="loading"
+                [text]="true" 
+                [raised]="true" 
+                severity="denim" 
+                (onClick)="load()">
+              </p-button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Wrapper Section -->
+<div class="card mb-6" id="tableCuti">
+  <div class="card-header">
+    <h5 style="color: #2d5880; margin-top: 26px; font-weight: bold">
+      List of Letters
+    </h5>
+  </div>
+  <!-- begin::Header -->
+  <!-- end::Header -->
+  <div style="margin-left: 28px; margin-top: 26px; margin-right: 28px">
+    <div class="table-responsive">
+      <table
+        class="table table-striped- table-bordered table-hover table-checkable"
+        id="tabelListLeaveLetter"
+      >
+        <thead>
+          <tr class="fw-bolde">
+            <th style="text-align: center"></th>
+            <th style="text-align: center"></th>
+            <th style="text-align: center"></th>
+            <th style="text-align: center"></th>
+            <th style="text-align: center"></th>
+            <th style="text-align: center"></th>
+            <th style="text-align: center"></th>
+            <th style="text-align: center"></th>
+            <th style="text-align: center"></th>
+            <!-- <th></th>
+              <th></th>
+              <th></th> -->
+          </tr>
+        </thead>
+      </table>
+    </div>
+  </div>
+</div>
+<!-- end::Wrapper -->
+<p-toast />
+
+<p-dialog
+  header="Detail Surat"
+  [(visible)]="displayModal"
+  [modal]="true"
+  [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }"
+  [style]="{ width: '50vw' }"
+  [draggable]="false"
+  [resizable]="false"
+>
+  <p-table
+    #dt
+    [columns]="cols"
+    [value]="items"
+    styleClass="p-datatable-gridlines"
+    [scrollable]="true"
+    scrollHeight="60vh"
+    [paginator]="true"
+    [rows]="10"
+    [rowsPerPageOptions]="[10, 20, 50, 100, 200]"
+  >
+    <ng-template pTemplate="header" let-columns>
+      <tr>
+        <th *ngFor="let col of columns">
+          {{ col.header }}
+        </th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-item let-columns="columns">
+      <tr>
+        <td *ngFor="let col of columns">
+          <span>
+            {{ item[col.field] }}
+          </span>
+          <!-- <button
+            *ngIf="col.field === 'action'"
+            (click)="openEditDialog(item)"
+            class="btn m-portlet__nav-link btn m-btn m-btn–hover-primary m-btn–icon m-btn–icon-only m-btn–pill btn-outline-primary"
+            title="Edit"
+            type="button"
+          >
+            <i class="fa fa-pencil"></i>
+          </button> -->
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</p-dialog>
+
+<!-- Wrapper Section -->
+<div class="card mb-6" id="tableIzin">
+  <div class="card-header">
+    <h5 style="color: #2d5880; margin-top: 26px; font-weight: bold">
+      List of Permission Letter
+    </h5>
+  </div>
+  <!-- begin::Header -->
+  <!-- end::Header -->
+  <div class="m-portlet__body">
+    <div class="col-lg-12">
+      <div>
+        <table
+          class="table table-striped- table-bordered table-hover table-checkable"
+          id="tabelPermissionLetter"
+          width="100%"
+        >
+          <thead>
+            <tr>
+              <th></th>
+              <th></th>
+              <th></th>
+              <th></th>
+              <th></th>
+            </tr>
+          </thead>
+          <tfoot>
+            <tr>
+              <th></th>
+              <th></th>
+              <th></th>
+              <th></th>
+              <th></th>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- end::Wrapper -->
+
+<!-- Wrapper Section -->
+<div class="card mb-6" id="tableLembur">
+  <div class="card-header">
+    <h5 style="color: #2d5880; margin-top: 26px; font-weight: bold">
+      List of Overtime Letter
+    </h5>
+  </div>
+  <!-- begin::Header -->
+  <!-- end::Header -->
+  <div class="m-portlet__body">
+    <div class="col-lg-12">
+      <div>
+        <table
+          class="table table-striped- table-bordered table-hover table-checkable"
+          id="tabelOvertimeLetter"
+          width="100%"
+        >
+          <thead>
+            <tr>
+              <th></th>
+              <th></th>
+              <th></th>
+              <th></th>
+              <th></th>
+            </tr>
+          </thead>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- end::Wrapper -->
+
+<!-- Wrapper Section -->
+<div class="card mb-6" id="tableDinas">
+  <div class="card-header">
+    <h5 style="color: #2d5880; margin-top: 26px; font-weight: bold">
+      List of Office Letter
+    </h5>
+  </div>
+  <!-- begin::Header -->
+
+  <!-- end::Header -->
+  <div class="m-portlet__body">
+    <div class="col-lg-12">
+      <div>
+        <table
+          class="table table-striped- table-bordered table-hover table-checkable"
+          id="tabelOfficeLetter"
+          width="100%"
+        >
+          <thead>
+            <tr>
+              <th></th>
+              <th></th>
+              <th></th>
+              <th></th>
+              <th></th>
+              <th></th>
+            </tr>
+          </thead>
+        </table>
+      </div>
+    </div>
+  </div>
+  <!-- end::Wrapper -->
+
+  <!-- Modal Detail Permission Letter -->
+  <div
+    class="modal fade"
+    id="modalDetailPermission"
+    tabindex="-1"
+    role="dialog"
+    aria-labelledby="exampleModalLabel"
+    aria-hidden="true"
+    style="width: 100%; max-height: 100%"
+  >
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalDetailPermission">
+            Permission Letter Detail
+          </h5>
+          <button
+            type="button"
+            class="close"
+            data-dismiss="modal"
+            aria-label="Close"
+          >
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <table
+            class="table table-striped table-bordered- table-hover table-checkable"
+            id="tableDetailPermission"
+            width="100%"
+          >
+            <thead>
+              <tr>
+                <th></th>
+                <th></th>
+                <th></th>
+              </tr>
+            </thead>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Modal End Izin-->
+
+  <!-- Modal Detail Overtime Letter -->
+  <div
+    class="modal fade"
+    id="modalDetailOvertime"
+    tabindex="-1"
+    role="dialog"
+    aria-labelledby="exampleModalLabel"
+    aria-hidden="true"
+    style="width: 100%; max-height: 100%"
+  >
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalDetailOvertime">
+            Overtime Letter Details
+          </h5>
+          <button
+            type="button"
+            class="close"
+            data-dismiss="modal"
+            aria-label="Close"
+          >
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <table
+            class="table table-striped table-bordered- table-hover table-checkable"
+            id="tableDetailOverTime"
+            width="100%"
+          >
+            <thead>
+              <tr>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+              </tr>
+            </thead>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Modal End Overtime Letter-->
+
+  <!-- Modal Detail Office -->
+  <div
+    class="modal fade"
+    id="modalDetailOffice"
+    tabindex="-1"
+    role="dialog"
+    aria-labelledby="exampleModalLabel"
+    aria-hidden="true"
+    style="width: 100%; max-height: 100%"
+  >
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalDetailOffice">
+            Office Letter Detail
+          </h5>
+          <button
+            type="button"
+            class="close"
+            data-dismiss="modal"
+            aria-label="Close"
+          >
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <table
+            class="table table-striped table-bordered- table-hover table-checkable"
+            id="tableDetailOffice"
+            width="100%"
+          >
+            <thead>
+              <tr>
+                <th></th>
+                <th></th>
+                <th></th>
+              </tr>
+            </thead>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Modal End Office-->
+</div>

@@ -1,0 +1,288 @@
+<div
+  class="dashboard-title"
+  style="
+    font-size: 1.6em;
+    font-weight: bold;
+    color: white;
+    background-color: #2d5880;
+    text-align: left;
+    padding: 20px 30px;
+    margin-bottom: 30px;
+    border-radius: 10px;
+  "
+>
+  New Request
+</div>
+
+<div class="card mb-6">
+  <div class="card-header">
+    <h5 style="color: #2d5880; margin-top: 26px; font-weight: bold">
+      Surat Izin
+    </h5>
+  </div>
+  <form
+    class="m-form m-form--fit m-form--label-align-right"
+    id="suratIzinForm"
+    style="margin-left: 28px; margin-right: 28px; margin-top: 26px"
+  >
+    <div class="m-portlet__body">
+      <div class="form-group m-form__group row flex flex-wrap p-fluid">
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+          <label class="col-lg-2 col-form-label required fw-bold fs-6"
+            >No Surat</label
+          >
+          <input
+            type="text"
+            class="form-control m-input"
+            name="no_surat"
+            id="no_surat"
+            value="{{ noSurat }}"
+            style="font-weight: bold"
+            disabled
+          />
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+          <label class="col-lg-3 col-form-label required fw-bold fs-6"
+            >Category</label
+          >
+          <p-dropdown
+            [options]="KategoriOptions"
+            [(ngModel)]="valuekategoriOptions"
+            (onChange)="onChangeKategori($event.value)"
+            optionLabel="name"
+            [filter]="true"
+            filterBy="name"
+            [showClear]="true"
+            placeholder="Select Kategori"
+            id="kategori"
+            name="kategori"
+          >
+          </p-dropdown>
+        </div>
+      </div>
+      <div class="form-group m-form__group row flex flex-wrap p-fluid">
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+          <label class="col-lg-3 col-form-label required fw-bold fs-6"
+            >Dept - Sect</label
+          >
+          <p-dropdown
+            [options]="optionListDepartmentHR"
+            (onChange)="onChangeDepartment($event.value)"
+            [showClear]="true"
+            [filter]="true"
+            [style]="{ width: '100%' }"
+            placeholder="Select Dept - Sect"
+            id="department"
+            name="department"
+          ></p-dropdown>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+          <label class="col-lg-3 col-form-label required fw-bold fs-6"
+            >Name Karyawan</label
+          >
+          <p-dropdown
+            [options]="optionListEmployee"
+            (onChange)="onChangeEmployee($event.value)"
+            [showClear]="true"
+            [filter]="true"
+            [style]="{ width: '100%' }"
+            placeholder="Select Name"
+            id="employees"
+            name="employees"
+          ></p-dropdown>
+        </div>
+      </div>
+      <div class="form-group m-form__group row flex flex-wrap p-fluid">
+        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+          <label
+            for="buttondisplay"
+            class="col-lg-6 col-form-label required fw-bold fs-6"
+          >
+            Start Date
+          </label>
+          <p-calendar
+            [(ngModel)]="selectedDateIn"
+            [iconDisplay]="'input'"
+            [showIcon]="true"
+            inputId="buttondisplay"
+            placeholder="Select Date In"
+            id="selectedDateIn"
+            name="selectedDateIn"
+          ></p-calendar>
+        </div>
+        <div class="col-md-3 col-sm-3 col-xs-3">
+          <label class="col-lg-4 col-form-label required fw-bold fs-6"
+            >Early Hour</label
+          >
+
+          <p-calendar
+            [(ngModel)]="selectedTimeIn"
+            [timeOnly]="true"
+            (onSelect)="compareTwoTimesM()"
+            placeholder="Select Time In"
+            [showIcon]="true"
+            [iconDisplay]="'input'"
+            id="selectedTimeIn"
+            name="selectedTimeIn"
+          ></p-calendar>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+          <label
+            for="buttondisplay"
+            class="col-lg-6 col-form-label required fw-bold fs-6"
+          >
+            End Date
+          </label>
+          <p-calendar
+            [(ngModel)]="selectedDateOut"
+            [iconDisplay]="'input'"
+            [showIcon]="true"
+            inputId="buttondisplay"
+            placeholder="Select Date Out"
+            id="selectedDateOut"
+            name="selectedDateOut"
+          ></p-calendar>
+        </div>
+        <!-- Jam Akhir -->
+        <div class="col-md-3 col-sm-3 col-xs-3">
+          <label class="col-lg-4 col-form-label required fw-bold fs-6"
+            >Final Hour</label
+          >
+
+          <p-calendar
+            [(ngModel)]="selectedTimeOut"
+            [timeOnly]="true"
+            (onSelect)="compareTwoTimesM()"
+            placeholder="Select Time Out"
+            [showIcon]="true"
+            [iconDisplay]="'input'"
+            id="selectedTimeOut"
+            name="selectedTimeOut"
+          ></p-calendar>
+        </div>
+      </div>
+      <div class="form-group m-form__group row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+          <label
+            class="col-lg-3 col-form-label required fw-bold fs-6"
+            id="label_keterangan"
+            for="exampleTextarea"
+            >Description</label
+          >
+          <textarea
+            class="form-control m-input"
+            name="keterangan"
+            id="keterangan"
+            rows="3"
+          >
+          </textarea>
+        </div>
+      </div>
+      <br />
+      <br />
+      <div class="card-footer">
+        <div class="m-portlet__foot m-portlet__foot--fit">
+          <div class="m-form__actions m-form__actions">
+            <div class="row">
+              <div class="col-md-6 col-lg-">
+                <button
+                  id="proses"
+                  class="btn btn-md btn-block btn-success"
+                  type="button"
+                  style="background: #2d5880; background-color: #2d5880"
+                  (click)="InsertCuti()"
+                >
+                  Proses
+                </button>
+                &nbsp;
+                <!-- <button class="btn btn-md btn-block btn-primary" type="button">
+                  Reset
+                </button>
+                &nbsp; -->
+                <button
+                  class="btn btn-md btn-block btn-secondary"
+                  type="button"
+                  style="
+                    background-color: white;
+                    color: #2d5880;
+                    border: 1px solid #cccccc;
+                  "
+                  (click)="Kembali()"
+                >
+                  Back
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <br />
+    </div>
+  </form>
+</div>
+<p-toast />
+
+<div class="card mb-6" id="tableTempIzin">
+  <div class="card-header">
+    <h5 style="color: #2d5880; margin-top: 26px; font-weight: bold">
+      Temporary Izin
+    </h5>
+  </div>
+  <!-- begin::Table container -->
+  <form class="m-form">
+    <div style="margin-left: 28px; margin-top: 26px; margin-right: 28px">
+      <div class="table-responsive">
+        <!-- begin::Table -->
+        <table
+          class="table table-striped table-bordered cell-border"
+          id="TempIzin"
+        >
+          <!-- begin::Table head -->
+          <thead>
+            <tr class="fw-bolde">
+              <th></th>
+              <th></th>
+              <th></th>
+              <th></th>
+              <th></th>
+              <!-- <th></th> -->
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+        <!-- end::Table -->
+      </div>
+      <!-- end::Table container -->
+      <div class="m-portlet__foot m-portlet__foot--fit">
+        <div class="m-form__actions m-form__actions">
+          <div class="row">
+            <div class="col-md-6 col-lg-">
+              <button
+                id="proses"
+                class="btn btn-md btn-block btn-success"
+                type="button"
+                style="background: #2d5880; background-color: #2d5880"
+                (click)="simpan()"
+              >
+                Save
+              </button>
+              &nbsp;
+              <button
+                class="btn btn-md btn-block btn-secondary"
+                type="button"
+                style="
+                  background-color: white;
+                  color: #2d5880;
+                  border: 1px solid #cccccc;
+                "
+                (click)="batalSimpan()"
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

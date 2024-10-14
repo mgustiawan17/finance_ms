@@ -1,0 +1,285 @@
+<div
+  class="dashboard-title"
+  style="
+    font-size: 1.6em;
+    font-weight: bold;
+    color: white;
+    background-color: #2d5880;
+    text-align: left;
+    padding: 20px 30px;
+    margin-bottom: 30px;
+    border-radius: 10px;
+  "
+>
+  Register
+</div>
+<!--Register Form-->
+<div class="card mb-9">
+  <div style="margin-left: 28px; margin-top: 26px; margin-right: 28px">
+    <div class="row mb-6">
+      <label class="col-lg-4 col-form-label required fw-bold fs-6">Photo</label>
+      <div class="col-lg-8 fv-row">
+        <div
+          class="image-input image-input-outline"
+          data-kt-image-input="true"
+          [style.background-image]="'url(./assets/media/avatars/blank.png)'"
+        >
+          <div
+            class="image-input-wrapper w-125px h-125px"
+            [style.background-image]="'url(./assets/media/avatars/300-1.jpg)'"
+          ></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mb-6">
+      <label class="col-lg-4 col-form-label required fw-bold fs-6"
+        >No Register</label
+      >
+      <div class="col-lg-8 fv-row">
+        <p-dropdown
+          [options]="selectRegister"
+          [(ngModel)]="selectedRegister"
+          [showClear]="true"
+          [filter]="true"
+          [style]="{ width: '100%' }"
+          placeholder="Select Register"
+          id="noregister"
+        >
+        </p-dropdown>
+      </div>
+    </div>
+
+    <div class="row mb-6">
+      <label class="col-lg-4 col-form-label required fw-bold fs-6"
+        >User Name</label
+      >
+      <div class="col-lg-8 fv-row">
+        <input
+          type="text"
+          class="form-control form-control-lg form-control-solid m-input"
+          placeholder="User Name"
+          name="username"
+          id="username"
+          required
+        />
+      </div>
+    </div>
+
+    <div class="row mb-6">
+      <label class="col-lg-4 col-form-label required fw-bold fs-6">Email</label>
+      <div class="col-lg-8 fv-row">
+        <input
+          type="email"
+          class="form-control form-control-lg form-control-solid m-input"
+          placeholder="Email"
+          name="email"
+          id="email"
+          required
+        />
+      </div>
+    </div>
+
+    <div class="row mb-6">
+      <label class="col-lg-4 col-form-label required fw-bold fs-6"
+        >Password</label
+      >
+      <div class="col-lg-8 fv-row">
+        <input
+          class="form-control form-control-lg form-control-solid"
+          type="password"
+          name="password"
+          placeholder="Password"
+          id="password"
+          required
+        />
+      </div>
+    </div>
+
+    <div class="row mb-6">
+      <label class="col-lg-4 col-form-label required fw-bold fs-6"
+        >Status</label
+      >
+      <div class="col-lg-8 fv-row">
+        <div class="form-check form-switch">
+          <input
+            class="form-check-input"
+            type="checkbox"
+            role="switch"
+            id="status"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card-footer d-flex justify-content-end py-6 px-9">
+    <p-button
+      label="Save Data"
+      [loading]="configLoading"
+      [text]="true"
+      [raised]="true"
+      severity="danger"
+      (onClick)="submit()"
+    ></p-button>
+  </div>
+</div>
+<!--Register Form-->
+
+<p-toast />
+
+<div
+  class="dashboard-title"
+  style="
+    font-size: 1.6em;
+    font-weight: bold;
+    color: white;
+    background-color: #2d5880;
+    text-align: left;
+    padding: 20px 30px;
+    margin-bottom: 30px;
+    border-radius: 10px;
+  "
+>
+  List User
+</div>
+<!--List User-->
+<div class="card mb-9">
+  <!-- begin::Table container -->
+  <div style="margin-left: 28px; margin-top: 26px; margin-right: 28px">
+    <div class="table-responsive">
+      <!-- begin::Table -->
+      <table
+        class="table table-striped table-bordered cell-border"
+        id="ListTableUser"
+      >
+        <!-- begin::Table head -->
+        <thead>
+          <tr class="fw-bolde">
+            <th style="text-align: center"></th>
+            <th style="text-align: center"></th>
+            <th style="text-align: center"></th>
+            <th style="text-align: center"></th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+      <!-- end::Table -->
+    </div>
+    <!-- end::Table container -->
+  </div>
+</div>
+<!--List User-->
+
+<p-dialog
+  [(visible)]="modalEdit"
+  [modal]="true"
+  [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }"
+  [style]="{ width: '50vw' }"
+  [draggable]="false"
+  [resizable]="true"
+  [showHeader]="true"
+>
+  <label class="col-form-label required fw-bold fs-6">No Register</label>
+  <input
+    type="text"
+    class="form-control form-control-lg form-control-solid m-input"
+    id="m_noregister"
+    [value]="selectedValue1?.RegisterNo"
+    disabled
+  />
+  <br />
+  <label class="col-form-label required fw-bold fs-6">Email</label>
+  <input
+    type="text"
+    class="form-control form-control-lg form-control-solid m-input"
+    id="m_email"
+    [value]="selectedValue1?.email"
+  />
+  <br />
+  <label class="col-form-label required fw-bold fs-6">Status</label>
+  <div class="col-lg-8 fv-row">
+    <div class="form-check form-switch">
+      <input
+        class="form-check-input"
+        type="checkbox"
+        role="switch"
+        id="m_status"
+      />
+    </div>
+  </div>
+  <br />
+  <div>
+    <p-selectButton
+      label="Edit Password"
+      [options]="passwordOptions"
+      [(ngModel)]="valuepasswordOptions"
+      (ngModelChange)="showEditPassword($event)"
+    ></p-selectButton>
+  </div>
+  <br />
+  <label class="col-lg-4 col-form-label required fw-bold fs-6 label_m_pw" hidden
+    >Password</label
+  >
+  <div class="col-lg-6 fv-row">
+    <input
+      class="form-control form-control-lg form-control-solid"
+      type="password"
+      name="password"
+      placeholder="Password"
+      id="m_password"
+      hidden
+    />
+    <span class="ms-2">
+      <p-button
+        label="Edit"
+        [loading]="configLoading"
+        [text]="true"
+        [raised]="true"
+        severity="danger"
+        (onClick)="editPassword()"
+        id="m_edit_pw"
+        hidden
+      >
+      </p-button>
+    </span>
+  </div>
+
+  <div class="card-footer d-flex justify-content-end py-6 px-9">
+    <p-button
+      label="Edit Data"
+      [loading]="configLoading"
+      [text]="true"
+      [raised]="true"
+      severity="danger"
+      (onClick)="edit()"
+    ></p-button>
+  </div>
+</p-dialog>
+
+<!-- <p-dialog
+  [(visible)]="modalDelete"
+  [modal]="true"
+  [draggable]="false"
+  [resizable]="true"
+  [showHeader]="true"
+>
+  <input
+    type="text"
+    class="form-control form-control-lg form-control-solid m-input"
+    id="m_deletenoregister"
+    [value]="selectedValue1?.RegisterNo"
+    disabled
+    hidden
+  />
+  <div>
+    <p-button
+      label="Delete User"
+      [loading]="configLoading"
+      [text]="true"
+      [raised]="true"
+      severity="danger"
+      (onClick)="delete()"
+    ></p-button>
+  </div>
+</p-dialog> -->

@@ -1,0 +1,8 @@
+@mixin menu-link-hover-state($color, $bg-color){
+  &:hover 
+  {
+    text-decoration: $color;
+    background-color: $bg-color !important;
+  }
+}
+
