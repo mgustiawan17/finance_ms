@@ -5,7 +5,7 @@ import * as baseurl from '../../../../pages/baseurl';
 import { checkUrl } from '../../../../pages/baseurl';
 
 @Injectable()
-export class SuratLemburListService {
+export class OptionLaporanSuratService {
   constructor(private http: HttpClient) {}
 
   GetDeptSect(code: string) {
@@ -24,39 +24,6 @@ export class SuratLemburListService {
         map((response: any) => {
           const data = response.data;
           return data;
-        })
-      );
-    }
-  }
-
-  InsertEdit(
-    permitno: string,
-    regNo: string,
-    param1: string,
-    param2: string,
-    param3: string,
-    param4: string
-  ) {
-    const json = JSON.stringify({
-      code: '210', 
-      permitno: permitno,
-      regNo: regNo,
-      param1: param1,
-      param2: param2,
-      param3: param3,
-      param4: param4,
-    });
-    if (checkUrl()) {
-      return this.http.post(baseurl.baseUrl + 'Permit/Permit', json).pipe(
-        map((response: any) => {
-          return response; 
-        })
-      );
-    } else {
-      return this.http.post(baseurl.baseUrlLuar + 'Permit/Permit', json).pipe(
-        map((response: any) => {
-          // const data = response.data;
-          return response;
         })
       );
     }

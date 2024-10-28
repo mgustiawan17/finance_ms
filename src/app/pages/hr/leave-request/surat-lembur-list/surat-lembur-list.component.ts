@@ -22,12 +22,19 @@ export class SuratLemburListComponent implements OnInit {
   ListTableLembur: any;
   TableLembur1: any;
   ListTableLembur1: any;
+  OTCriteriaOptions: any[] = [
+    {
+      name: 'CSS-OT',
+      value: 'CSS-OT',
+    },
+  ];
   StatusOptions: any[] = [
     { name: 'Open', value: '3.1' },
     { name: 'Approved', value: '3.2' },
     { name: 'Rejected', value: '3.3' },
   ];
   valuestatusOptions: string = '';
+  valueOTCriteriaOptions: string = '';
   currentCompany: any;
   currentIns: any;
   optionListDepartmentHR: any;
@@ -47,6 +54,7 @@ export class SuratLemburListComponent implements OnInit {
   selectedTimeOut: Date;
   displayModal: boolean = false;
   displayEditModal: boolean = false;
+  selectedOTCriteria: any;
 
   constructor(
     private el: ElementRef,
@@ -65,6 +73,19 @@ export class SuratLemburListComponent implements OnInit {
     if (this.selectedItem && this.selectedItem.DT1) {
       this.selectedDateIn = new Date(this.selectedItem.DT1);
     }
+  }
+
+  setDefaultOTCriteria(value: any) {
+    // Cari opsi yang cocok
+    this.valueOTCriteriaOptions =
+      this.OTCriteriaOptions.find((option) => option.value === value) ?? null;
+    // Set nilai kategori yang dipilih
+    this.selectedOTCriteria = this.valueOTCriteriaOptions;
+  }
+
+  onChangeOTCriteria(event: any) {
+    this.selectedOTCriteria = event;
+    console.log('Selected OT Criteria value:', this.selectedOTCriteria);
   }
 
   onChangeDepartment(selectedDept: any) {
@@ -286,6 +307,7 @@ export class SuratLemburListComponent implements OnInit {
           this.selectedDateOut = new Date(this.selectedPermit.DT2);
           this.selectedTimeIn = this.parseTime(this.selectedPermit.DT1);
           this.selectedTimeOut = this.parseTime(this.selectedPermit.DT2);
+          this.onChangeOTCriteria(this.valueOTCriteriaOptions);
         });
       },
     };
@@ -310,6 +332,7 @@ export class SuratLemburListComponent implements OnInit {
       { field: 'DT2', header: 'Tanggal Akhir' },
       { field: 'RegNo', header: 'Register' },
       { field: 'EmployeeName', header: 'Name' },
+      { field: 'OTCriteria', header: 'OT Criteria' },
       { field: 'action', header: 'Action' },
     ];
 
@@ -374,7 +397,14 @@ export class SuratLemburListComponent implements OnInit {
     const noSurat: string = $('#noSurat').val() as string;
 
     this.httpService
-      .InsertEdit(noSurat, regNo, dateIn, dateOut, keterangan)
+      .InsertEdit(
+        noSurat,
+        regNo,
+        dateIn,
+        dateOut,
+        keterangan,
+        this.valueOTCriteriaOptions
+      )
       .subscribe(
         (response: any) => {
           if (response.status === 200) {

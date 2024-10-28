@@ -187,7 +187,6 @@ export class SuratDinasListComponent implements OnInit {
             // tslint:disable-next-line: max-line-length
             return (
               '<button id="detail" data-toggle="modal" data-target="#modalDetail" class="btn m-portlet__nav-link btn m-btn m-btn–hover-primary m-btn–icon m-btn–icon-only m-btn–pill btn-outline-primary" title="Detail" type="button">\t\t\t\t\t\t\t<i class="fa fa-ellipsis-h"></i>\t\t\t\t\t\t</Button>' +
-              '\t\t\t\t\t\t<button id="print" class="btn m-portlet__nav-link btn m-btn m-btn–hover-success m-btn–icon m-btn–icon-only m-btn–pill btn-outline-success" title="Print" type="button">\t\t\t\t\t\t\t<i class="fa-solid fa-print"></i>\t\t\t\t\t\t</Button>' +
               '\t\t\t\t\t\t<button id="upload" class="btn m-portlet__nav-link btn m-btn m-btn–hover-success m-btn–icon m-btn–icon-only m-btn–pill btn-outline-success" title="Upload" type="button">\t\t\t\t\t\t\t<i class="fa-solid fa-file-arrow-up"></i>\t\t\t\t\t\t</Button>'
             );
           },

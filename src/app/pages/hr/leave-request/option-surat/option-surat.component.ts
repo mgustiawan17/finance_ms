@@ -21,7 +21,6 @@ export class OptionSuratComponent implements OnInit {
     { label: 'Surat Izin', value: 'SI' },
     { label: 'Surat Dinas', value: 'SD' },
     { label: 'Surat Lembur', value: 'SL' },
-    { label: 'Surat Kendaraan', value: 'SK' },
   ];
   selectedSurat: any;
 
@@ -49,9 +48,6 @@ export class OptionSuratComponent implements OnInit {
         break;
       case 'SL':
         this.route.navigate(['hr/leaverequest/newrequest/suratLembur']);
-        break;
-      case 'SK':
-        this.route.navigate(['hr/leaverequest/newrequest/suratKendaraan']);
         break;
       default:
         this.route.navigate(['hr/leaverequest/newrequest']);

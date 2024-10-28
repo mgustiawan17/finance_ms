@@ -4,35 +4,39 @@
     </div>
 </div> -->
 <!-- Dashboard Title -->
-<div class="dashboard-title text-white p-5 mb-3 rounded d-flex justify-content-between align-items-center" 
-     style="font-size: 1.6em;
-     font-weight: bold;
-     color: white;
-     background-color: #2d5880;">
-    <div style="flex-grow: 1; margin-left: 5px;">Dashboard</div>
-    <div class="mr-1">
-        <p-calendar 
-            [(ngModel)]="selected1Year" 
-            [showClear]="true" 
-            [iconDisplay]="'input'" 
-            [showIcon]="true" 
-            view="year" 
-            dateFormat="yy" 
-            [readonlyInput]="true" 
-            placeholder="Select a Year"
-            (ngModelChange)="onYearChange($event)"
-            [style]="{'font-size': '13px', 'width': '160px', 'height': '40px'}">
-        </p-calendar>
-    </div>
-    <!-- <div class="mr-1">
+<div
+  class="dashboard-title text-white p-5 mb-3 rounded d-flex justify-content-between align-items-center"
+  style="
+    font-size: 1.6em;
+    font-weight: bold;
+    color: white;
+    background-color: #2d5880;
+  "
+>
+  <div style="flex-grow: 1; margin-left: 5px">Dashboard</div>
+  <div class="mr-1">
+    <p-calendar
+      [(ngModel)]="selected1Year"
+      [showClear]="true"
+      [iconDisplay]="'input'"
+      [showIcon]="true"
+      view="year"
+      dateFormat="yy"
+      [readonlyInput]="true"
+      placeholder="Select a Year"
+      (ngModelChange)="onYearChange($event)"
+      [style]="{ 'font-size': '13px', width: '160px', height: '40px' }"
+    >
+    </p-calendar>
+  </div>
+  <!-- <div class="mr-1">
         <p-dropdown [options]="chooseData" optionLabel="name" optionValue="value" [(ngModel)]="selectDashboard" placeholder="Choose Data" [style]="{'font-size': '14px', 'width': '150px'}"></p-dropdown>
     </div> -->
 </div>
 
-
 <!-- Dashboard Content -->
 <div class="">
-<!-- <div class="cardSales">
+  <!-- <div class="cardSales">
     <div class="row">
        Sales Cards
         <div class="col-md-6 col-lg-3 mb-3">
@@ -186,7 +190,7 @@
         </div>
     </div>
 </div> -->
-<!-- <div class="cardInventory">
+  <!-- <div class="cardInventory">
     <div class="row">
         Inventory Cards 
         <div class="col-md-6 col-lg-4 mb-3">
@@ -251,8 +255,8 @@
         </div>
     </div>
 </div> -->
-<div class="cardPurchase">
-     <!--Purchase Dashboard -->
+  <!-- <div class="cardPurchase">
+
     <div class="row"> 
         <div class="col-lg-6 mb-3">
             <div class="card info-card revenue-card h-100">
@@ -375,15 +379,15 @@
     </div>
 </div>
 <div class="cardWWT">
-    <!-- WWT Dashboard -->
+
     <div class="row" style="margin-top: 25px;">
-        <!-- Kualitas WWT Card -->
+
         <div class="col-lg-4 mb-4">
             <div class="card h-100 cardWWT-bg">
                 <div class="card-body d-flex flex-column">
                     <h5 class="card-title mb-3" style="color: #ffffff;">Kualitas WWT</h5>
                     <div class="position-relative">
-                        <!-- Card utama -->
+
                         <div class="card p-11 shadow-sm" style="border-radius: 12px; background-color: #ffffff;">
                             <div class="d-flex flex-column align-items-center justify-content-center">
                                 <div class="text-center mb-4">
@@ -401,7 +405,6 @@
                             </div>
                         </div>
                     
-                        <!-- Card kecil -->
                         <div class="card shadow-sm position-absolute" style="padding: 10px; top: 100%; left: 50%; transform: translate(-50%, -100%); border-radius: 8px; background-color: #ffffff; color: #3d4353;">
                             <div class="text-center">
                                 <span class="fw-bold" style="font-size: 14px;">September 2024</span>
@@ -481,13 +484,11 @@
             </div>
         </div>
 
-        <!-- Kuantitas WWT Card -->
         <div class="col-lg-4 mb-4">
             <div class="card h-100 cardWWT-bg2">
                 <div class="card-body d-flex flex-column">
                     <h5 class="card-title text-center mb-3" style="color: #ffffff;">Kuantitas WWT</h5>
                     <div class="position-relative">
-                        <!-- Card utama -->
                         <div class="card p-17 shadow-sm" style="border-radius: 12px; background-color: #ffffff;">
                             <div class="d-flex flex-column align-items-center justify-content-center">
                                 <div class="text-center mb-4">
@@ -499,7 +500,6 @@
                             </div>
                         </div>
                     
-                        <!-- Card kecil -->
                         <div class="card shadow-sm position-absolute" style="padding: 10px; top: 100%; left: 50%; transform: translate(-50%, -100%); border-radius: 8px; background-color: #ffffff; color: #3d4353;">
                             <div class="text-center">
                                 <span class="fw-bold" style="font-size: 14px;">September 2024</span>
@@ -562,13 +562,11 @@
             </div>
         </div>
 
-        <!-- Biaya WWT Card -->
         <div class="col-lg-4 mb-4">
             <div class="card h-100 cardWWT-bg3">
                 <div class="card-body d-flex flex-column">
                     <h5 class="card-title text-end mb-3" style="color: #ffffff;">Biaya WWT</h5>
                     <div class="position-relative">
-                        <!-- Card utama -->
                         <div class="card p-11 shadow-sm" style="border-radius: 12px; background-color: #ffffff;">
                             <div class="d-flex flex-column align-items-center justify-content-center">
                                 <div class="text-center mb-4">
@@ -583,7 +581,6 @@
                             </div>
                         </div>
                     
-                        <!-- Card kecil -->
                         <div class="card shadow-sm position-absolute" style="padding: 10px; top: 100%; left: 50%; transform: translate(-50%, -100%); border-radius: 8px; background-color: #ffffff; color: #3d4353;">
                             <div class="text-center">
                                 <span class="fw-bold" style="font-size: 14px;">September 2024</span>
@@ -649,4 +646,5 @@
 </div>
 
 
-  
+   -->
+</div>

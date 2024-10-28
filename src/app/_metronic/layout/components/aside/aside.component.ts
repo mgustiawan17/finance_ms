@@ -108,8 +108,6 @@ export class AsideComponent implements OnInit, OnDestroy {
           this.filterSubMenus1();
         }
       }
-
-
     });
     this.unsubscribe.push(routerSubscription);
   }
@@ -127,16 +125,16 @@ export class AsideComponent implements OnInit, OnDestroy {
 
   loadMenu(): void {
     this.tabsService
-      .getListMenu('4', 'menu_skr','Menu', this.currentUser)
+      .getListMenu('4', 'menu_css', 'Menu', this.currentUser)
       .subscribe((data) => {
         this.tabs = this.transformDataToTabs(data);
         localStorage.setItem('tabs', JSON.stringify(this.tabs));
-    });
+      });
   }
 
   loadSubMenu(): void {
     this.tabsService
-      .getListMenu('4', 'menu_skr','SubMenu', this.currentUser)
+      .getListMenu('4', 'menu_css', 'SubMenu', this.currentUser)
       .subscribe((data) => {
         if (data) {
           this.ListMenus = data;
@@ -163,18 +161,22 @@ export class AsideComponent implements OnInit, OnDestroy {
     localStorage.setItem('selectedHeadMenuId', menuId);
     localStorage.setItem('submenuTitle', title);
     this.asideMinimized = false;
-    document.body.setAttribute("data-kt-aside-minimize", "off");
+    document.body.setAttribute('data-kt-aside-minimize', 'off');
     this.filterSubMenus();
     this.filterSubMenus1();
 
-    const selectedTab = this.tabs.find(tab => tab.MenuId === menuId);
-    if (selectedTab && selectedTab.DropdownMenu === 'FALSE'){
-      this.router.navigate([selectedTab.link])
+    const selectedTab = this.tabs.find((tab) => tab.MenuId === menuId);
+    if (selectedTab && selectedTab.DropdownMenu === 'FALSE') {
+      this.router.navigate([selectedTab.link]);
     }
   }
 
   isSameMenu(menuId: string): boolean {
-    console.log('Checking if menuId matches selectedHeadMenuId', menuId, this.selectedHeadMenuId);
+    console.log(
+      'Checking if menuId matches selectedHeadMenuId',
+      menuId,
+      this.selectedHeadMenuId
+    );
     return this.selectedHeadMenuId === menuId;
   }
 
@@ -198,7 +200,7 @@ export class AsideComponent implements OnInit, OnDestroy {
     this.unsubscribe.forEach((sb) => sb.unsubscribe());
   }
 
-  profile(){
+  profile() {
     this._router.navigate(['/profile']);
   }
 

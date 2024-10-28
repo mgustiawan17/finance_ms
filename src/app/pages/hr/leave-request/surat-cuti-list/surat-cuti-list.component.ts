@@ -151,7 +151,7 @@ export class SuratCutiListComponent implements OnInit {
   getSisaCuti(register: string, jenisCuti: string, company: string) {
     this.httpService.GetSisaCuti('103', register, jenisCuti, company).subscribe(
       (data) => {
-        this.SisaCuti = data[0].SisaCuti;
+        this.SisaCuti = data[0].AnnualLeaveQty;
       },
       (error) => {
         // toastr.error('Gagal memuat sisa cuti dengan register ' + this.register, 'Terjadi Kesalahan!');

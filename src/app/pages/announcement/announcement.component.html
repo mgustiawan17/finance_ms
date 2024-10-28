@@ -1,0 +1,37 @@
+<div
+  class="dashboard-title"
+  style="
+    font-size: 1.6em;
+    font-weight: bold;
+    color: white;
+    background-color: #2d5880;
+    text-align: left;
+    padding: 20px 30px;
+    margin-bottom: 30px;
+    border-radius: 10px;
+  "
+>
+  Announcement
+</div>
+<div class="card">
+  <div class="m-portlet__body" style="margin-left: 30px; margin-right: 20px">
+    <div class="form-group m-form__group row">
+      <p-timeline
+        [value]="event"
+        align="alternate"
+        styleClass="customized-timeline"
+        class="mt-20 mb-20"
+      >
+        <ng-template pTemplate="content" let-event>
+          <p-card [header]="'Version ' + event.status" [subheader]="event.date">
+            <!-- <p>
+              {{ event.notes }}
+            </p> -->
+            <p [innerHTML]="formatNotes(event.notes)"></p>
+            <!-- <p-button label="Read more" [text]="true" /> -->
+          </p-card>
+        </ng-template>
+      </p-timeline>
+    </div>
+  </div>
+</div>

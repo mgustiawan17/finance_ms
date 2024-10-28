@@ -36,6 +36,14 @@ export class SuratLemburComponent implements OnInit {
   selectedTimeIn: Date;
   selectedTimeOut: Date;
   selectedPermit: any;
+  OTCriteriaOptions: any[] = [
+    {
+      name: 'CSS-OT',
+      value: 'CSS-OT',
+    },
+  ];
+  valueOTCriteriaOptions: string = '';
+  selectedOTCriteria: any;
 
   constructor(
     private el: ElementRef,
@@ -54,6 +62,11 @@ export class SuratLemburComponent implements OnInit {
     $('#tableTempLembur').attr('hidden', 'hidden');
     this.getNoSurat();
     this.getDepartment();
+  }
+
+  onChangeOTCriteria(selectedOTCriteria: any) {
+    console.log(selectedOTCriteria);
+    this.selectedOTCriteria = selectedOTCriteria.value;
   }
 
   onChangeCompany(selectedCompany: string) {

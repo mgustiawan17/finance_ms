@@ -115,7 +115,28 @@
     <div class="row mb-12">
       <div class="col-lg-2">
         <div class="checkbox-container">
-          <!-- Accounting Section -->
+          <!-- HR Section -->
+          <div *ngIf="categorizedMenu.Dashboard.length">
+            <h5>Dashboard</h5>
+            <br />
+            <div
+              *ngFor="let option of categorizedMenu.Dashboard"
+              class="checkbox-item"
+            >
+              <p-checkbox
+                name="menus"
+                class="custom-checkbox"
+                [value]="option.value"
+                [label]="option.label"
+                [(ngModel)]="selectedMenu"
+                (onChange)="onChangeMenu($event)"
+              ></p-checkbox>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- <div class="col-lg-2">
+        <div class="checkbox-container">
           <div *ngIf="categorizedMenu.Accounting.length">
             <h5>Accounting</h5>
             <br />
@@ -134,10 +155,9 @@
             </div>
           </div>
         </div>
-      </div>
+      </div> -->
       <div class="col-lg-2">
         <div class="checkbox-container">
-          <!-- Approval Section -->
           <div *ngIf="categorizedMenu.Approval.length">
             <h5>Approval</h5>
             <br />
@@ -157,9 +177,8 @@
           </div>
         </div>
       </div>
-      <div class="col-lg-2">
+      <!-- <div class="col-lg-2">
         <div class="checkbox-container">
-          <!-- Inventory Section -->
           <div *ngIf="categorizedMenu.Inventory.length">
             <h5>Inventory</h5>
             <br />
@@ -178,10 +197,9 @@
             </div>
           </div>
         </div>
-      </div>
-      <div class="col-lg-2">
+      </div> -->
+      <!-- <div class="col-lg-2">
         <div class="checkbox-container">
-          <!-- Purchasing Section -->
           <div *ngIf="categorizedMenu.Purchasing.length">
             <h5>Purchasing</h5>
             <br />
@@ -200,10 +218,9 @@
             </div>
           </div>
         </div>
-      </div>
+      </div> -->
       <div class="col-lg-2">
         <div class="checkbox-container">
-          <!-- HR Section -->
           <div *ngIf="categorizedMenu.HR.length">
             <h5>HR</h5>
             <br />
@@ -223,9 +240,8 @@
           </div>
         </div>
       </div>
-      <div class="col-lg-2">
+      <!-- <div class="col-lg-2">
         <div class="checkbox-container">
-          <!-- MRP Section -->
           <div *ngIf="categorizedMenu.MRP.length">
             <h5>MRP</h5>
             <br />
@@ -245,11 +261,10 @@
           </div>
         </div>
       </div>
-    </div>
-    <div class="row mb-12">
+    </div> -->
+      <!-- <div class="row mb-12">
       <div class="col-lg-2">
         <div class="checkbox-container">
-          <!-- Utility Section -->
           <div *ngIf="categorizedMenu.Utility.length">
             <h5>Utility</h5>
             <br />
@@ -268,10 +283,9 @@
             </div>
           </div>
         </div>
-      </div>
-      <div class="col-lg-2">
+      </div> -->
+      <!-- <div class="col-lg-2">
         <div class="checkbox-container">
-          <!-- Marketing Section -->
           <div *ngIf="categorizedMenu.Marketing.length">
             <h5>Marketing</h5>
             <br />
@@ -290,10 +304,9 @@
             </div>
           </div>
         </div>
-      </div>
+      </div> -->
       <div class="col-lg-2">
         <div class="checkbox-container">
-          <!-- Setting Section -->
           <div *ngIf="categorizedMenu.Setting.length">
             <h5>Setting</h5>
             <br />

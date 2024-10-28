@@ -15,7 +15,7 @@ export class AttendancePeriodeService {
       code: 1,
     });
     if (baseurl.checkUrl()) {
-      return this.http.post(baseurl.baseUrl + 'Dropdown/getData', json).pipe(
+      return this.http.post(baseurl.baseUrl + 'Settings/getData1', json).pipe(
         map((response: any) => {
           const data = response.data;
           return data;
@@ -23,7 +23,7 @@ export class AttendancePeriodeService {
       );
     } else {
       return this.http
-        .post(baseurl.baseUrlLuar + 'Dropdown/getData', json)
+        .post(baseurl.baseUrlLuar + 'Settings/getData1', json)
         .pipe(
           map((response: any) => {
             const data = response.data;

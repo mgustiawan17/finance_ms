@@ -7,8 +7,8 @@
     class="aside-logo d-none d-lg-flex flex-column align-items-center flex-column-auto py-10"
     id="kt_aside_logo"
   >
-    <a routerLink="/dashboard">
-      <img alt="Logo" src="./assets/media/logos/Sakuratex1.png" class="h-25px" />
+    <a routerLink="/announcement">
+      <img alt="Logo" src="./assets/media/logos/CSS.png" class="h-25px" />
     </a>
   </div>
   <!--end::Logo-->
@@ -47,12 +47,19 @@
   <!--end::Nav-->
 
   <!--begin::Footer-->
-  <div class="aside-footer d-flex flex-column align-items-center flex-column-auto" id="kt_aside_footer">
+  <div
+    class="aside-footer d-flex flex-column align-items-center flex-column-auto"
+    id="kt_aside_footer"
+  >
     <!--begin::User-->
-    <div class="d-flex align-items-center mb-10" id="kt_header_user_menu_toggle" (click)="toggleUserInner()">
+    <div
+      class="d-flex align-items-center mb-10"
+      id="kt_header_user_menu_toggle"
+      (click)="toggleUserInner()"
+    >
       <!--begin::Menu wrapper-->
       <div class="cursor-pointer symbol symbol-40px" title="User profile">
-        <img src="./assets/media/avatars/300-1.jpg" alt="image"/>
+        <img src="./assets/media/avatars/300-1.jpg" alt="image" />
       </div>
       <!--end::Menu wrapper-->
       <div class="user-inner-container" *ngIf="isUserInnerVisible">
@@ -97,7 +104,7 @@
               border-radius: 8px;
               box-shadow: 0px 0 10px rgba(237, 43, 43, 0.1);
             "
-            >
+          >
             <a routerLinkActive="active">
               <span class="menu-title red-text">{{ submenuTitle }}</span>
             </a>
@@ -160,7 +167,7 @@
                       [ngClass]="{
                         'menu-active-bg': isSubMenuActive(subChild)
                       }"
-                      >
+                    >
                       <span class="menu-link">
                         <span class="menu-bullet">
                           <span class="bullet bullet-dot"></span>
@@ -208,14 +215,19 @@
   <!--end::Secondary-->
 
   <!--begin::Aside Toggle-->
-  <button id="kt_aside_toggle" 
-          class="btn btn-sm btn-icon bg-body btn-danger btn-color-gray-700 position-absolute translate-middle start-100 end-0 bottom-0 shadow-sm d-none d-lg-flex" 
-          data-kt-toggle="true" 
-          data-kt-toggle-state="active" 
-          data-kt-toggle-target="body" 
-          data-kt-toggle-name="aside-minimize" 
-          (click)="toggleAside()">
-    <span [inlineSVG]="'./assets/media/icons/duotune/arrows/arr063.svg'" class="svg-icon svg-icon-2 rotate-180"></span>
+  <button
+    id="kt_aside_toggle"
+    class="btn btn-sm btn-icon bg-body btn-danger btn-color-gray-700 position-absolute translate-middle start-100 end-0 bottom-0 shadow-sm d-none d-lg-flex"
+    data-kt-toggle="true"
+    data-kt-toggle-state="active"
+    data-kt-toggle-target="body"
+    data-kt-toggle-name="aside-minimize"
+    (click)="toggleAside()"
+  >
+    <span
+      [inlineSVG]="'./assets/media/icons/duotune/arrows/arr063.svg'"
+      class="svg-icon svg-icon-2 rotate-180"
+    ></span>
   </button>
   <!--end::Aside Toggle-->
 </ng-container>

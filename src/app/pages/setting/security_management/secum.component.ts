@@ -132,7 +132,7 @@ export class SecurityManagementComponent
   }
 
   callCode() {
-    this.groupCode = 'SKR';
+    this.groupCode = 'CSS';
     this.httpService.getData('100', this.groupCode).subscribe(
       (data) => {
         this.nogroupCode = data[0].groupCode;
@@ -159,32 +159,35 @@ export class SecurityManagementComponent
 
   categorizeMenu(): void {
     this.categorizedMenu = {
+      Dashboard: this.optionListMenu.filter(
+        (item) => item.value >= 'C-1000' && item.value <= 'C-1005'
+      ),
       Accounting: this.optionListMenu.filter(
-        (item) => item.value >= 'S-0100' && item.value <= 'S-0199'
+        (item) => item.value >= 'C-0100' && item.value <= 'C-0199'
       ),
       Approval: this.optionListMenu.filter(
-        (item) => item.value >= 'S-0200' && item.value <= 'S-0299'
+        (item) => item.value >= 'C-0200' && item.value <= 'C-0299'
       ),
       Inventory: this.optionListMenu.filter(
-        (item) => item.value >= 'S-0300' && item.value <= 'S-0399'
+        (item) => item.value >= 'C-0300' && item.value <= 'C-0399'
       ),
       Purchasing: this.optionListMenu.filter(
-        (item) => item.value >= 'S-0400' && item.value <= 'S-0499'
+        (item) => item.value >= 'C-0400' && item.value <= 'C-0499'
       ),
       MRP: this.optionListMenu.filter(
-        (item) => item.value >= 'S-0500' && item.value <= 'S-0599'
+        (item) => item.value >= 'C-0500' && item.value <= 'C-0599'
       ),
       HR: this.optionListMenu.filter(
-        (item) => item.value >= 'S-0600' && item.value <= 'S-0699'
+        (item) => item.value >= 'C-0600' && item.value <= 'C-0699'
       ),
       Utility: this.optionListMenu.filter(
-        (item) => item.value >= 'S-0700' && item.value <= 'S-0799'
+        (item) => item.value >= 'C-0700' && item.value <= 'C-0799'
       ),
       Setting: this.optionListMenu.filter(
-        (item) => item.value >= 'S-0800' && item.value <= 'S-0899'
+        (item) => item.value >= 'C-0800' && item.value <= 'C-0899'
       ),
       Marketing: this.optionListMenu.filter(
-        (item) => item.value >= 'S-0900' && item.value <= 'S-0999'
+        (item) => item.value >= 'C-0900' && item.value <= 'C-0999'
       ),
     };
   }

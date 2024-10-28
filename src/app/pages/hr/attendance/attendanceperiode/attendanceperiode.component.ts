@@ -321,16 +321,16 @@ export class AttendancePeriodeComponent implements OnInit, AfterViewInit {
           title: 'Date',
           data: 'Tgl',
           className: 'dt-body-center',
-          render: function (data: any, type: any, row: any) {
-            const date = new Date(data);
-            if (!isNaN(date.getTime())) {
-              const day = ('0' + date.getDate()).slice(-2);
-              const month = ('0' + (date.getMonth() + 1)).slice(-2);
-              const year = date.getFullYear();
-              return `${day}-${month}-${year}`;
-            }
-            return data;
-          },
+          // render: function (data: any, type: any, row: any) {
+          //   const date = new Date(data);
+          //   if (!isNaN(date.getTime())) {
+          //     const day = ('0' + date.getDate()).slice(-2);
+          //     const month = ('0' + (date.getMonth() + 1)).slice(-2);
+          //     const year = date.getFullYear();
+          //     return `${day}-${month}-${year}`;
+          //   }
+          //   return data;
+          // },
         },
         { title: 'Day', data: 'Hari', className: 'dt-body-center' },
         { title: 'In', data: 'masuk', className: 'dt-body-center' },

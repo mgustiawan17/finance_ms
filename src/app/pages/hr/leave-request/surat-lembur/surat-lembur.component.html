@@ -129,7 +129,7 @@
       </div>
       <div class="form-group m-form__group row flex flex-wrap p-fluid">
         <!-- Jam Awal -->
-        <div class="col-md-6 col-sm-6 col-xs-6">
+        <div class="col-md-4 col-sm-4 col-xs-4">
           <label class="col-lg-4 col-form-label required fw-bold fs-6"
             >Early Hour</label
           >
@@ -146,7 +146,7 @@
           ></p-calendar>
         </div>
         <!-- Jam Akhir -->
-        <div class="col-md-6 col-sm-6 col-xs-6">
+        <div class="col-md-4 col-sm-4 col-xs-4">
           <label class="col-lg-4 col-form-label required fw-bold fs-6"
             >Final Hour</label
           >
@@ -161,6 +161,24 @@
             id="selectedTimeOut"
             name="selectedTimeOut"
           ></p-calendar>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+          <label class="col-lg-3 col-form-label required fw-bold fs-6"
+            >OT Criteria</label
+          >
+          <p-dropdown
+            [options]="OTCriteriaOptions"
+            [(ngModel)]="valueOTCriteriaOptions"
+            (onChange)="onChangeOTCriteria($event.value)"
+            optionLabel="name"
+            [filter]="true"
+            filterBy="name"
+            [showClear]="true"
+            placeholder="Select OT Criteria"
+            id="OTCriteria"
+            name="OTCriteria"
+          >
+          </p-dropdown>
         </div>
       </div>
       <div class="form-group m-form__group row">

@@ -1,12 +1,12 @@
 'use strict';
-export const baseUrlLuar = 'https://bstm.co.id/backend_sgisskr/';
-export const baseUrl = 'http://192.168.1.25/backend_sgisskr/';
+export const baseUrlLuar = 'https://bstm.co.id/backend_sgiscss/';
+export const baseUrl = 'http://192.168.1.25/backend_sgiscss/';
 
 export function checkUrl(): boolean {
   if (
     window.location.href.includes('localhost') ||
-    window.location.href.includes('192.168.1.25/sakura/') ||
-    window.location.href.includes('sis/sakura/')
+    window.location.href.includes('192.168.1.25/css/') ||
+    window.location.href.includes('sis/css/')
   ) {
     return true;
   }

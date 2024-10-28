@@ -32,9 +32,7 @@ export class LoginComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private messageService: MessageService
-    
-  ) {
-  }
+  ) {}
 
   ngOnInit() {
     localStorage.clear();
@@ -84,7 +82,7 @@ export class LoginComponent implements OnInit {
       if ($('#email').val() === '' || $('#password').val() === '') {
         alert('Email and Password not allowed to be empty!');
       } else {
-        this.http.login('3', 'login_skr', email, password).subscribe(
+        this.http.login('3', 'login_css', email, password).subscribe(
           (loggedIn: boolean) => {
             if (loggedIn) {
               this.postData = JSON.stringify(loggedIn);
@@ -93,7 +91,8 @@ export class LoginComponent implements OnInit {
                 summary: 'Success',
                 detail: 'Login successful',
               });
-              this.router.navigate([this.returnUrl]);
+              let targetUrl = '/announcement';
+              this.router.navigate([targetUrl]);
             } else {
               this.messageService.add({
                 severity: 'error',

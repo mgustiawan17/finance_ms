@@ -137,7 +137,7 @@ export class RegisterComponent implements OnInit, OnDestroy, AfterViewInit {
           email,
           this.selectedRegister,
           status,
-          'SKR',
+          'CSS',
           this.currentEmail,
           ''
         )
@@ -323,7 +323,7 @@ export class RegisterComponent implements OnInit, OnDestroy, AfterViewInit {
         dataType: 'JSON',
         data: {
           code: 1,
-          param1: 'list_user_skr',
+          param1: 'list_user_css',
         },
       },
       columns: [
