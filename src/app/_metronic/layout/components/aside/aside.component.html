@@ -58,9 +58,15 @@
       (click)="toggleUserInner()"
     >
       <!--begin::Menu wrapper-->
-      <div class="cursor-pointer symbol symbol-40px" title="User profile">
-        <img src="./assets/media/avatars/300-1.jpg" alt="image" />
+      <div class="d-flex flex-column align-items-center" title="User profile">
+        <div class="cursor-pointer symbol symbol-40px">
+          <img src="./assets/media/avatars/300-1.jpg" alt="image" />
+        </div>
+        <div class="mt-2">
+          <p class="small-text" style="font-size: 10px">Version 5.0.0</p>
+        </div>
       </div>
+
       <!--end::Menu wrapper-->
       <div class="user-inner-container" *ngIf="isUserInnerVisible">
         <app-user-inner></app-user-inner>
