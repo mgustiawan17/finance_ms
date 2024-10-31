@@ -3,20 +3,20 @@
 .menu-state-bullet-white {
   .menu-item {
     .menu-link {
-      @include menu-link-hover-state(#ffff, #2d5880);
+      @include menu-link-hover-state(#ffff, #ad1d0d);
     }
   }
 }
 
 .menu-state-bullet-white .menu-item.active .menu-link {
   color: #ffffff !important;
-  background-color: #2d5880;
+  background-color: #ad1d0d;
 }
 
 .icon-custom {
   width: 24px;
   height: 24px;
-  fill: #2d5880;
+  fill: #c01e0c;
   transition: fill 0.3s ease;
 }
 
@@ -29,54 +29,22 @@
 }
 
 .user-inner-container {
-  position: absolute;
-  bottom: 80px;
-  z-index: 1001; 
-  width: 100%; 
-}
-
-.aside-primary {
-  display: flex;
-  flex-direction: column;
-  overflow-y: auto;
-  height: 100vh; 
-  padding-top: 60px; 
-  padding-bottom: 60px;
-  position: relative; 
-}
-
-.aside-logo {
-  position: fixed;
-  top: 0;
-  width: 5%;
-  z-index: 1;
-  height: 50px;
-  background-color: #ffff;
-}
-
-.aside-footer {
-  position: fixed;
-  bottom: 0;
-  width: 5%;
-  z-index: 1000;
-  background-color: #ffff;
-}
-
-.aside-nav {
-  padding-top: 70px; 
-  padding-bottom: 70px; 
+  position: relative;
 }
 
 @media (min-width: 992px) {
+  /* Desktop view */
   .user-inner-container {
     position: absolute;
-    bottom: 80px;
+    margin-bottom: 170px; 
   }
 }
 
 @media (max-width: 991px) {
-
+  /* Mobile view */
   .user-inner-container {
-    bottom: 80px;
+    position: absolute;
+    margin-bottom: 150px;
   }
 }
+

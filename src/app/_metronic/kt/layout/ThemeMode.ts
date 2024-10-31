@@ -47,23 +47,19 @@ class ThemeMode {
       return
     }
 
-    // Get param names
     const modeParam: string = this.getParamName('value')
     const menuModeParam: string = this.getParamName('menu')
 
-    // Reset mode if system mode was changed
     if (menuMode === 'system') {
       if (this.getSystemMode() !== mode) {
         mode = this.getSystemMode()
       }
     }
 
-    // Check menu mode
     if (!menuMode) {
       menuMode = mode
     }
 
-    // Read active menu mode value
     const activeMenuItem: HTMLElement | null =
       this.menu?.querySelector('[data-kt-element="mode"][data-kt-value="' + menuMode + '"]') || null
 

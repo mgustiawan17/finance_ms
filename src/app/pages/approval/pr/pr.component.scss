@@ -1,16 +1,16 @@
 ::ng-deep {
   .p-inputswitch.p-inputswitch-checked .p-inputswitch-slider {
-    // background: #2d5880;
-    background: #2d5880;
+    // background: #ad1d0d;
+    background: #ad1d0d;
   }
 
   .p-selectbutton .p-button.p-highlight {
-    background: #2d5880;
-    background-color: #2d5880;
+    background: #ad1d0d;
+    background-color: #ad1d0d;
   }
 
   .p-selectbutton .p-button.p-highlight:hover {
-    background: #2d5880;
+    background: #ad1d0d;
   }
 
   .p-button {
@@ -20,13 +20,13 @@
 
 /* purchase-request.component.css */
 .red-button {
-  background-color: #2d5880 !important; /* Red color */
+  background-color: #ad1d0d !important; /* Red color */
   border: none;
   color: white;
   transition: background-color 0.3s ease; /* Smooth color transition */
 }
 
 .red-button:hover {
-  background-color: #2d5880 !important; /* Darker red on hover */
+  background-color: #ad1d0d !important; /* Darker red on hover */
   color: white;
 }
