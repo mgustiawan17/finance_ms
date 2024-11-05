@@ -23,11 +23,23 @@ export class OptionListSuratComponent implements OnInit {
     { label: 'Surat Lembur', value: 'SL' },
   ];
   selectedSurat: any;
+  GroupCode: any;
 
-  constructor(private route: Router) {}
+  constructor(private route: Router) {
+    this.GroupCode = localStorage.getItem('currentGroupCode');
+  }
 
   ngOnInit(): void {
+    this.filterSuratOptions();
     this.proses();
+  }
+
+  filterSuratOptions() {
+    if (this.GroupCode === 'CSS-006') {
+      this.suratOption = this.suratOption.filter(
+        (option) => option.value !== 'SC'
+      );
+    }
   }
 
   onChangeSurat(selectedSurat: any) {

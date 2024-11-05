@@ -44,6 +44,8 @@ export class SuratLemburComponent implements OnInit {
   ];
   valueOTCriteriaOptions: string = '';
   selectedOTCriteria: any;
+  minDate: Date;
+  maxDate: Date;
 
   constructor(
     private el: ElementRef,
@@ -59,6 +61,9 @@ export class SuratLemburComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.minDate = new Date();
+    this.maxDate = new Date();
+    this.maxDate.setDate(this.maxDate.getDate() + 2);
     $('#tableTempLembur').attr('hidden', 'hidden');
     this.getNoSurat();
     this.getDepartment();
@@ -102,23 +107,30 @@ export class SuratLemburComponent implements OnInit {
 
   getDepartment() {
     this.optionListDepartmentHR = [];
-    this.httpService.GetDeptSect('4').subscribe(
-      (data) => {
-        const department = data.map((item: any) => {
-          return {
-            label: item.DSName,
-            departmentId: item.DeptCode,
-            sectionId: item.SectCode,
-            departmentName: item.DeptName,
-            sectionName: item.SectName,
-          };
-        });
-        this.optionListDepartmentHR = department;
-      },
-      (error) => {
-        // Handle error
-      }
-    );
+    this.httpService
+      .GetDeptSect(
+        '4',
+        localStorage.getItem('currentGroupCode'),
+        localStorage.getItem('currentDeptName'),
+        localStorage.getItem('currentSectName')
+      )
+      .subscribe(
+        (data) => {
+          const department = data.map((item: any) => {
+            return {
+              label: item.DSName,
+              departmentId: item.DeptCode,
+              sectionId: item.SectCode,
+              departmentName: item.DeptName,
+              sectionName: item.SectName,
+            };
+          });
+          this.optionListDepartmentHR = department;
+        },
+        (error) => {
+          // Handle error
+        }
+      );
   }
 
   getEmployee(deptcode: any, sectcode: any, company: string) {

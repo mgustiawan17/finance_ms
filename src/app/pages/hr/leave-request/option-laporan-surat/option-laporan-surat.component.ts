@@ -39,19 +39,31 @@ export class OptionLaporanSuratComponent implements OnInit {
   ReportSuratTableLembur: any;
   TableReportSuratLemburPergroup: any;
   ReportSuratTableLemburPergroup: any;
+  GroupCode: any;
 
   constructor(
     private messageService: MessageService,
     private httpService: OptionLaporanSuratService
-  ) {}
+  ) {
+    this.GroupCode = localStorage.getItem('currentGroupCode');
+  }
 
   ngOnInit(): void {
+    this.filterSuratOptions();
     this.getDepartment();
     $('#tableReportSuratCuti').attr('hidden', 'hidden');
     $('#tableReportSuratIzin').attr('hidden', 'hidden');
     $('#tableReportSuratDinas').attr('hidden', 'hidden');
     $('#tableReportSuratLembur').attr('hidden', 'hidden');
     $('#tableReportSuratLemburPerGroup').attr('hidden', 'hidden');
+  }
+
+  filterSuratOptions() {
+    if (this.GroupCode === 'CSS-006') {
+      this.suratOption = this.suratOption.filter(
+        (option) => option.value !== 'SC'
+      );
+    }
   }
 
   onChangeDepartment(selectedDept: any[]) {
@@ -75,24 +87,31 @@ export class OptionLaporanSuratComponent implements OnInit {
 
   getDepartment() {
     this.optionListDepartmentHR = [];
-    this.httpService.GetDeptSect('4').subscribe(
-      (data) => {
-        const department = data.map((item: any) => {
-          return {
-            label: item.DSName,
-            departmentId: item.DeptCode,
-            sectionId: item.SectCode,
-            departmentName: item.DeptName,
-            sectionName: item.SectName,
-            DSCode: item.DSCode,
-          };
-        });
-        this.optionListDepartmentHR = department;
-      },
-      (error) => {
-        // Handle error
-      }
-    );
+    this.httpService
+      .GetDeptSect(
+        '4',
+        localStorage.getItem('currentGroupCode'),
+        localStorage.getItem('currentDeptName'),
+        localStorage.getItem('currentSectName')
+      )
+      .subscribe(
+        (data) => {
+          const department = data.map((item: any) => {
+            return {
+              label: item.DSName,
+              departmentId: item.DeptCode,
+              sectionId: item.SectCode,
+              departmentName: item.DeptName,
+              sectionName: item.SectName,
+              DSCode: item.DSCode,
+            };
+          });
+          this.optionListDepartmentHR = department;
+        },
+        (error) => {
+          // Handle error
+        }
+      );
   }
 
   getCommand() {

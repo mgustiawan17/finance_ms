@@ -171,23 +171,30 @@ export class SuratCutiComponent implements OnInit {
 
   getDepartment() {
     this.optionListDepartmentHR = [];
-    this.httpService.GetDeptSect('4').subscribe(
-      (data) => {
-        const department = data.map((item: any) => {
-          return {
-            label: item.DSName,
-            departmentId: item.DeptCode,
-            sectionId: item.SectCode,
-            departmentName: item.DeptName,
-            sectionName: item.SectName,
-          };
-        });
-        this.optionListDepartmentHR = department;
-      },
-      (error) => {
-        // Handle error
-      }
-    );
+    this.httpService
+      .GetDeptSect(
+        '4',
+        localStorage.getItem('currentGroupCode'),
+        localStorage.getItem('currentDeptName'),
+        localStorage.getItem('currentSectName')
+      )
+      .subscribe(
+        (data) => {
+          const department = data.map((item: any) => {
+            return {
+              label: item.DSName,
+              departmentId: item.DeptCode,
+              sectionId: item.SectCode,
+              departmentName: item.DeptName,
+              sectionName: item.SectName,
+            };
+          });
+          this.optionListDepartmentHR = department;
+        },
+        (error) => {
+          // Handle error
+        }
+      );
   }
 
   getEmployee(deptcode: any, sectcode: any) {

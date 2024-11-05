@@ -8,9 +8,12 @@ import { checkUrl } from '../../../../pages/baseurl';
 export class SuratIzinListService {
   constructor(private http: HttpClient) {}
 
-  GetDeptSect(code: string) {
+  GetDeptSect(code: string, param1: any, param2: any, param3: any) {
     const json = JSON.stringify({
       code: code,
+      param1: param1,
+      param2: param2,
+      param3: param3,
     });
     if (checkUrl()) {
       return this.http.post(baseurl.baseUrl + 'Dropdown/getDD2', json).pipe(

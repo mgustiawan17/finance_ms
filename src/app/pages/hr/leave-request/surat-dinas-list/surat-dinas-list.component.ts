@@ -108,24 +108,31 @@ export class SuratDinasListComponent implements OnInit {
 
   getDepartment() {
     this.optionListDepartmentHR = [];
-    this.httpService.GetDeptSect('4').subscribe(
-      (data) => {
-        const department = data.map((item: any) => {
-          return {
-            label: item.DSName,
-            departmentId: item.DeptCode,
-            sectionId: item.SectCode,
-            departmentName: item.DeptName,
-            sectionName: item.SectName,
-            DSCode: item.DSCode,
-          };
-        });
-        this.optionListDepartmentHR = department;
-      },
-      (error) => {
-        // Handle error
-      }
-    );
+    this.httpService
+      .GetDeptSect(
+        '4',
+        localStorage.getItem('currentGroupCode'),
+        localStorage.getItem('currentDeptName'),
+        localStorage.getItem('currentSectName')
+      )
+      .subscribe(
+        (data) => {
+          const department = data.map((item: any) => {
+            return {
+              label: item.DSName,
+              departmentId: item.DeptCode,
+              sectionId: item.SectCode,
+              departmentName: item.DeptName,
+              sectionName: item.SectName,
+              DSCode: item.DSCode,
+            };
+          });
+          this.optionListDepartmentHR = department;
+        },
+        (error) => {
+          // Handle error
+        }
+      );
   }
 
   getCommand() {
@@ -187,6 +194,7 @@ export class SuratDinasListComponent implements OnInit {
             // tslint:disable-next-line: max-line-length
             return (
               '<button id="detail" data-toggle="modal" data-target="#modalDetail" class="btn m-portlet__nav-link btn m-btn m-btn–hover-primary m-btn–icon m-btn–icon-only m-btn–pill btn-outline-primary" title="Detail" type="button">\t\t\t\t\t\t\t<i class="fa fa-ellipsis-h"></i>\t\t\t\t\t\t</Button>' +
+              '\t\t\t\t\t\t<button id="print" class="btn m-portlet__nav-link btn m-btn m-btn–hover-success m-btn–icon m-btn–icon-only m-btn–pill btn-outline-success" title="Print" type="button">\t\t\t\t\t\t\t<i class="fa-solid fa-print"></i>\t\t\t\t\t\t</Button>' +
               '\t\t\t\t\t\t<button id="upload" class="btn m-portlet__nav-link btn m-btn m-btn–hover-success m-btn–icon m-btn–icon-only m-btn–pill btn-outline-success" title="Upload" type="button">\t\t\t\t\t\t\t<i class="fa-solid fa-file-arrow-up"></i>\t\t\t\t\t\t</Button>'
             );
           },

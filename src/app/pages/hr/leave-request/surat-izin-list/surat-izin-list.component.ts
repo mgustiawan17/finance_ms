@@ -103,24 +103,31 @@ export class SuratIzinListComponent implements OnInit {
 
   getDepartment() {
     this.optionListDepartmentHR = [];
-    this.httpService.GetDeptSect('4').subscribe(
-      (data) => {
-        const department = data.map((item: any) => {
-          return {
-            label: item.DSName,
-            departmentId: item.DeptCode,
-            sectionId: item.SectCode,
-            departmentName: item.DeptName,
-            sectionName: item.SectName,
-            DSCode: item.DSCode,
-          };
-        });
-        this.optionListDepartmentHR = department;
-      },
-      (error) => {
-        // Handle error
-      }
-    );
+    this.httpService
+      .GetDeptSect(
+        '4',
+        localStorage.getItem('currentGroupCode'),
+        localStorage.getItem('currentDeptName'),
+        localStorage.getItem('currentSectName')
+      )
+      .subscribe(
+        (data) => {
+          const department = data.map((item: any) => {
+            return {
+              label: item.DSName,
+              departmentId: item.DeptCode,
+              sectionId: item.SectCode,
+              departmentName: item.DeptName,
+              sectionName: item.SectName,
+              DSCode: item.DSCode,
+            };
+          });
+          this.optionListDepartmentHR = department;
+        },
+        (error) => {
+          // Handle error
+        }
+      );
   }
 
   compareTwoTimesM() {
@@ -262,9 +269,15 @@ export class SuratIzinListComponent implements OnInit {
           data: null,
           className: 'dt-body-center',
           render: function (t: any) {
-            // tslint:disable-next-line: max-line-length
-            return '<button id="edit" data-toggle="modal" data-target="#modalDetail" class="btn m-portlet__nav-link btn m-btn m-btn–hover-primary m-btn–icon m-btn–icon-only m-btn–pill btn-outline-primary" title="Edit" type="button">\t\t\t\t\t\t\t<i class="fa fa-pencil"></i>\t\t\t\t\t\t</Button>';
-            // return '<button id="detail" data-toggle="modal" data-target="#modalDetail" class="btn m-portlet__nav-link btn m-btn m-btn–hover-primary m-btn–icon m-btn–icon-only m-btn–pill btn-outline-primary" title="Detail" type="button">\t\t\t\t\t\t\t<i class="fa fa-ellipsis-h"></i>\t\t\t\t\t\t</Button>';
+            const GroupCode = localStorage.getItem('currentGroupCode');
+
+            // Cek apakah GroupCode bukan 'CSS-006'
+            if (GroupCode !== 'CSS-006') {
+              return '<button id="edit" data-toggle="modal" data-target="#modalDetail" class="btn m-portlet__nav-link btn m-btn m-btn–hover-primary m-btn–icon m-btn–icon-only m-btn–pill btn-outline-primary" title="Edit" type="button">\t\t\t\t\t\t\t<i class="fa fa-pencil"></i>\t\t\t\t\t\t</Button>';
+              // return '<button id="detail" data-toggle="modal" data-target="#modalDetail" class="btn m-portlet__nav-link btn m-btn m-btn–hover-primary m-btn–icon m-btn–icon-only m-btn–pill btn-outline-primary" title="Detail" type="button">\t\t\t\t\t\t\t<i class="fa fa-ellipsis-h"></i>\t\t\t\t\t\t</Button>';
+            } else {
+              return '';
+            }
           },
         },
         {

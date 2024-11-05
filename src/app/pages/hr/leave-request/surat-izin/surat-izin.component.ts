@@ -44,6 +44,9 @@ export class SuratIzinComponent implements OnInit {
   selectedTimeOut: Date;
   selectedPermit: any;
   selectedKategori: any;
+  GroupCode: any;
+  minDate: Date;
+  maxDate: Date;
 
   constructor(
     private el: ElementRef,
@@ -55,9 +58,13 @@ export class SuratIzinComponent implements OnInit {
     this.selectedTime = new Date();
     this.currentEmail = localStorage.getItem('currentEmail');
     this.currentIns = localStorage.getItem('currentInstansi');
+    this.GroupCode = localStorage.getItem('currentGroupCode');
   }
 
   ngOnInit() {
+    this.minDate = new Date();
+    this.maxDate = new Date();
+    this.maxDate.setDate(this.maxDate.getDate() + 2);
     $('#tableTempIzin').attr('hidden', 'hidden');
     this.getDepartment();
     this.getNoSurat();
@@ -101,23 +108,30 @@ export class SuratIzinComponent implements OnInit {
 
   getDepartment() {
     this.optionListDepartmentHR = [];
-    this.httpService.GetDeptSect('4').subscribe(
-      (data) => {
-        const department = data.map((item: any) => {
-          return {
-            label: item.DSName,
-            departmentId: item.DeptCode,
-            sectionId: item.SectCode,
-            departmentName: item.DeptName,
-            sectionName: item.SectName,
-          };
-        });
-        this.optionListDepartmentHR = department;
-      },
-      (error) => {
-        // Handle error
-      }
-    );
+    this.httpService
+      .GetDeptSect(
+        '4',
+        this.GroupCode,
+        localStorage.getItem('currentDeptName'),
+        localStorage.getItem('currentSectName')
+      )
+      .subscribe(
+        (data) => {
+          const department = data.map((item: any) => {
+            return {
+              label: item.DSName,
+              departmentId: item.DeptCode,
+              sectionId: item.SectCode,
+              departmentName: item.DeptName,
+              sectionName: item.SectName,
+            };
+          });
+          this.optionListDepartmentHR = department;
+        },
+        (error) => {
+          // Handle error
+        }
+      );
   }
 
   getEmployee(deptcode: any, sectcode: any, company: any) {

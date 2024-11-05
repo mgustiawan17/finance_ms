@@ -42,6 +42,7 @@ export class SuratCutiListComponent implements OnInit {
   selectedPermit: any;
   selectedDateIn: Date;
   selectedDateOut: Date;
+  GroupCode: any;
 
   constructor(
     private el: ElementRef,
@@ -51,6 +52,7 @@ export class SuratCutiListComponent implements OnInit {
     private messageService: MessageService
   ) {
     this.currentIns = localStorage.getItem('currentInstansi');
+    this.GroupCode = localStorage.getItem('currentGroupCode');
   }
 
   ngOnInit(): void {
@@ -99,24 +101,31 @@ export class SuratCutiListComponent implements OnInit {
 
   getDepartment() {
     this.optionListDepartmentHR = [];
-    this.httpService.GetDeptSect('4').subscribe(
-      (data) => {
-        const department = data.map((item: any) => {
-          return {
-            label: item.DSName,
-            departmentId: item.DeptCode,
-            sectionId: item.SectCode,
-            departmentName: item.DeptName,
-            sectionName: item.SectName,
-            DSCode: item.DSCode,
-          };
-        });
-        this.optionListDepartmentHR = department;
-      },
-      (error) => {
-        // Handle error
-      }
-    );
+    this.httpService
+      .GetDeptSect(
+        '4',
+        localStorage.getItem('currentGroupCode'),
+        localStorage.getItem('currentDeptName'),
+        localStorage.getItem('currentSectName')
+      )
+      .subscribe(
+        (data) => {
+          const department = data.map((item: any) => {
+            return {
+              label: item.DSName,
+              departmentId: item.DeptCode,
+              sectionId: item.SectCode,
+              departmentName: item.DeptName,
+              sectionName: item.SectName,
+              DSCode: item.DSCode,
+            };
+          });
+          this.optionListDepartmentHR = department;
+        },
+        (error) => {
+          // Handle error
+        }
+      );
   }
 
   getJenisCuti() {

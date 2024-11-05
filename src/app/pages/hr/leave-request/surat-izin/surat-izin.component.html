@@ -106,6 +106,8 @@
             [showIcon]="true"
             inputId="buttondisplay"
             placeholder="Select Date In"
+            [minDate]="minDate"
+            [maxDate]="maxDate"
             id="selectedDateIn"
             name="selectedDateIn"
           ></p-calendar>
@@ -139,6 +141,8 @@
             [showIcon]="true"
             inputId="buttondisplay"
             placeholder="Select Date Out"
+            [minDate]="minDate"
+            [maxDate]="maxDate"
             id="selectedDateOut"
             name="selectedDateOut"
           ></p-calendar>
@@ -187,7 +191,7 @@
               <div class="col-md-6 col-lg-">
                 <button
                   id="proses"
-                  class="btn btn-md btn-block btn-success"
+                  class="btn btn-md btn-block btn-danger"
                   type="button"
                   style="background: #ad1d0d; background-color: #ad1d0d"
                   (click)="InsertCuti()"

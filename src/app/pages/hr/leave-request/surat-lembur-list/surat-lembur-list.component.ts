@@ -113,24 +113,31 @@ export class SuratLemburListComponent implements OnInit {
 
   getDepartment() {
     this.optionListDepartmentHR = [];
-    this.httpService.GetDeptSect('4').subscribe(
-      (data) => {
-        const department = data.map((item: any) => {
-          return {
-            label: item.DSName,
-            departmentId: item.DeptCode,
-            sectionId: item.SectCode,
-            departmentName: item.DeptName,
-            sectionName: item.SectName,
-            DSCode: item.DSCode,
-          };
-        });
-        this.optionListDepartmentHR = department;
-      },
-      (error) => {
-        // Handle error
-      }
-    );
+    this.httpService
+      .GetDeptSect(
+        '4',
+        localStorage.getItem('currentGroupCode'),
+        localStorage.getItem('currentDeptName'),
+        localStorage.getItem('currentSectName')
+      )
+      .subscribe(
+        (data) => {
+          const department = data.map((item: any) => {
+            return {
+              label: item.DSName,
+              departmentId: item.DeptCode,
+              sectionId: item.SectCode,
+              departmentName: item.DeptName,
+              sectionName: item.SectName,
+              DSCode: item.DSCode,
+            };
+          });
+          this.optionListDepartmentHR = department;
+        },
+        (error) => {
+          // Handle error
+        }
+      );
   }
 
   compareTwoTimesM() {
@@ -307,6 +314,7 @@ export class SuratLemburListComponent implements OnInit {
           this.selectedDateOut = new Date(this.selectedPermit.DT2);
           this.selectedTimeIn = this.parseTime(this.selectedPermit.DT1);
           this.selectedTimeOut = this.parseTime(this.selectedPermit.DT2);
+          this.valueOTCriteriaOptions = this.selectedPermit.OTCriteria;
           this.onChangeOTCriteria(this.valueOTCriteriaOptions);
         });
       },
@@ -326,6 +334,9 @@ export class SuratLemburListComponent implements OnInit {
       param1: 'SL',
       permitno: permitno,
     };
+
+    const GroupCode = localStorage.getItem('currentGroupCode');
+
     this.cols = [
       { field: 'PermitNo', header: 'No Surat' },
       { field: 'DT1', header: 'Tanggal Awal' },
@@ -333,8 +344,12 @@ export class SuratLemburListComponent implements OnInit {
       { field: 'RegNo', header: 'Register' },
       { field: 'EmployeeName', header: 'Name' },
       { field: 'OTCriteria', header: 'OT Criteria' },
-      { field: 'action', header: 'Action' },
+      // { field: 'action', header: 'Action' },
     ];
+
+    if (GroupCode !== 'CSS-006') {
+      this.cols.push({ field: 'action', header: 'Action' });
+    }
 
     this.httpClient.post<any>(url, params).subscribe(
       (data) => {
