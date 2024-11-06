@@ -565,20 +565,27 @@ export class SecurityManagementComponent
 
   getListDepartment() {
     this.optionListDepartmentHR = [];
-    this.httpService.getDD2('4', '').subscribe(
-      (data) => {
-        const department = data.map((item: any) => {
-          return {
-            label: item.DeptName + ' - ' + item.SectName,
-            value: item.SectCode,
-          };
-        });
-        this.optionListDepartmentHR = department;
-      },
-      (error) => {
-        // Handle error
-      }
-    );
+    this.httpService
+      .getDD2(
+        '4',
+        localStorage.getItem('currentGroupCode'),
+        localStorage.getItem('currentDeptName'),
+        localStorage.getItem('currentSectName')
+      )
+      .subscribe(
+        (data) => {
+          const department = data.map((item: any) => {
+            return {
+              label: item.DeptName + ' - ' + item.SectName,
+              value: item.SectCode,
+            };
+          });
+          this.optionListDepartmentHR = department;
+        },
+        (error) => {
+          // Handle error
+        }
+      );
   }
 
   getDepartmentWMS() {

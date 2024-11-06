@@ -59,7 +59,11 @@ export class OptionLaporanSuratComponent implements OnInit {
   }
 
   filterSuratOptions() {
-    if (this.GroupCode === 'CSS-006') {
+    if (
+      this.GroupCode === 'CSS-006' ||
+      this.GroupCode === 'CSS-008' ||
+      this.GroupCode === 'CSS-009'
+    ) {
       this.suratOption = this.suratOption.filter(
         (option) => option.value !== 'SC'
       );

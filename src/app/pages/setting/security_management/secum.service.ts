@@ -74,10 +74,12 @@ export class SecurityManagementService {
     }
   }
 
-  getDD2(code: string, param1: string) {
+  getDD2(code: any, param1: any, param2: any, param3: any) {
     const json = JSON.stringify({
       code: code,
       param1: param1,
+      param2: param2,
+      param3: param3,
     });
     if (baseurl.checkUrl()) {
       return this.http.post(baseurl.baseUrl + 'Dropdown/getDD2', json).pipe(
@@ -87,14 +89,12 @@ export class SecurityManagementService {
         })
       );
     } else {
-      return this.http
-        .post(baseurl.baseUrlLuar + 'Dropdown/getDD2', json)
-        .pipe(
-          map((response: any) => {
-            const data = response.data;
-            return data;
-          })
-        );
+      return this.http.post(baseurl.baseUrlLuar + 'Dropdown/getDD2', json).pipe(
+        map((response: any) => {
+          const data = response.data;
+          return data;
+        })
+      );
     }
   }
 
@@ -111,15 +111,12 @@ export class SecurityManagementService {
         })
       );
     } else {
-      return this.http
-        .post(baseurl.baseUrlLuar + 'Dropdown/getDD3', json)
-        .pipe(
-          map((response: any) => {
-            const data = response.data;
-            return data;
-          })
-        );
+      return this.http.post(baseurl.baseUrlLuar + 'Dropdown/getDD3', json).pipe(
+        map((response: any) => {
+          const data = response.data;
+          return data;
+        })
+      );
     }
   }
-
 }
