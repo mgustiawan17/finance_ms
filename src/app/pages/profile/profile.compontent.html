@@ -1,16 +1,28 @@
-<div class="dashboard-title"
-style="font-size: 1.6em;
-       font-weight: bold;
-       color: white;
-       background-color: #ad1d0d;
-       text-align: left;
-       padding: 20px 30px;
-       margin-bottom: 30px; 
-       border-radius: 10px;">
-    Profile
-</div> <!--Profile Form-->
+<div
+  class="dashboard-title"
+  style="
+    font-size: 1.6em;
+    font-weight: bold;
+    color: white;
+    background-color: #ad1d0d;
+    text-align: left;
+    padding: 20px 30px;
+    margin-bottom: 30px;
+    border-radius: 10px;
+  "
+>
+  Profile
+</div>
+<!--Profile Form-->
 <div class="card mb-9">
-    <div style="margin-left: 28px; margin-top: 26px; margin-right: 28px;">
+  <div
+    style="
+      margin-left: 28px;
+      margin-top: 26px;
+      margin-right: 28px;
+      margin-bottom: 28px;
+    "
+  >
     <div class="row mb-6">
       <label class="col-lg-4 col-form-label fw-bold fs-6">Photo</label>
       <div class="col-lg-8">
@@ -29,23 +41,22 @@ style="font-size: 1.6em;
       </div>
     </div>
     <div class="row mb-6">
-        <label class="col-lg-4 col-form-label required fw-bold fs-6"
-          >No Register</label
-        >
-        <div class="col-lg-8 fv-row">
-          <input
-            type="text"
-            class="form-control form-control-lg form-control-solid m-input"
-            placeholder="Register"
-            name="noregister"
-            id="noregister"
-            required
-            disabled
-            value="{{currentRegister}}"
-          />
-          <div class="valid-feedback">Looks good!</div>
-        </div>
+      <label class="col-lg-4 col-form-label required fw-bold fs-6"
+        >No Register</label
+      >
+      <div class="col-lg-8 fv-row">
+        <input
+          type="text"
+          class="form-control form-control-lg form-control-solid m-input"
+          placeholder="Register"
+          name="noregister"
+          id="noregister"
+          required
+          disabled
+          value="{{currentRegister}}"
+        />
       </div>
+    </div>
     <div class="row mb-6">
       <label class="col-lg-4 col-form-label required fw-bold fs-6"
         >User Name</label
@@ -61,7 +72,6 @@ style="font-size: 1.6em;
           disabled
           value="{{currentUserName}}"
         />
-        <div class="valid-feedback">Looks good!</div>
       </div>
     </div>
     <div class="row mb-6">
@@ -76,15 +86,12 @@ style="font-size: 1.6em;
           id="jrcode"
           required
           disabled
-          value="{{iniJR}}"
+          value="{{currentJR}}"
         />
-        <div class="valid-feedback">Looks good!</div>
       </div>
     </div>
     <div class="row mb-6">
-      <label class="col-lg-4 col-form-label required fw-bold fs-6"
-        >Email</label
-      >
+      <label class="col-lg-4 col-form-label required fw-bold fs-6">Email</label>
       <div class="col-lg-8 fv-row">
         <input
           type="email"
@@ -96,47 +103,116 @@ style="font-size: 1.6em;
           disabled
           value="{{currentEmail}}"
         />
-        <div class="valid-feedback">Looks good!</div>
       </div>
     </div>
-    <div class="row mb-6">
-      <label class="col-lg-4 col-form-label required fw-bold fs-6"
-        >Password</label
+    <span style="margin-right: 20px">
+      <p-button
+        label="Change Password"
+        [text]="true"
+        [raised]="true"
+        severity="danger"
+        (onClick)="showDialogPassword()"
+      ></p-button>
+    </span>
+    <!-- <span>
+      <p-button
+        label="Change Access"
+        [text]="true"
+        [raised]="true"
+        severity="danger"
+        (onClick)="showDialogAccess()"
+      ></p-button>
+    </span> -->
+  </div>
+</div>
+
+<!-- Change Password -->
+<p-dialog
+  header="Change Password"
+  [modal]="true"
+  [closable]="false"
+  [(visible)]="modalPassword"
+  [style]="{ width: '40rem' , height: '20rem'}"
+>
+  <label class="col-lg-4 col-form-label required fw-bold fs-6">Password</label>
+  <div class="col-lg-8 fv-row">
+    <div class="input-group">
+      <input
+        class="form-control form-control-lg form-control-solid"
+        [type]="password"
+        name="password"
+        placeholder="Password"
+        id="password"
+        required
+      />
+      <button
+        type="button"
+        class="btn btn-secondary btn-sm"
+        (click)="togglePassword()"
       >
-      <div class="col-lg-8 fv-row">
-        <div class ="input-group">
-          <input
-            class="form-control form-control-lg form-control-solid"
-            [type]="password"
-            name="password"
-            placeholder="Password"
-            id="password"
-            required
-          />
-          <button type="button" class="btn btn-secondary btn-sm" (click)="togglePassword()"><i class="bi bi-eye-fill"></i></button>
-        </div>
-        <div class="valid-feedback">Looks good!</div>
-      </div>
+        <i class="bi bi-eye-fill"></i>
+      </button>
     </div>
   </div>
-  <div class="card-footer d-flex justify-content-end py-6 px-9">
-    <!--(click)="saveSettings()"-->
-    <button 
-    style="font-size: 0.875em; font-weight: bold; color: white; background-color: #ad1d0d; text-align: center; padding: 10px 25px; border-radius: 10px;"
-    type="button"
-    class="btn"
-    (click)="updatePassword()"
-    >
-      Update
-      <!-- <ng-container *ngIf="!isLoading">Save Changes</ng-container>
-        <ng-container *ngIf="isLoading">
-          <span clas="indicator-progress" [style.display]="'block'">
-            Please wait...{{ " " }}
-            <span
-              class="spinner-border spinner-border-sm align-middle ms-2"
-            ></span>
-          </span>
-        </ng-container> -->
-    </button>
+  <div class="footer d-flex justify-content-start py-6 px-9">
+    <span style="margin-right: 10px">
+      <p-button
+        label="Cancel"
+        [text]="true"
+        [raised]="true"
+        severity="secondary"
+        (onClick)="closeDialogPassword()"
+      ></p-button>
+    </span>
+    <span>
+      <p-button
+        label="Save"
+        [text]="true"
+        [raised]="true"
+        severity="danger"
+        (onClick)="updatePassword()"
+      ></p-button>
+    </span>
   </div>
+</p-dialog>
+
+<!-- Change Access -->
+<p-dialog
+  header="Change Access"
+  [modal]="true"
+  [closable]="false"
+  [(visible)]="modalAccess"
+  [style]="{ width: '35rem' , height: '25rem'}"
+>
+  <label class="col-lg-4 col-form-label required fw-bold fs-6">Access</label>
+  <div class="col-lg-12 fv-row">
+    <div class="input-group">
+      <p-dropdown
+        [showClear]="true"
+        placeholder="Change Access"
+        [style]="{'width':'100%'}"
+        id="access"
+      ></p-dropdown>
+      <span style="margin-right: 10px; margin-left: 30px">
+        <p-button
+          label="Cancel"
+          [text]="true"
+          [raised]="true"
+          severity="secondary"
+          (onClick)="closeDialogAccess()"
+        ></p-button>
+      </span>
+      <span>
+        <p-button
+          label="Save"
+          [text]="true"
+          [raised]="true"
+          severity="danger"
+          (onClick)="updatePassword()"
+        ></p-button>
+      </span>
+    </div>
   </div>
+</p-dialog>
+
+<p-toast></p-toast>

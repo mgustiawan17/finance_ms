@@ -57,7 +57,7 @@ export class UserInnerComponent implements OnInit, OnDestroy {
     this.unsubscribe.forEach((sb) => sb.unsubscribe());
   }
 
-  profile(){
+  profilee() {
     this._router.navigate(['/profile']);
   }
 }
