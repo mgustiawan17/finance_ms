@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Observable, map } from 'rxjs';
 import * as baseurl from '../../../../pages/baseurl';
 import { checkUrl } from '../../../../pages/baseurl';
+import { param } from 'jquery';
 
 @Injectable()
 export class SuratLemburService {
@@ -82,7 +83,8 @@ export class SuratLemburService {
     param1: string,
     param2: string,
     param3: string,
-    param4: string
+    param4: string,
+    param5: string
   ) {
     const json = JSON.stringify({
       code: '201',
@@ -93,6 +95,7 @@ export class SuratLemburService {
       param2: param2,
       param3: param3,
       param4: param4,
+      param5: param5,
     });
     if (checkUrl()) {
       return this.http.post(baseurl.baseUrl + 'Permit/Permit', json).pipe(

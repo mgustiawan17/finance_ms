@@ -71,7 +71,7 @@ export class SuratLemburComponent implements OnInit {
   }
 
   onChangeOTCriteria(selectedOTCriteria: any) {
-    console.log(selectedOTCriteria);
+    console.log(selectedOTCriteria.value);
     this.selectedOTCriteria = selectedOTCriteria.value;
   }
 
@@ -221,7 +221,8 @@ export class SuratLemburComponent implements OnInit {
         dateIn,
         dateOut,
         dateWork,
-        keterangan
+        keterangan,
+        this.selectedOTCriteria
       )
       .subscribe(
         (response: any) => {
