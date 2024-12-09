@@ -275,7 +275,7 @@ export class RegisterComponent implements OnInit, OnDestroy, AfterViewInit {
     }).then((result) => {
       if (result.value) {
         this.httpService
-          .saveData('1', 'del', register, '', '', '', '', '', '', '')
+          .saveData('1', 'del', register, 'CSS', '', '', '', '', '', '')
           .subscribe(
             (data) => {
               this.postData = JSON.stringify(data);
