@@ -63,7 +63,8 @@ export class SuratLemburComponent implements OnInit {
   ngOnInit(): void {
     this.minDate = new Date();
     this.maxDate = new Date();
-    this.maxDate.setDate(this.maxDate.getDate() + 2);
+    this.maxDate.setDate(this.maxDate.getDate() + 3);
+    this.minDate.setDate(this.minDate.getDate() - 3);
     $('#tableTempLembur').attr('hidden', 'hidden');
     this.getNoSurat();
     this.getDepartment();

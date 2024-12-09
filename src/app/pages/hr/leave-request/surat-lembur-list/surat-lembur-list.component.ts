@@ -55,6 +55,8 @@ export class SuratLemburListComponent implements OnInit {
   displayModal: boolean = false;
   displayEditModal: boolean = false;
   selectedOTCriteria: any;
+  minDate: Date;
+  maxDate: Date;
 
   constructor(
     private el: ElementRef,
@@ -66,6 +68,10 @@ export class SuratLemburListComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.minDate = new Date();
+    this.maxDate = new Date();
+    this.maxDate.setDate(this.maxDate.getDate() + 3);
+    this.minDate.setDate(this.minDate.getDate() - 3);
     // this.ListLembur();
     this.getDepartment();
     // this.DetailLembur(this.selectedPermit.PermitNo);

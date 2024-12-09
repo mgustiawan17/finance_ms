@@ -64,7 +64,8 @@ export class SuratIzinComponent implements OnInit {
   ngOnInit() {
     this.minDate = new Date();
     this.maxDate = new Date();
-    this.maxDate.setDate(this.maxDate.getDate() + 2);
+    this.maxDate.setDate(this.maxDate.getDate() + 3);
+    this.minDate.setDate(this.minDate.getDate() - 3);
     $('#tableTempIzin').attr('hidden', 'hidden');
     this.getDepartment();
     this.getNoSurat();

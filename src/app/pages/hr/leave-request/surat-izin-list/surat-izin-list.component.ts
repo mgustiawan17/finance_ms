@@ -57,6 +57,8 @@ export class SuratIzinListComponent implements OnInit {
   selectedTimeOut: Date;
   displayModal: boolean = false;
   selectedKategori: any;
+  minDate: Date;
+  maxDate: Date;
 
   constructor(
     private el: ElementRef,
@@ -71,6 +73,10 @@ export class SuratIzinListComponent implements OnInit {
 
   ngOnInit(): void {
     // this.ListIzin();
+    this.minDate = new Date();
+    this.maxDate = new Date();
+    this.maxDate.setDate(this.maxDate.getDate() + 3);
+    this.minDate.setDate(this.minDate.getDate() - 3);
     this.getDepartment();
     this.setDefaultKategori(this.selectedKategori);
     $('#tableListIzin').attr('hidden', 'hidden');
