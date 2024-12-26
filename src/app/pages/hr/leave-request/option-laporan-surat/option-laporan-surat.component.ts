@@ -28,6 +28,13 @@ export class OptionLaporanSuratComponent implements OnInit {
     { label: 'Surat Dinas', value: 'SD' },
     { label: 'Surat Lembur', value: 'SL' },
   ];
+  StatusOptions: any[] = [
+    { name: 'Open', value: '3.1' },
+    { name: 'Approved', value: '3.2' },
+    { name: 'Rejected', value: '3.3' },
+  ];
+  valuestatusOptions: string = '';
+  selectedStatus: any;
   selectedSurat: any;
   TableReportSuratCuti: any;
   ReportSuratTableCuti: any;
@@ -83,6 +90,11 @@ export class OptionLaporanSuratComponent implements OnInit {
   onDateSelect(event: any) {
     console.log('Selected date range:', this.selectedPeriode);
     // Ensure the dates are processed correctly without time information
+  }
+
+  onChangeStatus(selectedStatus: any) {
+    console.log(selectedStatus);
+    this.selectedStatus = selectedStatus.value;
   }
 
   getDeptIds() {
@@ -182,6 +194,7 @@ export class OptionLaporanSuratComponent implements OnInit {
           param4: tanggalAwal,
           param5: tanggalAkhir,
           param8: deptString,
+          param9: this.selectedStatus,
         },
       },
       columns: [
@@ -316,6 +329,7 @@ export class OptionLaporanSuratComponent implements OnInit {
           param4: tanggalAwal,
           param5: tanggalAkhir,
           param8: deptString,
+          param9: this.selectedStatus,
         },
       },
       columns: [
@@ -450,6 +464,7 @@ export class OptionLaporanSuratComponent implements OnInit {
           param4: tanggalAwal,
           param5: tanggalAkhir,
           param8: deptString,
+          param9: this.selectedStatus,
         },
       },
       columns: [
@@ -618,6 +633,7 @@ export class OptionLaporanSuratComponent implements OnInit {
           param4: tanggalAwal,
           param5: tanggalAkhir,
           param8: deptString,
+          param9: this.selectedStatus,
         },
       },
       columns: [
