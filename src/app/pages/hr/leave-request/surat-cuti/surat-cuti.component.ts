@@ -78,18 +78,20 @@ export class SuratCutiComponent implements OnInit {
   //   return date.toLocaleDateString('en-GB');
   // }
 
-  onChangeDepartment(selectedDept: any) {
+  onChangeDepartment(selectedDept: any[]) {
+    console.log(selectedDept);
     this.selectedDept = selectedDept;
     this.optionListEmployee = [];
     this.SisaCuti = '';
     this.selectedEmp = null;
     this.selectedJenis = null;
+    const deptString = this.getDeptIds().join(',');
+    this.getEmployee(deptString);
+  }
 
-    if (selectedDept && selectedDept.departmentId && selectedDept.sectionId) {
-      const deptcode = selectedDept.departmentId;
-      const sectcode = selectedDept.sectionId;
-      this.getEmployee(deptcode, sectcode);
-    }
+  getDeptIds() {
+    // Extract DSCode from each selected object
+    return this.selectedDept.map((emp: any) => emp.DSCode);
   }
 
   onChangeEmployee(selectedEmp: any) {
@@ -187,6 +189,7 @@ export class SuratCutiComponent implements OnInit {
               sectionId: item.SectCode,
               departmentName: item.DeptName,
               sectionName: item.SectName,
+              DSCode: item.DSCode,
             };
           });
           this.optionListDepartmentHR = department;
@@ -197,9 +200,9 @@ export class SuratCutiComponent implements OnInit {
       );
   }
 
-  getEmployee(deptcode: any, sectcode: any) {
+  getEmployee(dscode: any) {
     this.optionListEmployee = [];
-    this.httpService.GetEmployee('6', deptcode, sectcode).subscribe(
+    this.httpService.GetEmployee('6a', dscode).subscribe(
       (data) => {
         const employees = data.map((item: any) => {
           return {

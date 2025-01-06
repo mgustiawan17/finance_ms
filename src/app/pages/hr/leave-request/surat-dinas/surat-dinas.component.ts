@@ -63,13 +63,13 @@ export class SuratDinasComponent implements OnInit {
   onChangeDepartment(selectedDept: any) {
     console.log(selectedDept);
     this.selectedDept = selectedDept;
-    if (selectedDept && selectedDept.departmentId && selectedDept.sectionId) {
-      const deptcode = selectedDept.departmentId;
-      const sectcode = selectedDept.sectionId;
-      this.getEmployee(deptcode, sectcode, this.currentIns);
-    } else {
-      console.log('error cok');
-    }
+    const deptString = this.getDeptIds().join(',');
+    this.getEmployee(deptString);
+  }
+
+  getDeptIds() {
+    // Extract DSCode from each selected object
+    return this.selectedDept.map((emp: any) => emp.DSCode);
   }
 
   onChangeEmployee(selectedEmp: any) {
@@ -107,6 +107,7 @@ export class SuratDinasComponent implements OnInit {
               sectionId: item.SectCode,
               departmentName: item.DeptName,
               sectionName: item.SectName,
+              DSCode: item.DSCode,
             };
           });
           this.optionListDepartmentHR = department;
@@ -117,9 +118,9 @@ export class SuratDinasComponent implements OnInit {
       );
   }
 
-  getEmployee(deptcode: any, sectcode: any, company: any) {
+  getEmployee(dscode: any) {
     this.optionListEmployee = [];
-    this.httpService.GetEmployee('6', deptcode, sectcode, company).subscribe(
+    this.httpService.GetEmployee('6a', dscode).subscribe(
       (data) => {
         const employees = data.map((item: any) => {
           return {

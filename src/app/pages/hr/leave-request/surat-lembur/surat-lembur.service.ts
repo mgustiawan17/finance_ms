@@ -52,12 +52,10 @@ export class SuratLemburService {
     }
   }
 
-  GetEmployee(code: string, param1: any, param2: any, company: string) {
+  GetEmployee(code: string, param1: any) {
     const json = JSON.stringify({
       code: code,
       param1: param1,
-      param2: param2,
-      company: company,
     });
     if (checkUrl()) {
       return this.http.post(baseurl.baseUrl + 'Dropdown/getDD2', json).pipe(
