@@ -86,14 +86,19 @@ export class SuratLemburComponent implements OnInit {
   onChangeDepartment(selectedDept: any) {
     console.log(selectedDept);
     this.selectedDept = selectedDept;
-    const deptString = this.getDeptIds().join(',');
-    this.getEmployee(deptString);
+    if (selectedDept && selectedDept.departmentId && selectedDept.sectionId) {
+      const deptcode = selectedDept.departmentId;
+      const sectcode = selectedDept.sectionId;
+      this.getEmployee(deptcode, sectcode);
+    } else {
+      console.log('error cok');
+    }
   }
 
-  getDeptIds() {
-    // Extract DSCode from each selected object
-    return this.selectedDept.map((emp: any) => emp.DSCode);
-  }
+  // getDeptIds() {
+  //   // Extract DSCode from each selected object
+  //   return this.selectedDept.map((emp: any) => emp.DSCode);
+  // }
 
   onChangeEmployee(selectedEmp: any) {
     // console.log(selectedEmp);
@@ -135,9 +140,9 @@ export class SuratLemburComponent implements OnInit {
       );
   }
 
-  getEmployee(dscode: any) {
+  getEmployee(deptcode: any, sectcode: any) {
     this.optionListEmployee = [];
-    this.httpService.GetEmployee('6a', dscode).subscribe(
+    this.httpService.GetEmployee('6', deptcode, sectcode).subscribe(
       (data) => {
         const employees = data.map((item: any) => {
           return {
