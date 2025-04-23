@@ -78,8 +78,8 @@ export class ProfileComponent implements OnInit, AfterViewInit {
       this.httpService
         .update(
           '1',
-          'update_password_css',
-          this.currentRegister,
+          'update_password',
+          this.currentEmail,
           password,
           this.currentEmail
         )
