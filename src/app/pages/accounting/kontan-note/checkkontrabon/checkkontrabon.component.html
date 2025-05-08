@@ -1,0 +1,728 @@
+<div
+  class="dashboard-title"
+  style="
+    font-size: 1.6em;
+    font-weight: bold;
+    color: white;
+    background-color: #ad1d0d;
+    text-align: left;
+    padding: 20px 30px;
+    margin-bottom: 30px;
+    border-radius: 10px;
+  "
+>
+  Check Kontrabon
+</div>
+<div class="card mb-6">
+  <div class="card-header">
+    <h5 style="color: #ad1d0d; margin-top: 26px; font-weight: bold">
+      Check Kontrabon
+    </h5>
+  </div>
+  <form
+    class="m-form m-form--fit m-form--label-align-right"
+    id="suratIzinForm"
+    style="margin-left: 28px; margin-right: 28px; margin-top: 26px"
+  >
+    <div class="m-portlet__body">
+      <div class="form-group m-form__group row flex flex-wrap p-fluid">
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+          <label class="col-lg-12 col-form-label required fw-bold fs-6"
+            >Supplier</label
+          >
+          <p-dropdown
+            [options]="optionListSupplier"
+            [(ngModel)]="selectedSupp"
+            (onChange)="onChangeSupplier($event.value)"
+            [showClear]="true"
+            [filter]="true"
+            [style]="{ width: '100%' }"
+            placeholder="Select Supplier"
+            id="supplier"
+            name="supplier"
+          ></p-dropdown>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+          <label class="col-lg-12 col-form-label required fw-bold fs-6"
+            >No BTB</label
+          >
+          <p-multiSelect
+            [options]="optionListBTB"
+            [(ngModel)]="selectedBTB"
+            (onChange)="onChangeBTB($event.value)"
+            [showClear]="true"
+            [filter]="true"
+            [style]="{ width: '100%' }"
+            placeholder="Select BTB"
+            optionLabel="label"
+            id="btb"
+            name="btb"
+          ></p-multiSelect>
+        </div>
+      </div>
+      <br />
+      <br />
+      <div class="card-footer">
+        <div class="m-portlet__foot m-portlet__foot--fit">
+          <div class="m-form__actions m-form__actions">
+            <div class="row">
+              <div class="col-md-6 col-lg-">
+                <p-toast />
+                <button
+                  id="proses"
+                  class="btn btn-md btn-block btn-danger"
+                  type="button"
+                  style="background: #ad1d0d; background-color: #ad1d0d"
+                  (click)="getCheckkontrabon()"
+                >
+                  View Data
+                </button>
+                &nbsp;
+                <button
+                  class="btn btn-md btn-block btn-secondary"
+                  type="button"
+                  style="
+                    background-color: white;
+                    color: #ad1d0d;
+                    border: 1px solid #cccccc;
+                  "
+                >
+                  Back
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <br />
+    </div>
+  </form>
+</div>
+<br />
+<div class="card mb-6" id="CheckKontrabon" hidden>
+  <div class="card-header">
+    <h5 style="color: #ad1d0d; margin-top: 26px; font-weight: bold">
+      Check Kontrabon
+    </h5>
+  </div>
+  <div style="margin-left: 28px; margin-top: 26px; margin-right: 28px">
+    <div class="table-responsive">
+      <table
+        class="table table-striped table-bordered cell-border"
+        id="tabelCheckKontrabon"
+      >
+        <thead>
+          <tr class="fw-bolde">
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<p-toast />
+
+<p-dialog
+  header="Detail Review Kontrabon"
+  [(visible)]="displayModal"
+  [modal]="true"
+  [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }"
+  [style]="{ width: '50vw' }"
+  [draggable]="false"
+  [resizable]="false"
+>
+  <div class="form-group m-form__group row">
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+      <label
+        for="No Surat"
+        id="noSurat1"
+        class="col-lg-12 col-form-label fw-bold fs-6"
+        >Tanggal</label
+      >
+      <input
+        type="text"
+        class="form-control m-input"
+        id="reg"
+        aria-describedby="Nomor Surat"
+        [value]="selectedKontrabon?.TGL"
+        disabled
+      />
+    </div>
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+      <label
+        for="No Surat"
+        id="noSurat1"
+        class="col-lg-12 col-form-label fw-bold fs-6"
+        >No BTB</label
+      >
+      <input
+        type="text"
+        class="form-control m-input"
+        id="noSurat"
+        aria-describedby="Nomor Surat"
+        [value]="selectedKontrabon?.NoBTB"
+        disabled
+      />
+    </div>
+  </div>
+  <div class="form-group m-form__group row">
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+      <label
+        for="No Surat"
+        id="noSurat1"
+        class="col-lg-12 col-form-label fw-bold fs-6"
+        >No OP</label
+      >
+      <input
+        type="text"
+        class="form-control m-input"
+        id="departement"
+        aria-describedby="Nomor Surat"
+        [value]="selectedKontrabon?.NoOP"
+        disabled
+      />
+    </div>
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+      <label
+        for="No Surat"
+        id="noSurat1"
+        class="col-lg-12 col-form-label fw-bold fs-6"
+        >Kode Supplier</label
+      >
+      <input
+        type="text"
+        class="form-control m-input"
+        id="departement"
+        aria-describedby="Nomor Surat"
+        [value]="selectedKontrabon?.KdSupp"
+        disabled
+      />
+    </div>
+  </div>
+  <div class="form-group m-form__group row">
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+      <label
+        for="No Surat"
+        id="noSurat1"
+        class="col-lg-12 col-form-label fw-bold fs-6"
+        >Nama Supplier</label
+      >
+      <input
+        type="text"
+        class="form-control m-input"
+        id="departement"
+        aria-describedby="Nomor Surat"
+        [value]="selectedKontrabon?.NamaSupp"
+        disabled
+      />
+    </div>
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+      <label
+        for="No Surat"
+        id="noSurat1"
+        class="col-lg-12 col-form-label fw-bold fs-6"
+        >Kode TOPx</label
+      >
+      <input
+        type="text"
+        class="form-control m-input"
+        id="departement"
+        aria-describedby="Nomor Surat"
+        [value]="selectedKontrabon?.KdTOPx"
+        disabled
+      />
+    </div>
+  </div>
+  <div class="form-group m-form__group row">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+      <label
+        for="No Surat"
+        id="noSurat1"
+        class="col-lg-12 col-form-label fw-bold fs-6"
+        >Kode Barang</label
+      >
+      <input
+        type="text"
+        class="form-control m-input"
+        id="departement"
+        aria-describedby="Nomor Surat"
+        [value]="selectedKontrabon?.KdBrg"
+        disabled
+      />
+    </div>
+  </div>
+  <div class="form-group m-form__group row">
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+      <label
+        for="No Surat"
+        id="noSurat1"
+        class="col-lg-12 col-form-label fw-bold fs-6"
+        >Brand</label
+      >
+      <input
+        type="text"
+        class="form-control m-input"
+        id="departement"
+        aria-describedby="Nomor Surat"
+        [value]="selectedKontrabon?.Brand"
+        disabled
+      />
+    </div>
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+      <label
+        for="No Surat"
+        id="noSurat1"
+        class="col-lg-12 col-form-label fw-bold fs-6"
+        >Nama Barang</label
+      >
+      <input
+        type="text"
+        class="form-control m-input"
+        id="departement"
+        aria-describedby="Nomor Surat"
+        [value]="selectedKontrabon?.NamaBrg"
+        disabled
+      />
+    </div>
+  </div>
+  <div class="form-group m-form__group row">
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+      <label
+        for="No Surat"
+        id="noSurat1"
+        class="col-lg-12 col-form-label fw-bold fs-6"
+        >Nama Group</label
+      >
+      <input
+        type="text"
+        class="form-control m-input"
+        id="departement"
+        aria-describedby="Nomor Surat"
+        [value]="selectedKontrabon?.NamaGroup"
+        disabled
+      />
+    </div>
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+      <label
+        for="No Surat"
+        id="noSurat1"
+        class="col-lg-12 col-form-label fw-bold fs-6"
+        >Nama Subgroup</label
+      >
+      <input
+        type="text"
+        class="form-control m-input"
+        id="departement"
+        aria-describedby="Nomor Surat"
+        [value]="selectedKontrabon?.NamaSubGroup"
+        disabled
+      />
+    </div>
+  </div>
+  <div class="form-group m-form__group row">
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+      <label
+        for="No Surat"
+        id="noSurat1"
+        class="col-lg-12 col-form-label fw-bold fs-6"
+        >QTY BTB SB</label
+      >
+      <input
+        type="text"
+        class="form-control m-input"
+        id="departement"
+        aria-describedby="Nomor Surat"
+        [value]="selectedKontrabon?.QtyBTB_SB"
+        disabled
+      />
+    </div>
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+      <label
+        for="No Surat"
+        id="noSurat1"
+        class="col-lg-12 col-form-label fw-bold fs-6"
+        >Satuan Beli</label
+      >
+      <input
+        type="text"
+        class="form-control m-input"
+        id="departement"
+        aria-describedby="Nomor Surat"
+        [value]="selectedKontrabon?.SatuanBeli"
+        disabled
+      />
+    </div>
+  </div>
+  <div class="form-group m-form__group row">
+    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+      <label
+        for="No Surat"
+        id="noSurat1"
+        class="col-lg-12 col-form-label fw-bold fs-6"
+        >Currency</label
+      >
+      <input
+        type="text"
+        class="form-control m-input"
+        id="departement"
+        aria-describedby="Nomor Surat"
+        [value]="selectedKontrabon?.Currency"
+        disabled
+      />
+    </div>
+    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+      <label
+        for="No Surat"
+        id="noSurat1"
+        class="col-lg-12 col-form-label fw-bold fs-6"
+        >Kurs</label
+      >
+      <input
+        type="text"
+        class="form-control m-input"
+        id="departement"
+        aria-describedby="Nomor Surat"
+        [value]="selectedKontrabon?.Kurs"
+        disabled
+      />
+    </div>
+    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+      <label
+        for="No Surat"
+        id="noSurat1"
+        class="col-lg-12 col-form-label fw-bold fs-6"
+        >Harga Satuan Curr</label
+      >
+      <input
+        type="text"
+        class="form-control m-input"
+        id="departement"
+        aria-describedby="Nomor Surat"
+        [value]="formatCurrency(selectedKontrabon?.HrgSatuanCURR)"
+        disabled
+      />
+    </div>
+  </div>
+  <div class="form-group m-form__group row">
+    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+      <label
+        for="No Surat"
+        id="noSurat1"
+        class="col-lg-12 col-form-label fw-bold fs-6"
+        >Harga Satuan</label
+      >
+      <input
+        type="text"
+        class="form-control m-input"
+        id="departement"
+        aria-describedby="Nomor Surat"
+        [value]="formatCurrency(selectedKontrabon?.HrgSatuan)"
+        disabled
+      />
+    </div>
+    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+      <label
+        for="No Surat"
+        id="noSurat1"
+        class="col-lg-12 col-form-label fw-bold fs-6"
+        >Disc 1</label
+      >
+      <input
+        type="text"
+        class="form-control m-input"
+        id="departement"
+        aria-describedby="Nomor Surat"
+        [value]="selectedKontrabon?.Disc1"
+        disabled
+      />
+    </div>
+    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+      <label
+        for="No Surat"
+        id="noSurat1"
+        class="col-lg-12 col-form-label fw-bold fs-6"
+        >Disc 2</label
+      >
+      <input
+        type="text"
+        class="form-control m-input"
+        id="departement"
+        aria-describedby="Nomor Surat"
+        [value]="selectedKontrabon?.Disc2"
+        disabled
+      />
+    </div>
+  </div>
+  <div class="form-group m-form__group row">
+    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+      <label
+        for="No Surat"
+        id="noSurat1"
+        class="col-lg-12 col-form-label fw-bold fs-6"
+        >PPN</label
+      >
+      <input
+        type="text"
+        class="form-control m-input"
+        id="departement"
+        aria-describedby="Nomor Surat"
+        [value]="formatCurrency(selectedKontrabon?.PPN)"
+        disabled
+      />
+    </div>
+    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+      <label
+        for="No Surat"
+        id="noSurat1"
+        class="col-lg-12 col-form-label fw-bold fs-6"
+        >Nilai Disc 1</label
+      >
+      <input
+        type="text"
+        class="form-control m-input"
+        id="departement"
+        aria-describedby="Nomor Surat"
+        [value]="formatCurrency(selectedKontrabon?.Nilai_Disc1)"
+        disabled
+      />
+    </div>
+    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+      <label
+        for="No Surat"
+        id="noSurat1"
+        class="col-lg-12 col-form-label fw-bold fs-6"
+        >Nilai Disc 1 Valas</label
+      >
+      <input
+        type="text"
+        class="form-control m-input"
+        id="departement"
+        aria-describedby="Nomor Surat"
+        [value]="formatCurrency(selectedKontrabon?.Nilai_Disc1_Valas)"
+        disabled
+      />
+    </div>
+  </div>
+  <div class="form-group m-form__group row">
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+      <label
+        for="No Surat"
+        id="noSurat1"
+        class="col-lg-12 col-form-label fw-bold fs-6"
+        >Nilai Disc 2</label
+      >
+      <input
+        type="text"
+        class="form-control m-input"
+        id="departement"
+        aria-describedby="Nomor Surat"
+        [value]="formatCurrency(selectedKontrabon?.Nilai_Disc2)"
+        disabled
+      />
+    </div>
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+      <label
+        for="No Surat"
+        id="noSurat1"
+        class="col-lg-12 col-form-label fw-bold fs-6"
+        >Nilai Disc 2 Valas</label
+      >
+      <input
+        type="text"
+        class="form-control m-input"
+        id="departement"
+        aria-describedby="Nomor Surat"
+        [value]="formatCurrency(selectedKontrabon?.Nilai_Disc2_Valas)"
+        disabled
+      />
+    </div>
+  </div>
+  <div class="form-group m-form__group row">
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+      <label
+        for="No Surat"
+        id="noSurat1"
+        class="col-lg-12 col-form-label fw-bold fs-6"
+        >Nilai PPN</label
+      >
+      <input
+        type="text"
+        class="form-control m-input"
+        id="departement"
+        aria-describedby="Nomor Surat"
+        [value]="formatCurrency(selectedKontrabon?.Nilai_PPN)"
+        disabled
+      />
+    </div>
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+      <label
+        for="No Surat"
+        id="noSurat1"
+        class="col-lg-12 col-form-label fw-bold fs-6"
+        >Nilai PPN Valas</label
+      >
+      <input
+        type="text"
+        class="form-control m-input"
+        id="departement"
+        aria-describedby="Nomor Surat"
+        [value]="formatCurrency(selectedKontrabon?.Nilai_PPN_Valas)"
+        disabled
+      />
+    </div>
+  </div>
+  <div class="form-group m-form__group row">
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+      <label
+        for="No Surat"
+        id="noSurat1"
+        class="col-lg-12 col-form-label fw-bold fs-6"
+        >OC 1</label
+      >
+      <input
+        type="text"
+        class="form-control m-input"
+        id="departement"
+        aria-describedby="Nomor Surat"
+        [value]="formatCurrency(selectedKontrabon?.OC1)"
+        disabled
+      />
+    </div>
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+      <label
+        for="No Surat"
+        id="noSurat1"
+        class="col-lg-12 col-form-label fw-bold fs-6"
+        >OC 2</label
+      >
+      <input
+        type="text"
+        class="form-control m-input"
+        id="departement"
+        aria-describedby="Nomor Surat"
+        [value]="formatCurrency(selectedKontrabon?.OC2)"
+        disabled
+      />
+    </div>
+  </div>
+  <div class="form-group m-form__group row">
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+      <label
+        for="No Surat"
+        id="noSurat1"
+        class="col-lg-12 col-form-label fw-bold fs-6"
+        >Nilai DPP</label
+      >
+      <input
+        type="text"
+        class="form-control m-input"
+        id="departement"
+        aria-describedby="Nomor Surat"
+        [value]="formatCurrency(selectedKontrabon?.Nilai_DPP)"
+        disabled
+      />
+    </div>
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+      <label
+        for="No Surat"
+        id="noSurat1"
+        class="col-lg-12 col-form-label fw-bold fs-6"
+        >Grand Total</label
+      >
+      <input
+        type="text"
+        class="form-control m-input"
+        id="departement"
+        aria-describedby="Nomor Surat"
+        [value]="formatCurrency(selectedKontrabon?.GRANDTOTAL)"
+        disabled
+      />
+    </div>
+  </div>
+  <div class="form-group m-form__group row">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+      <label
+        for="No Surat"
+        id="noSurat1"
+        class="col-lg-12 col-form-label fw-bold fs-6"
+        >Jatuh Tempo</label
+      >
+      <input
+        type="text"
+        class="form-control m-input"
+        id="departement"
+        aria-describedby="Nomor Surat"
+        [value]="selectedKontrabon?.JATUH_TEMPO"
+        disabled
+      />
+    </div>
+  </div>
+  <div class="form-group m-form__group row">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+      <label for="buttondisplay" class="col-lg-6 col-form-label fw-bold fs-6">
+        Keterangan
+      </label>
+      <textarea
+        class="form-control m-input"
+        id="keterangan"
+        rows="3"
+      ></textarea>
+    </div>
+  </div>
+  <br />
+  <div class="form-group m-form__group row">
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+      <button
+        class="btn btn-md btn-block btn-danger"
+        type="button"
+        style="background-color: red; color: white"
+        id="simpan"
+      >
+        Simpan
+      </button>
+      &nbsp;
+      <button
+        class="btn btn-md btn-block btn-secondary"
+        type="button"
+        style="background-color: white; color: red; border: 1px solid #cccccc"
+        id="batal"
+        (click)="displayModal = false"
+      >
+        Batal
+      </button>
+    </div>
+  </div>
+</p-dialog>

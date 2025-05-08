@@ -1,0 +1,81 @@
+<div
+  class="dashboard-title"
+  style="
+    font-size: 1.6em;
+    font-weight: bold;
+    color: white;
+    background-color: #ad1d0d;
+    text-align: left;
+    padding: 20px 30px;
+    margin-bottom: 30px;
+    border-radius: 10px;
+  "
+>
+  Retur Kontrabon
+</div>
+<div class="card mb-6">
+  <div class="card-header">
+    <h5 style="color: #ad1d0d; margin-top: 26px; font-weight: bold">
+      Retur Kontrabon
+    </h5>
+  </div>
+  <form
+    class="m-form m-form--fit m-form--label-align-right"
+    id="suratIzinForm"
+    style="margin-left: 28px; margin-right: 28px; margin-top: 26px"
+  >
+    <div class="m-portlet__body">
+      <div class="form-group m-form__group row flex flex-wrap p-fluid">
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+          <label class="col-lg-12 col-form-label required fw-bold fs-6"
+            >Supplier</label
+          >
+          <p-dropdown
+            [options]="optionListSupplier"
+            (onChange)="onChangeSupplier($event.value)"
+            [showClear]="true"
+            [filter]="true"
+            [style]="{ width: '100%' }"
+            placeholder="Select Supplier"
+            id="supplier"
+            name="supplier"
+          ></p-dropdown>
+        </div>
+      </div>
+      <br />
+      <br />
+      <div class="card-footer">
+        <div class="m-portlet__foot m-portlet__foot--fit">
+          <div class="m-form__actions m-form__actions">
+            <div class="row">
+              <div class="col-md-6 col-lg-">
+                <p-toast />
+                <button
+                  id="proses"
+                  class="btn btn-md btn-block btn-danger"
+                  type="button"
+                  style="background: #ad1d0d; background-color: #ad1d0d"
+                >
+                  View Data
+                </button>
+                &nbsp;
+                <button
+                  class="btn btn-md btn-block btn-secondary"
+                  type="button"
+                  style="
+                    background-color: white;
+                    color: #ad1d0d;
+                    border: 1px solid #cccccc;
+                  "
+                >
+                  Back
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <br />
+    </div>
+  </form>
+</div>

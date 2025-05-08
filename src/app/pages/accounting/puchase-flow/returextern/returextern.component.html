@@ -1,0 +1,219 @@
+<div
+  class="dashboard-title"
+  style="
+    font-size: 1.6em;
+    font-weight: bold;
+    color: white;
+    background-color: #ad1d0d;
+    text-align: left;
+    padding: 20px 30px;
+    margin-bottom: 30px;
+    border-radius: 10px;
+  "
+>
+  Retur Extern
+</div>
+<div class="card mb-6">
+  <div class="card-header">
+    <h5 style="color: #ad1d0d; margin-top: 26px; font-weight: bold">
+      Retur Extern
+    </h5>
+  </div>
+  <form
+    class="m-form m-form--fit m-form--label-align-right"
+    id="suratIzinForm"
+    style="margin-left: 28px; margin-right: 28px; margin-top: 26px"
+  >
+    <div class="m-portlet__body">
+      <div class="form-group m-form__group row flex flex-wrap p-fluid">
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+          <label class="col-lg-12 col-form-label required fw-bold fs-6"
+            >Periode</label
+          >
+          <p-calendar
+            selectionMode="range"
+            [(ngModel)]="selectedPeriode"
+            [iconDisplay]="'input'"
+            [showClear]="true"
+            [showIcon]="true"
+            [readonlyInput]="true"
+            [style]="{ width: '100%' }"
+            placeholder="Select Periode"
+            id="selectPeriode"
+            name="selectPeriode"
+          ></p-calendar>
+        </div>
+      </div>
+      <div class="form-group m-form__group row flex flex-wrap p-fluid">
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+          <label class="col-lg-12 col-form-label required fw-bold fs-6"
+            >Cari Berdasarkan</label
+          >
+          <div class="flex flex-column gap-3">
+            <div *ngFor="let category of categories" class="field-checkbox">
+              <p-radioButton
+                type="radio"
+                [inputId]="category.key"
+                name="category"
+                [value]="category"
+                [(ngModel)]="selectedCategory"
+              />
+              <label [for]="category.key" class="ml-2">
+                {{ category.name }}
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <br />
+      <br />
+      <div class="card-footer">
+        <div class="m-portlet__foot m-portlet__foot--fit">
+          <div class="m-form__actions m-form__actions">
+            <div class="row">
+              <div class="col-md-6 col-lg-">
+                <p-toast />
+                <button
+                  id="proses"
+                  class="btn btn-md btn-block btn-danger"
+                  type="button"
+                  style="background: #ad1d0d; background-color: #ad1d0d"
+                  (click)="getCommand()"
+                >
+                  View Data
+                </button>
+                &nbsp;
+                <button
+                  class="btn btn-md btn-block btn-secondary"
+                  type="button"
+                  style="
+                    background-color: white;
+                    color: #ad1d0d;
+                    border: 1px solid #cccccc;
+                  "
+                >
+                  Back
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <br />
+    </div>
+  </form>
+</div>
+
+<div class="card mb-6" id="tableReturExtern">
+  <div class="card-header">
+    <h5 style="color: #ad1d0d; margin-top: 26px; font-weight: bold">
+      Data Retur Extern
+    </h5>
+  </div>
+  <!-- begin::Table container -->
+  <div style="margin-left: 28px; margin-top: 26px; margin-right: 28px">
+    <div class="table-responsive">
+      <div id="ReturExternChart" style="width: 100%; height: 400px"></div>
+      <div id="chartPlaceholder" style="display: none; text-align: center">
+        <p>No data available to display the chart.</p>
+      </div>
+      <!-- begin::Table -->
+      <table
+        class="table table-striped table-bordered cell-border"
+        id="returExtern"
+      >
+        <!-- begin::Table head -->
+        <thead>
+          <tr class="fw-bolde">
+            <th style="text-align: center"></th>
+            <th style="text-align: center"></th>
+            <th style="text-align: center"></th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+      <!-- end::Table -->
+    </div>
+    <!-- end::Table container -->
+  </div>
+</div>
+
+<div class="card mb-6" id="tableDetailBarang">
+  <div class="card-header">
+    <h5 style="color: #ad1d0d; margin-top: 26px; font-weight: bold">
+      Data Retur Extern
+    </h5>
+  </div>
+  <!-- begin::Table container -->
+  <div style="margin-left: 28px; margin-top: 26px; margin-right: 28px">
+    <div class="table-responsive">
+      <!-- begin::Table -->
+      <table
+        class="table table-striped table-bordered cell-border"
+        id="detailBarang"
+      >
+        <!-- begin::Table head -->
+        <thead>
+          <tr class="fw-bolde">
+            <th style="text-align: center"></th>
+            <th style="text-align: center"></th>
+            <th style="text-align: center"></th>
+            <th style="text-align: center"></th>
+            <th style="text-align: center"></th>
+            <th style="text-align: center"></th>
+            <th style="text-align: center"></th>
+            <th style="text-align: center"></th>
+            <th style="text-align: center"></th>
+            <th style="text-align: center"></th>
+            <th style="text-align: center"></th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+      <!-- end::Table -->
+    </div>
+    <!-- end::Table container -->
+  </div>
+</div>
+
+<p-dialog
+  header="Detail Retur Extern"
+  [(visible)]="displayModal"
+  [modal]="true"
+  [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }"
+  [style]="{ width: '50vw' }"
+  [draggable]="false"
+  [resizable]="false"
+>
+  <p-table
+    #dt
+    [columns]="cols"
+    [value]="items"
+    styleClass="p-datatable-gridlines"
+    [scrollable]="true"
+    scrollHeight="60vh"
+    [paginator]="true"
+    [rows]="10"
+    [rowsPerPageOptions]="[10, 20, 50, 100, 200]"
+  >
+    <ng-template pTemplate="header" let-columns>
+      <tr>
+        <th *ngFor="let col of columns">
+          {{ col.header }}
+        </th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-item let-columns="columns">
+      <tr>
+        <td *ngFor="let col of columns">
+          <ng-container *ngIf="col.isNumber; else defaultTemplate">
+            {{ formatNumber(item[col.field]) }}
+          </ng-container>
+          <ng-template #defaultTemplate>
+            {{ item[col.field] }}
+          </ng-template>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</p-dialog>
