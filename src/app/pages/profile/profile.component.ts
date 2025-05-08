@@ -63,6 +63,7 @@ export class ProfileComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
+    this.showImage(this.currentRegister);
     // this.getNoRegister();
     this.password = 'password';
     // this.getFileName();
@@ -145,6 +146,45 @@ export class ProfileComponent implements OnInit, AfterViewInit {
       detail: 'Change access has been canceled!',
     });
     $('#access').val('');
+  }
+
+  showImage(imageId: any) {
+    if (!imageId) {
+      console.error('ID gambar tidak valid:', imageId);
+      return;
+    }
+
+    let url;
+    if (checkUrl()) {
+      url = baseUrl + 'Auth/GetFotoProfile/' + imageId;
+    } else {
+      url = baseUrlLuar + 'Auth/GetFotoProfile/' + imageId;
+    }
+
+    console.log('Mengambil gambar dari:', url);
+
+    $('#FotoProfilee').empty();
+
+    $.ajax({
+      url: url,
+      type: 'GET',
+      dataType: 'json',
+      success: function (response) {
+        if (response.success) {
+          const imageUrl = 'data:image/jpeg;base64,' + response.data;
+          const imageHTML = `<img src="${imageUrl}" alt="${imageId}" class="profile-image"/>`;
+
+          $('#FotoProfilee').append($(imageHTML));
+        } else {
+          console.error('Gagal memuat gambar:', response.error);
+        }
+      },
+      error: function (xhr, status, error) {
+        console.error('AJAX error:', error);
+      },
+    });
+
+    console.log('ditampilkan');
   }
 
   // getFileName() {

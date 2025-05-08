@@ -1,10 +1,19 @@
-import { Component, OnInit, ChangeDetectorRef, OnDestroy } from '@angular/core';
+import {
+  ViewChild,
+  ElementRef,
+  Component,
+  OnInit,
+  ChangeDetectorRef,
+  OnDestroy,
+  AfterViewInit,
+} from '@angular/core';
 import { NavigationCancel, NavigationEnd, Router } from '@angular/router';
 import { AuthenticationService } from '../../../../auth/services/authentication.service';
 import { environment } from 'src/environments/environment';
 import { Subscription } from 'rxjs';
 import { KTHelpers } from 'src/app/_metronic/kt';
 import { LayoutService } from '../../core/layout.service';
+import { baseUrl, checkUrl, baseUrlLuar } from 'src/app/pages/baseurl';
 import { AsideService } from './aside.service';
 
 export type Tab = {
@@ -17,19 +26,25 @@ export type Tab = {
   clicked?: boolean;
 };
 
+interface Message {
+  sender: 'user' | 'bot';
+  text: string;
+}
+
 @Component({
   selector: 'app-aside',
   templateUrl: './aside.component.html',
   styleUrl: './aside.component.scss',
   providers: [AsideService],
 })
-export class AsideComponent implements OnInit, OnDestroy {
+export class AsideComponent implements OnInit, OnDestroy, AfterViewInit {
+  @ViewChild('chatScroll') private chatScrollContainer!: ElementRef;
   appAngularVersion: string = environment.appVersion;
   tabs: ReadonlyArray<Tab> = [];
   currentUser: any;
   ListMenus: any = {};
   currentHeadMenu: string = '';
-  submenuTitle: string = 'Sub Menu';
+  submenuTitle: string = 'Sakura AI';
   filteredSubMenus: any[] = [];
   filteredSubMenus1: any[] = [];
   asideMenuSecondary: boolean = true;
@@ -39,6 +54,15 @@ export class AsideComponent implements OnInit, OnDestroy {
   asideMinimized = false;
   private unsubscribe: Subscription[] = [];
   activeTab: string | null = null;
+  currentRegister: any;
+  messages: { sender: 'user' | 'bot'; text: string }[] = [];
+  botName: string = 'Sakura AI';
+  userName: string = 'You';
+  prompt: string = '';
+  response: string = '';
+  error: string = '';
+  isLoading: boolean = false;
+  currentUserName: any;
 
   constructor(
     private layout: LayoutService,
@@ -49,10 +73,13 @@ export class AsideComponent implements OnInit, OnDestroy {
     private _router: Router
   ) {
     this.currentUser = localStorage.getItem('currentEmail');
+    this.currentRegister = localStorage.getItem('currentRegister');
+    this.currentUserName = localStorage.getItem('currentUserName');
     this.ListMenus = '';
   }
 
   ngOnInit(): void {
+    this.showImage(this.currentRegister);
     this.asideMenuSecondary = this.layout.getProp(
       'aside.secondaryDisplay'
     ) as boolean;
@@ -82,6 +109,13 @@ export class AsideComponent implements OnInit, OnDestroy {
     }
 
     this.routingChanges();
+    this.currentUserName = localStorage.getItem('currentUserName');
+    this.userName = this.currentUserName || 'You';
+    this.botName = 'Sakura AI';
+  }
+
+  ngAfterViewInit(): void {
+    this.scrollToBottom();
   }
 
   routingChanges() {
@@ -208,5 +242,83 @@ export class AsideComponent implements OnInit, OnDestroy {
     this.auth.logout();
     this._router.navigate(['/login']);
     document.location.reload();
+  }
+
+  showImage(imageId: any) {
+    if (!imageId) {
+      console.error('ID gambar tidak valid:', imageId);
+      return;
+    }
+
+    let url;
+    if (checkUrl()) {
+      url = baseUrl + 'Auth/GetFotoProfile/' + imageId;
+    } else {
+      url = baseUrlLuar + 'Auth/GetFotoProfile/' + imageId;
+    }
+
+    console.log('Mengambil gambar dari:', url);
+
+    $('#FotoProfile').empty();
+
+    $.ajax({
+      url: url,
+      type: 'GET',
+      dataType: 'json',
+      success: function (response) {
+        if (response.success) {
+          const imageUrl = 'data:image/jpeg;base64,' + response.data;
+          const imageHTML = `<img src="${imageUrl}" alt="${imageId}" class="profile-image"/>`;
+
+          $('#FotoProfile').append($(imageHTML));
+        } else {
+          console.error('Gagal memuat gambar:', response.error);
+        }
+      },
+      error: function (xhr, status, error) {
+        console.error('AJAX error:', error);
+      },
+    });
+
+    console.log('ditampilkan');
+  }
+
+  sendMessage(): void {
+    if (this.prompt.trim() !== '') {
+      const userMessage: Message = { sender: 'user', text: this.prompt };
+      this.messages.push(userMessage);
+      this.generateResponse(this.prompt);
+      this.prompt = ''; // Clear input
+    }
+  }
+
+  generateResponse(prompt: string): void {
+    this.isLoading = true;
+
+    this.tabsService.generateText(prompt).subscribe(
+      (data) => {
+        const botText = data?.response ?? 'Tidak ada respon dari server.';
+        const botMessage: Message = { sender: 'bot', text: botText };
+        this.messages.push(botMessage);
+        this.isLoading = false;
+      },
+      (error) => {
+        this.error =
+          error?.error?.error ||
+          'Terjadi kesalahan saat berkomunikasi dengan Sakura AI.';
+        const errorMessage: Message = { sender: 'bot', text: this.error };
+        this.messages.push(errorMessage);
+        this.isLoading = false;
+      }
+    );
+  }
+
+  scrollToBottom(): void {
+    try {
+      this.chatScrollContainer.nativeElement.scrollTop =
+        this.chatScrollContainer.nativeElement.scrollHeight;
+    } catch (err) {
+      console.error('Scroll error', err);
+    }
   }
 }

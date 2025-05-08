@@ -37,6 +37,69 @@ const Routing: Routes = [
       import('./approval/leave/leave.module').then((m) => m.LeaveModule),
   },
   {
+    path: 'accounting/puchaseflow/reportbtb',
+    loadChildren: () =>
+      import('./accounting/puchase-flow/reportbtb/reportbtb.module').then(
+        (m) => m.ReportbtbModule
+      ),
+  },
+  {
+    path: 'accounting/puchaseflow/usagereport',
+    loadChildren: () =>
+      import('./accounting/puchase-flow/usagereport/usagereport.module').then(
+        (m) => m.UsagereportModule
+      ),
+  },
+  {
+    path: 'accounting/puchaseflow/returintern',
+    loadChildren: () =>
+      import('./accounting/puchase-flow/returintern/returintern.module').then(
+        (m) => m.ReturinternModule
+      ),
+  },
+  {
+    path: 'accounting/puchaseflow/returextern',
+    loadChildren: () =>
+      import('./accounting/puchase-flow/returextern/returextern.module').then(
+        (m) => m.ReturexternModule
+      ),
+  },
+  {
+    path: 'accounting/puchaseflow/stocksparepart',
+    loadChildren: () =>
+      import(
+        './accounting/puchase-flow/stocksparepart/stocksparepart.module'
+      ).then((m) => m.StocksparepartModule),
+  },
+  {
+    path: 'accounting/kontannote/listkontrabon',
+    loadChildren: () =>
+      import(
+        './accounting/kontan-note/listkontrabon/listkontrabon.module'
+      ).then((m) => m.ListkontrabonModule),
+  },
+  {
+    path: 'accounting/kontannote/checkkontrabon',
+    loadChildren: () =>
+      import(
+        './accounting/kontan-note/checkkontrabon/checkkontrabon.module'
+      ).then((m) => m.CheckkontrabonModule),
+  },
+  {
+    path: 'accounting/kontannote/returkontrabon',
+    loadChildren: () =>
+      import(
+        './accounting/kontan-note/returkontrabon/returkontrabon.module'
+      ).then((m) => m.ReturkontrabonModule),
+  },
+  {
+    path: 'accounting/kontannote/reviewkontrabon',
+    loadChildren: () =>
+      import(
+        './accounting/kontan-note/reviewkontrabon/reviewkontrabon.module'
+      ).then((m) => m.ReviewkontrabonModule),
+  },
+  {
     path: 'hr/attendance',
     loadChildren: () =>
       import('./hr/attendance/attendanceperiode/attendanceperiode.module').then(

@@ -195,6 +195,15 @@ export class SuratIzinComponent implements OnInit {
     const dateOut: string =
       `${year2}-${monthString2}-${dayString2}` + ' ' + formattedTimeOut;
 
+    if (dateOut < dateIn) {
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Error',
+        detail: 'Tanggal dan waktu tidak valid. Periksa kembali!',
+      });
+      return;
+    }
+
     const keterangan: string = $('#keterangan').val() as string;
 
     this.httpService
@@ -215,9 +224,9 @@ export class SuratIzinComponent implements OnInit {
               detail: 'Surat Izin Berhasil Dibuat',
             });
             this.getNoSurat();
-            setTimeout(() => {
-              window.location.reload();
-            }, 1000);
+            // setTimeout(() => {
+            //   window.location.reload();
+            // }, 1000);
           } else {
             this.messageService.add({
               severity: 'error',

@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import * as baseurl from '../../../../pages/baseurl';
-import { map } from 'rxjs';
+import * as baseurlAI from '../../../../pages/baseurlAI';
+import { map, Observable } from 'rxjs';
 
 @Injectable()
 export class AsideService {
@@ -12,13 +13,12 @@ export class AsideService {
       code: code,
       param1: param1,
       param2: param2,
-      param3: param3
+      param3: param3,
     });
     if (baseurl.checkUrl()) {
-      
       return this.http.post(baseurl.baseUrl + '/Settings/getData1', json).pipe(
         map((response: any) => {
-          console.log(response)
+          console.log(response);
           const data = response.data;
           return data;
         })
@@ -32,6 +32,18 @@ export class AsideService {
             return data;
           })
         );
+    }
+  }
+
+  generateText(prompt: string): Observable<any> {
+    if (baseurlAI.checkUrl()) {
+      return this.http.post(baseurlAI.baseUrl + '/gemini/generate_text', {
+        prompt,
+      });
+    } else {
+      return this.http.post(baseurlAI.baseUrlLuar + '/gemini/generate_text', {
+        prompt,
+      });
     }
   }
 }

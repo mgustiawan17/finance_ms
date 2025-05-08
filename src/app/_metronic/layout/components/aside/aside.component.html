@@ -59,9 +59,10 @@
     >
       <!--begin::Menu wrapper-->
       <div class="d-flex flex-column align-items-center" title="User profile">
-        <div class="cursor-pointer symbol symbol-40px">
-          <img src="./assets/media/avatars/300-1.jpg" alt="image" />
-        </div>
+        <div
+          id="FotoProfile"
+          class="profile-container cursor-pointer symbol symbol-50px"
+        ></div>
         <div class="mt-2">
           <p class="small-text" style="font-size: 10px">Version 5.1.7</p>
         </div>
@@ -82,7 +83,10 @@
   <!--begin::Secondary-->
   <div class="aside-secondary d-flex flex-row-fluid">
     <!--begin::Workspace-->
-    <div class="aside-workspace my-5 p-5" id="kt_aside_wordspace">
+    <div
+      class="aside-workspace d-flex flex-column justify-content-between my-5 p-5"
+      id="kt_aside_wordspace"
+    >
       <!-- <app-tabs-aside-inner
         [activeTab]="activeTab"
         class="d-flex h-100 flex-column"
@@ -215,6 +219,90 @@
           </ul>
         </div>
       </div>
+
+      <!-- Message Chat GPT -->
+      <!-- Chat Message List -->
+      <div
+        *ngIf="submenuTitle === 'Sakura AI'"
+        class="chat-container overflow-auto mb-3"
+        style="max-height: 800px"
+        #chatScroll
+      >
+        <div *ngFor="let message of messages" class="mb-0 pb-1">
+          <div
+            [ngClass]="{
+              'text-end': message.sender === 'user',
+              'text-start': message.sender === 'bot'
+            }"
+          >
+            <div
+              class="fw-bold small mb-1"
+              [ngClass]="{
+                'text-muted text-end': message.sender === 'user',
+                'text-danger text-start': message.sender === 'bot'
+              }"
+            >
+              {{ message.sender === "user" ? userName : botName }}
+            </div>
+
+            <div
+              class="message-box d-inline-block p-2 rounded"
+              [ngStyle]="{
+                'background-color':
+                  message.sender === 'user' ? '#d1dbe7' : '#e2e3e5',
+                'margin-bottom': '5px'
+              }"
+            >
+              {{ message.text }}
+            </div>
+          </div>
+        </div>
+        <!-- Loading animation: modern typing indicator -->
+        <div *ngIf="isLoading" class="mb-0 pb-1">
+          <div class="text-start">
+            <div class="fw-bold small mb-1 text-danger text-start">
+              {{ botName }}
+            </div>
+            <div class="message-box d-inline-block p-2 rounded bg-light">
+              <div class="typing-indicator">
+                <span></span>
+                <span></span>
+                <span></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Chat Input Form -->
+      <div
+        *ngIf="submenuTitle === 'Sakura AI'"
+        class="chatgpt-form-container mt-4"
+      >
+        <h6 class="text-muted mb-2">Sakura AI Chatbox</h6>
+        <form (ngSubmit)="sendMessage()" class="d-flex flex-column gap-2">
+          <div class="form-floating">
+            <textarea
+              [(ngModel)]="prompt"
+              name="chatInput"
+              id="chatInput"
+              class="form-control"
+              placeholder="Need help? Ask here..."
+              style="height: 100px"
+              required
+            ></textarea>
+          </div>
+          <button
+            type="submit"
+            class="btn btn-danger w-100"
+            style="background: #ad1d0d"
+          >
+            Send <i class="fas fa-paper-plane ms-2"></i>
+          </button>
+        </form>
+      </div>
+
+      <!-- End Form Sakura AI -->
     </div>
     <!--end::Workspace-->
   </div>

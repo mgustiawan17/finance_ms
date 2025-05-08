@@ -168,11 +168,8 @@ export class SecurityManagementComponent
       Approval: this.optionListMenu.filter(
         (item) => item.value >= 'C-0200' && item.value <= 'C-0299'
       ),
-      Inventory: this.optionListMenu.filter(
-        (item) => item.value >= 'C-0300' && item.value <= 'C-0399'
-      ),
       Purchasing: this.optionListMenu.filter(
-        (item) => item.value >= 'C-0400' && item.value <= 'C-0499'
+        (item) => item.value >= 'C-0700' && item.value <= 'C-0799'
       ),
       MRP: this.optionListMenu.filter(
         (item) => item.value >= 'C-0500' && item.value <= 'C-0599'
@@ -180,14 +177,8 @@ export class SecurityManagementComponent
       HR: this.optionListMenu.filter(
         (item) => item.value >= 'C-0600' && item.value <= 'C-0699'
       ),
-      Utility: this.optionListMenu.filter(
-        (item) => item.value >= 'C-0700' && item.value <= 'C-0799'
-      ),
       Setting: this.optionListMenu.filter(
         (item) => item.value >= 'C-0800' && item.value <= 'C-0899'
-      ),
-      Marketing: this.optionListMenu.filter(
-        (item) => item.value >= 'C-0900' && item.value <= 'C-0999'
       ),
     };
   }
