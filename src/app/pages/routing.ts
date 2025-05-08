@@ -27,11 +27,6 @@ const Routing: Routes = [
       import('./approval/pr/pr.module').then((m) => m.PRModule),
   },
   {
-    path: 'approval/pr1',
-    loadChildren: () =>
-      import('./approval/pr1/pr1.module').then((m) => m.PR1Module),
-  },
-  {
     path: 'approval/po',
     loadChildren: () =>
       import('./approval/po/po.module').then((m) => m.POModule),
@@ -151,6 +146,48 @@ const Routing: Routes = [
     loadChildren: () =>
       import('./setting/security_management/secum.module').then(
         (m) => m.SecurityManagementModule
+      ),
+  },
+  {
+    path: 'purchasing/purchasereport',
+    loadChildren: () =>
+      import('./purchasing/purchasereport/purchasereport.module').then(
+        (m) => m.PurchaseReportModule
+      ),
+  },
+  {
+    path: 'purchasing/priceindex',
+    loadChildren: () =>
+      import('./purchasing/priceindex/priceindex.module').then(
+        (m) => m.PriceIndexModule
+      ),
+  },
+  {
+    path: 'purchasing/purchaseanalysis',
+    loadChildren: () =>
+      import('./purchasing/purchaseanalysis/purchaseanalysis.module').then(
+        (m) => m.PurchaseAnalysisModule
+      ),
+  },
+  {
+    path: 'purchasing/outstandingpo',
+    loadChildren: () =>
+      import('./purchasing/outstandingpo/outstandingpo.module').then(
+        (m) => m.OutStandingPOModule
+      ),
+  },
+  {
+    path: 'purchasing/outstandingpr',
+    loadChildren: () =>
+      import('./purchasing/outstandingpr/outstandingpr.module').then(
+        (m) => m.OutStandingPRModule
+      ),
+  },
+  {
+    path: 'purchasing/outstandingdept',
+    loadChildren: () =>
+      import('./purchasing/outstandingdept/outstandingdept.module').then(
+        (m) => m.OutStandingDeptModule
       ),
   },
   {

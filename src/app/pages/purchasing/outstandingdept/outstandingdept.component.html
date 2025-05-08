@@ -1,0 +1,100 @@
+<!-- accounting.component.html -->
+
+<div class="dashboard-title"
+  style="font-size: 1.6em;
+         font-weight: bold;
+         color: white;
+         background-color: #ad1d0d;
+         text-align: left;
+         padding: 20px 30px;
+         margin-bottom: 30px;
+         border-radius: 10px;">
+  Outstanding Department
+</div>
+
+<div class="card mb-6">
+    <div class="card-header">
+      <h5 style="color: #ad1d0d; margin-top: 26px; font-weight: bold">Form Outstanding Department</h5>
+    </div>
+    <div style="margin-left: 28px;  margin-top: 26px;">
+
+      <div class="row mb-6">
+        <label class="col-form-label col-lg-3 required fw-bold fs-6" for="department" id="selectDepartmentr">Department</label>
+          <div class="col-lg">
+            <p-multiSelect [options]="optionListDepartment" [(ngModel)]="selectedDept" [showClear]="true" [filter]="true" [style]="{'width':'100%'}" placeholder="Select Department" id="department"></p-multiSelect>
+          </div>
+      </div>
+
+      <div class="row mb-6">
+        <label class="col-form-label col-lg-3 required fw-bold fs-6" for="checkData" id="selectcheckData">Show Unapproved Data</label>
+        <div class="col-lg">
+            <p-checkbox [(ngModel)]="isChecked" (ngModelChange)="onChangeCheck($event)" [binary]="true" id="checkData"></p-checkbox>
+        </div>
+      </div>
+
+      <div class="card-footer d-flex justify-content-end py-6 px-9">
+        <p-toast></p-toast>
+        <p-button label="View Data" [loading]="configLoading" [text]="true" [raised]="true" severity="danger" (onClick)="showData()"></p-button>
+        <!-- <button (click)="getOutStandingDept()">View Data</button> -->
+      </div>
+</div>
+</div>
+
+<!-- begin::Header -->
+<div class="card mb-6"  id="cardOutStandingDept" hidden>
+  <div class="card-header">
+    <h5 style="color: #ad1d0d; margin-top: 26px; font-weight: bold">List Outstanding Department</h5>
+  </div>
+<!-- end::Header -->
+          <div style="margin-left: 28px; margin-top: 26px; margin-right: 28px;">
+            <div class="table-responsive">
+              <table class="table table-striped table-bordered cell-border" id="tabelOutStandingDept">
+                <thead>
+                  <tr>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                  </tr>
+                </thead>
+              </table>
+            </div>
+          </div>
+        </div>
+<!-- end::Wrapper -->
+<!-- Modal Detail -->
+<div class="modal fade" id="modalDetail" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true" style="width: 100%; max-height: 100%">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Detail Outstanding Department</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <table class="table table-striped table-bordered- table-hover table-checkable" id="#tabelDetailOutStandingDept" width="100%">
+          <thead>
+            <tr>
+              <th></th>
+              <th></th>
+              <th></th>
+              <th></th>
+            </tr>
+          </thead>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal End-->
