@@ -1,0 +1,28 @@
+// @import "primeicons/primeicons.css";
+::ng-deep {
+  .p-selectbutton .p-button.p-highlight {
+    background: #ad1d0d;
+    background-color: #ad1d0d;
+  }
+
+  button.selected {
+    background-color: #ad1d0d;
+  }
+
+  .p-selectbutton .p-button.p-highlight:hover {
+    background: #ad1d0d;
+  }
+
+  .p-button {
+    border-radius: 5px;
+  }
+
+  #TableInventory3YDept thead th,
+  #TableInventory3YDept tfoot th {
+    width: auto;
+}
+
+th.dt-right {
+    text-align: right
+}
+}

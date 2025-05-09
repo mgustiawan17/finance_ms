@@ -254,6 +254,13 @@ const Routing: Routes = [
       ),
   },
   {
+    path: 'inventory/inventoryusage',
+    loadChildren: () =>
+      import('./Inventory/inventoryusage/inventoryusage.module').then(
+        (m) => m.InventoryUsageModule
+      ),
+  },
+  {
     path: '**',
     redirectTo: 'error/404',
   },
