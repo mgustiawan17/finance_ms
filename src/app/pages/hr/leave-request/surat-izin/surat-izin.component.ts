@@ -162,7 +162,7 @@ export class SuratIzinComponent implements OnInit {
     this.ms.setMinutes(parseInt(tmp[1]));
   }
 
-  InsertCuti(): void {
+  InsertIzin(): void {
     const year1: number = this.selectedDateIn.getFullYear();
     const month1: number = this.selectedDateIn.getMonth() + 1;
     const day1: number = this.selectedDateIn.getDate();
@@ -180,6 +180,7 @@ export class SuratIzinComponent implements OnInit {
     const formattedTimeIn: string = this.selectedTimeIn.toLocaleTimeString([], {
       hour: '2-digit',
       minute: '2-digit',
+      hour12: false,
     });
 
     const formattedTimeOut: string = this.selectedTimeOut.toLocaleTimeString(
@@ -187,6 +188,7 @@ export class SuratIzinComponent implements OnInit {
       {
         hour: '2-digit',
         minute: '2-digit',
+        hour12: false,
       }
     );
 
@@ -194,7 +196,7 @@ export class SuratIzinComponent implements OnInit {
       `${year1}-${monthString1}-${dayString1}` + ' ' + formattedTimeIn;
     const dateOut: string =
       `${year2}-${monthString2}-${dayString2}` + ' ' + formattedTimeOut;
-
+    // console.log(dateIn, dateOut);
     if (dateOut < dateIn) {
       this.messageService.add({
         severity: 'error',
@@ -224,9 +226,9 @@ export class SuratIzinComponent implements OnInit {
               detail: 'Surat Izin Berhasil Dibuat',
             });
             this.getNoSurat();
-            // setTimeout(() => {
-            //   window.location.reload();
-            // }, 1000);
+            setTimeout(() => {
+              window.location.reload();
+            }, 1000);
           } else {
             this.messageService.add({
               severity: 'error',
