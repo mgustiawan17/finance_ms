@@ -41,6 +41,10 @@ export class SuratLemburComponent implements OnInit {
       name: 'CSS-OT',
       value: 'CSS-OT',
     },
+    {
+      name: 'CSS-OT2',
+      value: 'CSS-OT2',
+    },
   ];
   valueOTCriteriaOptions: string = '';
   selectedOTCriteria: any;

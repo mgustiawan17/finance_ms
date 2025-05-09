@@ -27,6 +27,10 @@ export class SuratLemburListComponent implements OnInit {
       name: 'CSS-OT',
       value: 'CSS-OT',
     },
+    {
+      name: 'CSS-OT2',
+      value: 'CSS-OT2',
+    },
   ];
   StatusOptions: any[] = [
     { name: 'Open', value: '3.1' },
