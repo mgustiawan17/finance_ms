@@ -42,7 +42,7 @@ export class SuratLemburComponent implements OnInit {
       value: 'CSS-OT',
     },
     {
-      name: 'CSS-OT2',
+      name: 'CSS-OT2 (Tanggal Merah)',
       value: 'CSS-OT2',
     },
   ];
