@@ -1,0 +1,644 @@
+<div
+  class="dashboard-title"
+  style="
+    font-size: 1.6em;
+    font-weight: bold;
+    color: white;
+    background-color: #ad1d0d;
+    text-align: left;
+    padding: 20px 30px;
+    margin-bottom: 30px;
+    border-radius: 10px;
+  "
+>
+  Inventory Usage
+</div>
+<div class="card">
+  <div class="card-header">
+    <h5 style="color: #ad1d0d; margin-top: 30px; font-weight: bold">
+      Inventory Usage Reports
+    </h5>
+  </div>
+  <div class="m-portlet__body" style="margin-left: 26px; margin-right: 20px;">
+    <div class="form-group m-form__group row">
+      <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+        <label class="col-form-label required fw-bold fs-6">Department</label>
+        <div class="col-lg-12 flex flex-wrap p-fluid">
+          <p-multiSelect
+            [options]="deptValue"
+            [(ngModel)]="selectedDept"
+            [showClear]="true"
+            [filter]="true"
+            [style]="{'width':'100%'}"
+            placeholder="Select Department"
+            id="department"
+            name="department">
+          </p-multiSelect>
+        </div>
+      </div>
+
+      <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+        <label class="col-form-label required fw-bold fs-6">Group</label>
+        <div class="col-lg-12 flex flex-wrap p-fluid">
+          <p-multiSelect
+            [options]="groupValue"
+            [(ngModel)]="selectedGroup"
+            [showClear]="true"
+            [filter]="true"
+            [style]="{'width':'100%'}"
+            (onChange)="onGroupChange($event)"
+            placeholder="Select Group"
+            id="group"
+            name="group">
+          </p-multiSelect>
+        </div>
+      </div>
+      <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+        <label class="col-form-label required fw-bold fs-6 mesin">Mesin</label>
+        <div class="col-lg-12" id="mesin">
+          <p-checkbox
+            [(ngModel)]="isChecked"
+            (ngModelChange)="toggleMesin()"
+            label="Tampilkan Mesin"
+            name="mesin"
+            binary="true"/>
+        </div>
+        <label class="col-lg-3 col-form-label required fw-bold fs-6 groupby">Group By</label>
+        <div class="col-lg-12 flex flex-wrap p-fluid" id="groupby">
+          <p-dropdown
+            [options]="groupby"
+            [(ngModel)]="selectedGroupBy"
+            [style]="{'width':'100%'}"
+            optionLabel="name"
+            optionValue="value"
+            placeholder="Select group"
+            (ngModelChange)="onGroupByChange($event)">
+          </p-dropdown>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group m-form__group row" >
+      <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+        <label class="col-form-label required fw-bold fs-6">Choose Data</label>
+        <div class="col-lg-12">
+          <p-selectButton
+            [options]="chooseData"
+            [(ngModel)]="valuechooseData"
+            optionLabel="label"
+            optionValue="value"
+            (ngModelChange)="handleChange($event)"
+            style="display: inline-block; width: 600px;">
+          </p-selectButton>
+        </div>
+      </div>
+
+      <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+        <label class="col-form-label required fw-bold fs-6 periode">Periode</label>
+        <div class="col-lg-12 flex flex-wrap p-fluid" id="periode">
+          <p-calendar
+            [(ngModel)]="selectedPeriode"
+            selectionMode="range"
+            [readonlyInput]="true"
+            [showClear]="true"
+            [iconDisplay]="'input'"
+            [showIcon]="true"
+            inputDateFormat="yyyy-mm-dd"
+            [style]="{'width':'100%'}"
+            placeholder="Select Periode"
+          ></p-calendar>
+        </div>
+
+        <label class="col-lg-4 col-form-label required fw-bold fs-6 1y">1 Y</label>
+        <div class="col-lg-12 flex flex-wrap p-fluid" id="1y">
+        <p-calendar
+          view="year"
+          dateFormat="yy"
+          [(ngModel)]="selected1Year"
+          [showClear]="true"
+          [iconDisplay]="'input'"
+          [showIcon]="true"
+          [style]="{'width':'120%'}"
+          placeholder="Select 1 Years"
+          (ngModelChange)="onYearChange($event)">
+        </p-calendar>
+        </div>
+
+        <label class="col-lg-4 col-form-label required fw-bold fs-6 3y">3 Y</label>
+        <div class="col-lg-12 flex flex-wrap p-fluid" id="3y">
+        <p-calendar
+          view="year"
+          dateFormat="yy"
+          [(ngModel)]="selected3Year"
+          [showClear]="true"
+          [iconDisplay]="'input'"
+          [showIcon]="true"
+          [style]="{'width':'120%'}"
+          placeholder="Select 3 Years">
+        </p-calendar>
+        </div>
+
+        <label class="col-lg-4 col-form-label required fw-bold fs-6 quarter">Quarter</label>
+        <div class="col-lg-12 flex flex-wrap p-fluid" id="quarter">
+        <p-calendar
+          view="year"
+          dateFormat="yy"
+          [(ngModel)]="selectedQuarter"
+          [showClear]="true"
+          [iconDisplay]="'input'"
+          [showIcon]="true"
+          [style]="{'width':'100%'}"
+          placeholder="Select Quarter">
+        </p-calendar>
+        </div>
+      </div>
+
+      <div id="ChartTable" class="col-lg-12 text-end">
+        <div class="col-lg-12">
+          <p-selectButton
+            [options]="ChartTableOptions"
+            optionLabel="label"
+            optionValue="value"
+            id="ChartTable"
+            style="display: inline-block; width: 300px;"
+            [(ngModel)]="valueChartTable"
+            (ngModelChange)="showChart()"
+            severity="danger">
+          </p-selectButton>
+        </div>
+      </div>
+    </div>
+    <br/>
+    <div class="m-portlet__foot m-portlet__foot--fit">
+      <div class="m-form__actions m-form__actions">
+        <div class="col-lg-12 text-end">
+          <p-toast />
+          <p-button label="View Data" [loading]="configLoading" [text]="true" [raised]="true" severity="danger" (onClick)="showDataTable()"></p-button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br/>
+</div>
+<br/>
+<div class="card mb-6" id="TablePeriodeNoMesin" hidden>
+  <div class="card-header">
+    <h5 style="color: #ad1d0d; margin-top: 26px; font-weight: bold">
+      Inventory Usage Reports Periode
+    </h5>
+  </div>
+  <div style="margin-left: 28px; margin-top: 26px; margin-right: 28px">
+    <div class="table-responsive">
+      <table
+        class="table table-striped table-bordered cell-border"
+        id="TableInventoryPeriodeNoMesin">
+        <thead>
+          <tr class="fw-bolde">
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+        <tfoot>
+          <tr>
+            <th colspan="6">TOTAL :</th>
+            <th></th>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div class="card mb-6" id="TablePeriodeMesin" hidden>
+  <div class="card-header">
+    <h5 style="color: #ad1d0d; margin-top: 26px; font-weight: bold">
+      Inventory Usage Reports Periode
+    </h5>
+  </div>
+  <div style="margin-left: 28px; margin-top: 26px; margin-right: 28px">
+    <div class="table-responsive">
+      <table
+        class="table table-striped table-bordered cell-border"
+        id="TableInventoryPeriodeMesin">
+        <thead>
+          <tr class="fw-bolde">
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+        <tfoot>
+          <tr>
+            <th colspan="7">TOTAL :</th>
+            <th></th>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div class="card mb-6" id="Table1YearDepartement" hidden>
+  <div class="card-header">
+    <h5 style="color: #ad1d0d; margin-top: 26px; font-weight: bold">
+      Inventory Usage Reports 1 Year
+    </h5>
+  </div>
+  <div style="margin-left: 28px; margin-top: 26px; margin-right: 28px">
+    <div class="table-responsive">
+      <table
+        class="table table-striped table-bordered cell-border"
+        id="TableInventory1YDept">
+        <thead>
+          <tr class="fw-bolde">
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+        <tfoot>
+          <tr class="fw-bolde">
+            <th colspan="2">TOTAL :</th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div class="card mb-6" id="Chart1YearDepartement" hidden>
+  <div class="card-header">
+    <h5 style="color: #ad1d0d; margin-top: 26px; font-weight: bold">
+      Inventory Usage Chart 1 Years
+    </h5>
+  </div>
+  <div style="margin-left: 28px; margin-top: 26px; margin-right: 28px">
+    <p-messages
+    [(value)]="messages"
+    [enableService]="false"
+    [closable]="false" />
+    <canvas id="myLineChart" width="800" height="400" [hidden]="valueChartTable !== '0'"></canvas>
+  </div>
+</div>
+
+<div class="card mb-6" id="Table1YearBarang" hidden>
+  <div class="card-header">
+    <h5 style="color: #ad1d0d; margin-top: 26px; font-weight: bold">
+      Inventory Usage Reports 1 Year
+    </h5>
+  </div>
+  <div style="margin-left: 28px; margin-top: 26px; margin-right: 28px">
+    <div class="table-responsive">
+      <table
+        class="table table-striped table-bordered cell-border"
+        id="TableInventory1YBrg">
+        <thead>
+          <tr class="fw-bolde">
+            <th rowspan="2" style="text-align: center; vertical-align: middle;"></th>
+            <th rowspan="2" style="text-align: center; vertical-align: middle;"></th>
+            <th rowspan="2" style="text-align: center; vertical-align: middle;"></th>
+            <th rowspan="2" style="text-align: center; vertical-align: middle;"></th>
+            <th colspan="2" style="text-align: center; vertical-align: middle;">JAN</th>
+            <th colspan="2" style="text-align: center; vertical-align: middle;">FEB</th>
+            <th colspan="2" style="text-align: center; vertical-align: middle;">MAR</th>
+            <th colspan="2" style="text-align: center; vertical-align: middle;">APR</th>
+            <th colspan="2" style="text-align: center; vertical-align: middle;">MAY</th>
+            <th colspan="2" style="text-align: center; vertical-align: middle;">JUN</th>
+            <th colspan="2" style="text-align: center; vertical-align: middle;">JUL</th>
+            <th colspan="2" style="text-align: center; vertical-align: middle;">AUG</th>
+            <th colspan="2" style="text-align: center; vertical-align: middle;">SEP</th>
+            <th colspan="2" style="text-align: center; vertical-align: middle;">OCT</th>
+            <th colspan="2" style="text-align: center; vertical-align: middle;">NOV</th>
+            <th colspan="2" style="text-align: center; vertical-align: middle;">DEC</th>
+            <th rowspan="2" style="text-align: center; vertical-align: middle;"></th>
+            <th rowspan="2" style="text-align: center; vertical-align: middle;"></th>
+            <th rowspan="2" style="text-align: center; vertical-align: middle;"></th>
+            <th rowspan="2" style="text-align: center; vertical-align: middle;"></th>
+          </tr>
+          <tr class="fw-bolde" >
+            <th>Q</th>
+            <th>N</th>
+            <th>Q</th>
+            <th>N</th>
+            <th>Q</th>
+            <th>N</th>
+            <th>Q</th>
+            <th>N</th>
+            <th>Q</th>
+            <th>N</th>
+            <th>Q</th>
+            <th>N</th>
+            <th>Q</th>
+            <th>N</th>
+            <th>Q</th>
+            <th>N</th>
+            <th>Q</th>
+            <th>N</th>
+            <th>Q</th>
+            <th>N</th>
+            <th>Q</th>
+            <th>N</th>
+            <th>Q</th>
+            <th>N</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+        <tfoot>
+          <tr class="fw-bolde">
+            <th colspan="4">TOTAL :</th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div class="card mb-6" id="Table3YearDepartement" hidden>
+  <div class="card-header">
+    <h5 style="color: #ad1d0d; margin-top: 26px; font-weight: bold">
+      Inventory Usage Reports 3 Year
+    </h5>
+  </div>
+  <div style="margin-left: 28px; margin-top: 26px; margin-right: 28px">
+    <div class="table-responsive">
+      <table
+        class="table table-striped table-bordered cell-border"
+        id="TableInventory3YDept">
+        <thead>
+          <tr class="fw-bolde">
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+        <tfoot>
+          <tr class="fw-bolde">
+            <th colspan="1">TOTAL :</th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div class="card mb-6" id="Chart3YearDepartement" hidden>
+  <div class="card-header">
+    <h5 style="color: #ad1d0d; margin-top: 26px; font-weight: bold">
+      Inventory Usage Chart 3 Years
+    </h5>
+  </div>
+  <div style="margin-left: 28px; margin-top: 26px; margin-right: 28px">
+    <p-messages
+    [(value)]="messages"
+    [enableService]="false"
+    [closable]="false" />
+    <canvas id="LineChart3Y" width="800" height="400" [hidden]="valueChartTable !== '0'"></canvas>
+  </div>
+</div>
+
+<div class="card mb-6" id="Table3YearBarang" hidden>
+  <div class="card-header">
+    <h5 style="color: #ad1d0d; margin-top: 26px; font-weight: bold">
+      Inventory Usage Reports 3 Year
+    </h5>
+  </div>
+  <div style="margin-left: 28px; margin-top: 26px; margin-right: 28px">
+    <div class="table-responsive">
+      <table
+        class="table table-striped table-bordered cell-border"
+        id="TableInventory3YBrg">
+        <thead>
+          <tr class="fw-bolde">
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+        <tfoot>
+          <tr class="fw-bolde">
+            <th colspan="3">TOTAL :</th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div class="card mb-6" id="TableQuartalDepartement" hidden>
+  <div class="card-header">
+    <h5 style="color: #ad1d0d; margin-top: 26px; font-weight: bold">
+      Inventory Usage Reports Quarter
+    </h5>
+  </div>
+  <div style="margin-left: 28px; margin-top: 26px; margin-right: 28px">
+    <div class="table-responsive">
+      <table
+        class="table table-striped table-bordered cell-border"
+        id="TableInventoryQuartalDept">
+        <thead>
+          <tr class="fw-bolde">
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+        <tfoot>
+          <tr class="fw-bolde">
+            <th colspan="2">TOTAL :</th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div class="card mb-6" id="TableQuartalBarang" hidden>
+  <div class="card-header">
+    <h5 style="color: #ad1d0d; margin-top: 26px; font-weight: bold">
+      Inventory Usage Reports Quarter
+    </h5>
+  </div>
+  <div style="margin-left: 28px; margin-top: 26px; margin-right: 28px">
+    <div class="table-responsive">
+      <table
+        class="table table-striped table-bordered cell-border"
+        id="TableInventoryQuartalBrg">
+        <thead>
+          <tr class="fw-bolde">
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+        <tfoot>
+          <tr class="fw-bolde">
+            <th colspan="3">TOTAL :</th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+  </div>
+</div>
+
+
+
